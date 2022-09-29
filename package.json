@@ -9,7 +9,8 @@
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "lint:check": "next lint",
-    "lint:fix": "next lint --fix ."
+    "lint:fix": "next lint --fix .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "next": "12.2.5",
@@ -26,21 +27,5 @@
     "postcss": "^8.4.16",
     "prettier": "^2.7.1",
     "tailwindcss": "^3.1.8"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx}": [
-      "prettier --write",
-      "eslint --fix",
-      "git add"
-    ],
-    "*.{html,css,less,ejs}": [
-      "prettier --write",
-      "git add"
-    ]
   }
 }
