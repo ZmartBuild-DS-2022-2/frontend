@@ -1,7 +1,14 @@
-import '../styles/globals.css'
+import { AuthContextProvider } from "../stores/AuthContext"
+import "../styles/globals.css"
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <AuthContextProvider>
+      <div className="bg-gradient-to-r from-gray-50 to-white">
+        <Component {...pageProps} />
+      </div>
+    </AuthContextProvider>
+  )
 }
 
 export default MyApp
