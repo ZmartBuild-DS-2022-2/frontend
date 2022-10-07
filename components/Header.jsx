@@ -4,13 +4,11 @@ import PrimaryLink from "./basics/PrimaryLink"
 
 export default function Header() {
   return (
-    <header 
+    <header
       className="sticky top-0 z-50 grid grid-cols-2 shadow-md mb-5 px-5 lg:px-7 py-3 
       bg-white"
     >
-      <div 
-        className="relative flex items-center h-[50px] sm:h-[60px] md:h-[65px] lg:h-[70px]"
-      >
+      <div className="relative flex items-center h-[50px] sm:h-[60px] md:h-[65px] lg:h-[70px]">
         <Link href="/">
           <a>
             <Image
