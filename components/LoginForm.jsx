@@ -1,7 +1,6 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { useForm } from "react-hook-form"
-import { useRouter } from "next/router"
-import { loginService } from "../services/auth"
+import AuthContext from "../stores/AuthContext"
 import loginFields from "../constants/forms/login"
 import PrimaryButton from "./basics/PrimaryButton"
 import PrimaryLink from "./basics/PrimaryLink"
@@ -10,7 +9,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 export default function LoginForm() {
-  const router = useRouter()
+  const { login } = useContext(AuthContext)
   const [errorMessage, setErrorMessage] = useState(null)
 
   const {
@@ -21,8 +20,7 @@ export default function LoginForm() {
 
   const onSubmit = async ({ email, password }) => {
     try {
-      await loginService({ email, password })
-      router.push({ pathname: "/" })
+      await login({ email, password })
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
       setTimeout(() => setErrorMessage(null), 5000)
