@@ -1,10 +1,10 @@
-import { EmailIcon, UserIcon, LockIcon } from "../../icons"
+import { EnvelopeIcon, UserIcon, LockClosedIcon } from "@heroicons/react/24/solid"
 
 const registerFields = [
   {
     name: "email",
     type: "text",
-    icon: <EmailIcon />,
+    icon: <EnvelopeIcon className="h-6 w-6" />,
     placeholder: "Email",
     validations: {
       required: { value: true, message: "Email can't be empty" },
@@ -17,7 +17,7 @@ const registerFields = [
   {
     name: "fullname",
     type: "text",
-    icon: <UserIcon />,
+    icon: <UserIcon className="h-6 w-6" />,
     placeholder: "Full Name",
     validations: {
       required: { value: true, message: "Full name can't be empty" },
@@ -30,7 +30,7 @@ const registerFields = [
   {
     name: "password",
     type: "password",
-    icon: <LockIcon />,
+    icon: <LockClosedIcon className="h-6 w-6" />,
     placeholder: "Password",
     validations: {
       required: { value: true, message: "Password can't be empty" },
@@ -43,7 +43,7 @@ const registerFields = [
   {
     name: "passwordConfirmation",
     type: "password",
-    icon: <LockIcon />,
+    icon: <LockClosedIcon className="h-6 w-6" />,
     placeholder: "Repeat Password",
   },
 ]
