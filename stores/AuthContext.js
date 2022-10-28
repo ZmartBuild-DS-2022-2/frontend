@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useState, useEffect, createContext } from "react"
-import { loginService, logoutService } from "../services/auth"
+import { loginService, refreshTokenService, logoutService } from "../services/auth"
 
 const AuthContext = createContext({
   user: null,
@@ -15,22 +15,28 @@ export const AuthContextProvider = ({ children }) => {
   const login = async (credentials) => {
     const user = await loginService(credentials)
     setUser(user)
-    localStorage.setItem("user", JSON.stringify(user))
     router.push({ pathname: "/" })
   }
 
   const logout = async () => {
-    await logoutService()
-    setUser(null)
-    localStorage.removeItem("user")
-    router.push({ pathname: "/" })
+    try {
+      await logoutService()
+    } finally {
+      setUser(null)
+      router.push({ pathname: "/" })
+    }
   }
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user")
-    if (storedUser) {
-      setUser(JSON.parse(storedUser))
+    const refresh = async () => {
+      try {
+        const user = await refreshTokenService()
+        setUser(user)
+      } catch (err) {
+        setUser(null)
+      }
     }
+    refresh()
   }, [])
 
   const context = { user, login, logout }

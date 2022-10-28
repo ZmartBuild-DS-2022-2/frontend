@@ -44,7 +44,7 @@ const registerFields = [
     name: "passwordConfirmation",
     type: "password",
     icon: <LockClosedIcon className="h-6 w-6" />,
-    placeholder: "Repeat Password",
+    placeholder: "Confirm Password",
   },
 ]
 
