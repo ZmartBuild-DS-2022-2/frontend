@@ -2,6 +2,7 @@
 
 # models
 public/models/*
+!*.gitkeep
 
 # dependencies
 /node_modules
