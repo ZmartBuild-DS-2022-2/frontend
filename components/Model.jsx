@@ -12,9 +12,9 @@ function Loader() {
 
 const Model = ({ name, scale }) => {
   // location of the 3D model,
-  // starts with http://localhost:3000/models because it requires an absolute URL
+  // Currently we have to save the model in the directory, so the
   // name is the name of the folder where the model is saved
-  const gltf = useLoader(GLTFLoader, `http://localhost:3000/models/${name}/scene.gltf`)
+  const gltf = useLoader(GLTFLoader, `models/${name}/scene.gltf`)
   return (
     <>
       {/* Use scale to control the size of the 3D model */}
