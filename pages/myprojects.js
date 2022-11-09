@@ -1,5 +1,6 @@
 import Head from "next/head"
 import Header from "../components/Header"
+import Model from "../components/Model"
 
 export default function Home() {
   return (
@@ -13,10 +14,12 @@ export default function Home() {
       <Header />
 
       <main>
-        <div className="flex-col items-center text-center">
+        <div className="flex-col items-center text-center my-8">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">My Projects</h1>
         </div>
       </main>
+
+      <Model name={"futuristic"} scale={0.1} autoRotate={false} />
     </>
   )
 }
