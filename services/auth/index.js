@@ -17,8 +17,8 @@ export const loginService = async (credentials) => {
 }
 
 export const refreshTokenService = async () => {
-  const response = await axios.post(`${BASE_URL}/refresh`)  
-  if (!response.validateStatus) throw new Error('No user found')
+  const response = await axios.post(`${BASE_URL}/refresh`)
+  if (!response.validateStatus) throw new Error("No user found")
   const user = response.data
   return user
 }
