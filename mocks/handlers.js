@@ -19,7 +19,7 @@ export const handlers = [
           author: "Elon Musk",
           name: "Project 2",
           imgUrl:
-          // eslint-disable-next-line max-len
+            // eslint-disable-next-line max-len
             "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
         },
         {
@@ -27,7 +27,7 @@ export const handlers = [
           author: "Elon Musk",
           name: "Project 3",
           imgUrl:
-          // eslint-disable-next-line max-len
+            // eslint-disable-next-line max-len
             "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
         },
         {
@@ -35,7 +35,7 @@ export const handlers = [
           author: "Elon Musk",
           name: "Project 4",
           imgUrl:
-          // eslint-disable-next-line max-len
+            // eslint-disable-next-line max-len
             "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
         },
       ])
