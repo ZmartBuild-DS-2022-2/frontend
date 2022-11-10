@@ -7,7 +7,7 @@ import MyProyects from "../components/MyProjects"
 
 import { apiGet } from "../services/api"
 
-export default function Home() {
+export default function Projects() {
   const [data, setData] = useState(null)
 
   if (data === null) {

@@ -11,10 +11,12 @@ const AuthContext = createContext({
 export const AuthContextProvider = ({ children }) => {
   const router = useRouter()
   const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   const login = async (credentials) => {
     const user = await loginService(credentials)
     setUser(user)
+    setIsLoading(false)
     router.push({ pathname: "/" })
   }
 
@@ -23,6 +25,7 @@ export const AuthContextProvider = ({ children }) => {
       await logoutService()
     } finally {
       setUser(null)
+      setIsLoading(false)
       router.push({ pathname: "/" })
     }
   }
@@ -35,11 +38,12 @@ export const AuthContextProvider = ({ children }) => {
       } catch (err) {
         setUser(null)
       }
+      setIsLoading(false)
     }
     refresh()
   }, [])
 
-  const context = { user, login, logout }
+  const context = { user, isLoading, login, logout }
   return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>
 }
 

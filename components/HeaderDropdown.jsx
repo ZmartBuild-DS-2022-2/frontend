@@ -9,6 +9,7 @@ import {
   FolderIcon,
   Cog8ToothIcon,
   ArrowRightOnRectangleIcon,
+  EnvelopeIcon,
 } from "@heroicons/react/24/solid"
 
 export default function HeaderDropdown() {
@@ -76,6 +77,15 @@ export default function HeaderDropdown() {
               <div className="flex gap-x-2 items-center transition-transform hover:scale-105">
                 <FolderIcon className="h-6 w-6" />
                 <p>My projects</p>
+              </div>
+            </a>
+          </Link>
+
+          <Link href="/myinvitations">
+            <a>
+              <div className="flex gap-x-2 items-center transition-transform hover:scale-105">
+                <EnvelopeIcon className="h-6 w-6" />
+                <p>My Invitations</p>
               </div>
             </a>
           </Link>
