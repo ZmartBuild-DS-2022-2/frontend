@@ -5,18 +5,14 @@ import Header from "../components/Header"
 import Model from "../components/Model"
 import MyProyects from "../components/MyProjects"
 
-// Testing fetch function
-async function getData() {
-  const data = await fetch("/proyects")
-  return await data.json()
- }
+import { apiGet } from "../services/api"
 
 export default function Home() {
   const [data, setData] = useState(null)
 
   if (data === null) {
-    // SetData must be call only when getData stops being a promise
-    getData().then((info) => setData(info))
+    // SetData must be call only when apiGet stops being a promise
+    apiGet("myprojects").then((info) => setData(info))
   }
 
   return (
