@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useState, useEffect, createContext } from "react"
-import { loginService, refreshTokenService, logoutService } from "../services/auth"
+import { backendFetch } from "../services"
 
 const AuthContext = createContext({
   user: null,
@@ -13,14 +13,14 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null)
 
   const login = async (credentials) => {
-    const user = await loginService(credentials)
+    const user = await backendFetch({ url: "/auth/login", method: "post", data: credentials })
     setUser(user)
     router.push({ pathname: "/" })
   }
 
   const logout = async () => {
     try {
-      await logoutService()
+      await backendFetch({ url: "/auth/logout", method: "delete" })
     } finally {
       setUser(null)
       router.push({ pathname: "/" })
@@ -30,7 +30,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const refresh = async () => {
       try {
-        const user = await refreshTokenService()
+        const user = await backendFetch({ url: "/auth/refresh", method: "post" })
         setUser(user)
       } catch (err) {
         setUser(null)

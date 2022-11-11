@@ -1,8 +1,11 @@
+import { useMockFetch } from "../hooks/useFetch"
 import Head from "next/head"
-import Header from "../components/Header"
-import Model from "../components/Model"
+import Header from "../components/header/Header"
+import Project from "../components/Project"
 
 export default function Home() {
+  const [projects, isLoading, error] = useMockFetch({ url: "/myprojects", method: "get" })
+
   return (
     <>
       <Head>
@@ -17,9 +20,19 @@ export default function Home() {
         <div className="flex-col items-center text-center my-8">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">My Projects</h1>
         </div>
-      </main>
 
-      <Model name={"futuristic"} scale={0.1} autoRotate={false} />
+        {isLoading && !error && <div>Loading projects</div>}
+
+        {!isLoading && error && <div>{JSON.stringify(error)}</div>}
+
+        {projects && (
+          <section className="grid h-screen place-items-center">
+            {projects.map((project) => {
+              return <Project key={project.id} name={project.name} />
+            })}
+          </section>
+        )}
+      </main>
     </>
   )
 }
