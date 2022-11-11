@@ -1,10 +1,10 @@
-import { useFetch } from "../hooks/useFetch"
+import { useMockFetch } from "../hooks/useFetch"
 import Head from "next/head"
 import Header from "../components/header/Header"
-import MyProjects from "../components/MyProjects"
+import Project from "../components/Project"
 
 export default function Home() {
-  const [projects, isLoading, error] = useFetch({ url: "/myprojects", method: "get" })
+  const [projects, isLoading, error] = useMockFetch({ url: "/myprojects", method: "get" })
 
   return (
     <>
@@ -25,7 +25,14 @@ export default function Home() {
 
         {!isLoading && error && <div>{JSON.stringify(error)}</div>}
 
-        {!isLoading && !error && <MyProjects data={projects} />}
+        {projects && 
+          <section className="grid h-screen place-items-center">
+            {projects.map((project) => {
+                return <Project key={project.id} name={project.name} />
+              })
+            }
+          </section>
+        }
       </main>
     </>
   )

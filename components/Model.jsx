@@ -28,15 +28,17 @@ const Model = ({ name, scale }) => {
 
 export default function LoadModel({ name, scale, autoRotate }) {
   return (
-    <Canvas camera={{ position: [0, 0, 4], fov: 50 }}>
-      <ambientLight intensity={1.7} />
-      <spotLight intensity={0.5} angle={0.1} penumbra={1} position={[10, 15, 10]} castShadow />
-      <Suspense fallback={<Loader />}>
-        <Model name={name} scale={scale} />
-        {/* To add environment effect to the model */}
-        <Environment preset="city" />
-      </Suspense>
-      <OrbitControls autoRotate={autoRotate} />
-    </Canvas>
+    <div className="w-1/2 h-80 my-5 rounded-sm mx-auto border border-black">
+      <Canvas camera={{ position: [0, 0, 4], fov: 50 }}>
+        <ambientLight intensity={1.7} />
+        <spotLight intensity={0.5} angle={0.1} penumbra={1} position={[10, 15, 10]} castShadow />
+        <Suspense fallback={<Loader />}>
+          <Model name={name} scale={scale} />
+          {/* To add environment effect to the model */}
+          <Environment preset="city" />
+        </Suspense>
+        <OrbitControls autoRotate={autoRotate} />
+      </Canvas>
+    </div>
   )
 }
