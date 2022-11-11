@@ -20,6 +20,6 @@ export default function Home() {
       </main>
 
       <Model name={"test"} scale={0.5} autoRotate={true} />
-    </> 
+    </>
   )
 }
