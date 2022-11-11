@@ -1,5 +1,5 @@
 import Head from "next/head"
-import Header from "../components/Header"
+import Header from "../components/header/Header"
 import Model from "../components/Model"
 
 export default function Home() {

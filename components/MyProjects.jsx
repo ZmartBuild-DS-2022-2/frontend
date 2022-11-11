@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-export default function MyProyects({ data }) {
+export default function MyProjects({ data }) {
   return (
     <section className="grid h-screen place-items-center">
       {data.map((project) => {

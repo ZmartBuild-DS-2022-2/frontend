@@ -1,8 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useContext } from "react"
-import AuthContext from "../stores/AuthContext"
-import PrimaryLink from "./basics/PrimaryLink"
+import AuthContext from "../../stores/AuthContext"
+import PrimaryLink from "../basics/PrimaryLink"
 import HeaderDropdown from "./HeaderDropdown"
 
 export default function Header() {

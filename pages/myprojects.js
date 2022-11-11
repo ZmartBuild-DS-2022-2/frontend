@@ -1,19 +1,10 @@
-import { useState } from "react"
-
+import { useMockFetch } from "../hooks/useFetch"
 import Head from "next/head"
-import Header from "../components/Header"
-import Model from "../components/Model"
-import MyProyects from "../components/MyProjects"
-
-import { apiGet } from "../services/api"
+import Header from "../components/header/Header"
+import MyProjects from "../components/MyProjects"
 
 export default function Home() {
-  const [data, setData] = useState(null)
-
-  if (data === null) {
-    // SetData must be call only when apiGet stops being a promise
-    apiGet("myprojects").then((info) => setData(info))
-  }
+  const [projects, isLoading, error] = useMockFetch({ url: "/myprojects", method: "get" })
 
   return (
     <>
@@ -29,11 +20,19 @@ export default function Home() {
         <div className="flex-col items-center text-center my-8">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">My Projects</h1>
         </div>
+
+        {isLoading && !error &&
+        <div>Loading projects</div>
+        }
+
+        {!isLoading && error &&
+          <div>{JSON.stringify(error)}</div>
+        }
+
+        {!isLoading && !error &&
+          <MyProjects data={projects} />
+        }
       </main>
-
-      {data !== null ? <MyProyects data={data} /> : null}
-
-      <Model name={"futuristic"} scale={0.1} autoRotate={false} />
     </>
   )
 }
