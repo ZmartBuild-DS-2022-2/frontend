@@ -39,12 +39,10 @@ export default function UploadFilesForm() {
       >
         <input
           type="file"
-          name="files[]"
+          name="files"
           id="files"
-          multiple=""
-          directory=""
-          webkitdirectory=""
-          mozdirectory=""
+          multiple="multiple"
+          accept=".bin,.gltf"
           onChange={handleFileEvent}
         />
         <div className="uploaded-files-list">
