@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 import PrimaryButton from "../basics/PrimaryButton"
-import { backendFetch } from "../services"
+import { backendFetch } from "../../services"
 
 export default function UploadFilesForm() {
   const [uploadedFiles, setUploadedFiles] = useState([])
