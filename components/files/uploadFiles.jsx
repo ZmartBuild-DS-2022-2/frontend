@@ -6,6 +6,7 @@ import { uploadModel } from "../../services/models/uploadModel"
 
 export default function UploadFilesForm() {
   const [uploadedFiles, setUploadedFiles] = useState([])
+  const [modelUrl, setModelUrl] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
 
   const [isValid, setIsValid] = useState(false)
@@ -21,7 +22,7 @@ export default function UploadFilesForm() {
   }
   const onSubmit = async () => {
     try {
-      await uploadModel({ uploadedFiles })
+      setModelUrl(await uploadModel({ uploadedFiles }))
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
       setTimeout(() => setErrorMessage(null), 5000)
@@ -46,18 +47,19 @@ export default function UploadFilesForm() {
           mozdirectory=""
           onChange={handleFileEvent}
         />
+        <div className="uploaded-files-list">
+          {uploadedFiles.map((file) => (
+            <div key={file.name}>{file.name}</div>
+          ))}
+        </div>
         <PrimaryButton text="Continue" disabled={!isValid || isSubmitting} />
+        <div className="text-center text-red-500">
+          <span>{modelUrl}</span>
+        </div>
+        <div className="text-center text-red-500">
+          <span>{errorMessage}</span>
+        </div>
       </form>
-
-      <div className="uploaded-files-list">
-        {uploadedFiles.map((file) => (
-          <div key={file.name}>{file.name}</div>
-        ))}
-      </div>
-
-      <div className="text-center text-red-500">
-        <span>{errorMessage}</span>
-      </div>
     </section>
   )
 }
