@@ -1,9 +1,10 @@
 import { useRouter } from "next/router"
 import { useState, useEffect, createContext } from "react"
-import { backendFetch } from "../services"
+import { loginService, refreshTokenService, logoutService } from "../services"
 
 const AuthContext = createContext({
   user: null,
+  isLoading: true,
   login: () => {},
   logout: () => {},
 })
@@ -11,25 +12,21 @@ const AuthContext = createContext({
 export const AuthContextProvider = ({ children }) => {
   const router = useRouter()
   const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   const login = async (credentials) => {
-    const user = await backendFetch({
-      url: "/auth/login",
-      method: "post",
-      data: credentials,
-    })
+    const user = await loginService(credentials)
     setUser(user)
+    setIsLoading(false)
     router.push({ pathname: "/" })
   }
 
   const logout = async () => {
     try {
-      await backendFetch({
-        url: "/auth/logout",
-        method: "delete",
-      })
+      await logoutService()
     } finally {
       setUser(null)
+      setIsLoading(false)
       router.push({ pathname: "/" })
     }
   }
@@ -37,19 +34,18 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const refresh = async () => {
       try {
-        const user = await backendFetch({
-          url: "/auth/refresh",
-          method: "post",
-        })
+        const user = await refreshTokenService()
         setUser(user)
       } catch (err) {
         setUser(null)
+      } finally {
+        setIsLoading(false)
       }
     }
     refresh()
   }, [])
 
-  const context = { user, login, logout }
+  const context = { user, isLoading, login, logout }
   return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>
 }
 
