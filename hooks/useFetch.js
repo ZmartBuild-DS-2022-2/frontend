@@ -27,7 +27,6 @@ export const useFetch = (requestParams) => {
   return [response, isLoading, error]
 }
 
-
 // This is just a mock custom hook and should be deleted when backend endpoint is ready
 export const useMockFetch = (requestParams) => {
   axios.defaults.baseURL = "/api"
@@ -36,11 +35,10 @@ export const useMockFetch = (requestParams) => {
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(true)
 
-  
   useEffect(() => {
     fetchData(requestParams)
   }, [])
-  
+
   const fetchData = async (requestParams) => {
     try {
       const res = await axios(requestParams)
