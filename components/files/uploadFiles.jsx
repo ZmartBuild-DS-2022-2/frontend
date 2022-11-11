@@ -17,7 +17,7 @@ export default function UploadFilesForm() {
 
   const handleFileEvent = (e) => {
     const chosenFiles = Array.prototype.slice.call(e.target.files)
-    setIsValid(chosenFiles.length != 0)
+    setIsValid(chosenFiles.length === 2)
     setUploadedFiles(chosenFiles)
   }
   const onSubmit = async () => {
