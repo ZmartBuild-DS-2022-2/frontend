@@ -11,10 +11,13 @@ function Loader() {
 }
 
 const Model = ({ name, scale }) => {
-  // location of the 3D model,
-  // Currently we have to save the model in the directory, so the
-  // name is the name of the folder where the model is saved
-  const gltf = useLoader(GLTFLoader, `models/${name}/scene.gltf`)
+  // location of the 3D model, currently we have to save the model in the directory,
+  // so the name is the name of the folder where the model is saved
+  // For the moment the name and url is hardcoded
+
+  // eslint-disable-next-line max-len
+  const gltf = useLoader(GLTFLoader, `https://zb-bucket-models.s3.amazonaws.com/${name}/scene.gltf`)
+
   return (
     <>
       {/* Use scale to control the size of the 3D model */}
@@ -25,15 +28,17 @@ const Model = ({ name, scale }) => {
 
 export default function LoadModel({ name, scale, autoRotate }) {
   return (
-    <Canvas camera={{ position: [0, 0, 4], fov: 50 }}>
-      <ambientLight intensity={1.7} />
-      <spotLight intensity={0.5} angle={0.1} penumbra={1} position={[10, 15, 10]} castShadow />
-      <Suspense fallback={<Loader />}>
-        <Model name={name} scale={scale} />
-        {/* To add environment effect to the model */}
-        <Environment preset="city" />
-      </Suspense>
-      <OrbitControls autoRotate={autoRotate} />
-    </Canvas>
+    <div className="w-1/2 h-80 my-5 rounded-sm mx-auto border border-black">
+      <Canvas camera={{ position: [0, 0, 4], fov: 50 }}>
+        <ambientLight intensity={1.7} />
+        <spotLight intensity={0.5} angle={0.1} penumbra={1} position={[10, 15, 10]} castShadow />
+        <Suspense fallback={<Loader />}>
+          <Model name={name} scale={scale} />
+          {/* To add environment effect to the model */}
+          <Environment preset="city" />
+        </Suspense>
+        <OrbitControls autoRotate={autoRotate} />
+      </Canvas>
+    </div>
   )
 }
