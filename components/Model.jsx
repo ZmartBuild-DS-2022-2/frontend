@@ -11,10 +11,13 @@ function Loader() {
 }
 
 const Model = ({ name, scale }) => {
-  // location of the 3D model,
-  // Currently we have to save the model in the directory, so the
-  // name is the name of the folder where the model is saved
-  const gltf = useLoader(GLTFLoader, `models/${name}/scene.gltf`)
+  // location of the 3D model, currently we have to save the model in the directory,
+  // so the name is the name of the folder where the model is saved
+  // For the moment the name and url is hardcoded
+
+  // eslint-disable-next-line max-len
+  const gltf = useLoader(GLTFLoader, `https://zb-bucket-models.s3.amazonaws.com/${name}/scene.gltf`)
+
   return (
     <>
       {/* Use scale to control the size of the 3D model */}

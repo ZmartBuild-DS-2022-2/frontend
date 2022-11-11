@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
-import { registerService } from "../services/auth"
+import { backendFetch } from "../services"
 import registerFields from "../constants/forms/register"
 import PrimaryButton from "./basics/PrimaryButton"
 import SecondaryLink from "./basics/SecondaryLink"
@@ -21,7 +21,11 @@ export default function RegisterForm() {
 
   const onSubmit = async ({ email, fullname, password }) => {
     try {
-      await registerService({ email, fullname, password })
+      await backendFetch({
+        url: "/auth/register",
+        method: "post",
+        data: { email, fullname, password },
+      })
       router.push({ pathname: "/login" })
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")

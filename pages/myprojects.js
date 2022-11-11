@@ -1,10 +1,10 @@
-import { useMockFetch } from "../hooks/useFetch"
+import { useFetch } from "../hooks/useFetch"
 import Head from "next/head"
 import Header from "../components/header/Header"
 import MyProjects from "../components/MyProjects"
 
 export default function Home() {
-  const [projects, isLoading, error] = useMockFetch({ url: "/myprojects", method: "get" })
+  const [projects, isLoading, error] = useFetch({ url: "/myprojects", method: "get" })
 
   return (
     <>
