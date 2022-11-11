@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 import PrimaryButton from "../basics/PrimaryButton"
-import { uploadModel } from "../../services/models/uploadModel"
+import { backendFetch } from "../services"
 
 export default function UploadFilesForm() {
   const [uploadedFiles, setUploadedFiles] = useState([])
@@ -22,7 +22,15 @@ export default function UploadFilesForm() {
   }
   const onSubmit = async () => {
     try {
-      setModelUrl(await uploadModel({ uploadedFiles }))
+      const res = await backendFetch({
+        url: "/models/upload_model",
+        method: "post",
+        data: uploadedFiles,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      setModelUrl(res.data?.gltfFileUrl)
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
       setTimeout(() => setErrorMessage(null), 5000)
