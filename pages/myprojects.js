@@ -25,14 +25,13 @@ export default function Home() {
 
         {!isLoading && error && <div>{JSON.stringify(error)}</div>}
 
-        {projects && 
+        {projects && (
           <section className="grid h-screen place-items-center">
             {projects.map((project) => {
-                return <Project key={project.id} name={project.name} />
-              })
-            }
+              return <Project key={project.id} name={project.name} />
+            })}
           </section>
-        }
+        )}
       </main>
     </>
   )
