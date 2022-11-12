@@ -1,19 +1,18 @@
-import { useState, useContext } from "react"
-import AuthContext from "../stores/AuthContext"
-
 import Head from "next/head"
-import Header from "../components/Header"
-import MyInvitations from "../components/MyInvitations"
+import Header from "../components/header/Header"
+import Invitation from "../components/Invitation"
 
-import { apiGet } from "../services/api"
+import { useMockFetch } from "../hooks/useFetch"
 
 export default function Invitations() {
-  const { user, isLoading } = useContext(AuthContext)
-  const [data, setData] = useState(null)
+  const [invitations, isLoading, error] = useMockFetch({ url: "/myinvitations/", method: "get" })
 
-  if (!isLoading & (data === null)) {
-    // SetData must be call only when apiGet stops being a promise
-    apiGet("myinvitations", { params: { id: user.id } }).then((info) => setData(info))
+  {
+    isLoading && !error && <div>Loading invitations</div>
+  }
+
+  {
+    !isLoading && error && <div>{JSON.stringify(error)}</div>
   }
 
   return (
@@ -30,9 +29,15 @@ export default function Invitations() {
         <div className="flex-col items-center text-center my-8">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">My Invitations</h1>
         </div>
-      </main>
 
-      {data !== null ? <MyInvitations data={data} /> : null}
+        {invitations && (
+          <section className="grid h-screen place-items-center">
+            {invitations.map((invitation) => {
+              return <Invitation key={invitation.id} data={invitation} />
+            })}
+          </section>
+        )}
+      </main>
     </>
   )
 }
