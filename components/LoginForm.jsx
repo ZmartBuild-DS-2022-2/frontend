@@ -11,7 +11,6 @@ import Link from "next/link"
 export default function LoginForm() {
   const { login } = useContext(AuthContext)
   const [errorMessage, setErrorMessage] = useState(null)
-
   const {
     register,
     formState: { isValid, isSubmitting },

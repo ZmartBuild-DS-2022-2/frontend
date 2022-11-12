@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react"
-import AuthContext from "../stores/AuthContext"
+import AuthContext from "../../stores/AuthContext"
 import Image from "next/image"
 import Link from "next/link"
 import {
