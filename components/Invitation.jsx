@@ -24,8 +24,8 @@ export default function Invitation({ data }) {
         </div>
 
         <div className="flex flex-col justify-center items-end space-y-2 w-full mx-4">
-          <PrimaryButton text="Aceptar" />
-          <PrimaryButton text="Rechazar" />
+          <PrimaryButton text="Accept" />
+          <PrimaryButton text="Reject" />
         </div>
       </div>
     </div>
