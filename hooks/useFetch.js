@@ -13,7 +13,7 @@ export const useFetch = (requestParams) => {
 
   useEffect(() => {
     fetchData(requestParams)
-  })
+  }, [])
 
   const fetchData = async (requestParams) => {
     try {
@@ -40,7 +40,7 @@ export const useMockFetch = (requestParams) => {
 
   useEffect(() => {
     fetchData(requestParams)
-  })
+  }, [])
 
   const fetchData = async (requestParams) => {
     try {

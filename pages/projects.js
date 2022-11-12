@@ -4,7 +4,7 @@ import Header from "../components/header/Header"
 import Project from "../components/Project"
 
 export default function Home() {
-  const [projects, isLoading, error] = useMockFetch({ url: "/myprojects", method: "get" })
+  const [projects, isLoading, error] = useMockFetch({ url: "/projects", method: "get" })
 
   return (
     <>

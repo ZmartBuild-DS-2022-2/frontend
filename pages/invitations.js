@@ -1,19 +1,11 @@
 import Head from "next/head"
 import Header from "../components/header/Header"
 import Invitation from "../components/Invitation"
-
+import PageSpinner from "../components/PageSpinner"
 import { useMockFetch } from "../hooks/useFetch"
 
 export default function Invitations() {
-  const [invitations, isLoading, error] = useMockFetch({ url: "/myinvitations/", method: "get" })
-
-  {
-    isLoading && !error && <div>Loading invitations</div>
-  }
-
-  {
-    !isLoading && error && <div>{JSON.stringify(error)}</div>
-  }
+  const [invitations, isLoading, error] = useMockFetch({ url: "/invitations", method: "get" })
 
   return (
     <>
@@ -29,6 +21,12 @@ export default function Invitations() {
         <div className="flex-col items-center text-center my-8">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">My Invitations</h1>
         </div>
+
+        {isLoading && !error && (
+          <div className="grid place-items-center h-72 lg:h-80">
+            <PageSpinner />
+          </div>
+        )}
 
         {invitations && (
           <section className="grid h-screen place-items-center">

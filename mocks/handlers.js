@@ -2,7 +2,7 @@ import { rest } from "msw"
 
 export const handlers = [
   // Handles a GET request
-  rest.get("/api/myprojects", (req, res, ctx) => {
+  rest.get("/api/projects", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json([
@@ -41,7 +41,7 @@ export const handlers = [
       ])
     )
   }),
-  rest.get("/api/myinvitations/", (req, res, ctx) => {
+  rest.get("/api/invitations", (req, res, ctx) => {
     // const id = req.url.searchParams.getAll('id')
     // console.log("ID:", id)
     return res(
