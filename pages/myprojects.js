@@ -1,4 +1,6 @@
 import Head from "next/head"
+import Link from "next/link"
+import PrimaryButton from "../components/basics/PrimaryButton"
 import Header from "../components/Header"
 import Model from "../components/Model"
 
@@ -16,6 +18,10 @@ export default function Home() {
       <main>
         <div className="flex-col items-center text-center my-8">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">My Projects</h1>
+          <Link href="/newproject">
+            <PrimaryButton text="New Project">
+            </PrimaryButton>
+          </Link>
         </div>
       </main>
 
