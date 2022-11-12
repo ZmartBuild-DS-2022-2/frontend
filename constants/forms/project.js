@@ -5,7 +5,7 @@ const projectFields = [
     type: "text",
     placeholder: "Miles Bridge Construction",
     class: "block w-full appearance-none focus:outline-none bg-transparent",
-    validations: { required: true},
+    validations: { required: true },
   },
   {
     title: "Description",
@@ -13,7 +13,7 @@ const projectFields = [
     type: "text",
     placeholder: "Squared m2, location, etc",
     class: "block w-full appearance-none focus:outline-none bg-transparent",
-    validations: { required: true},
+    validations: { required: true },
   },
   {
     title: "Location",
@@ -21,7 +21,7 @@ const projectFields = [
     type: "text",
     placeholder: "Miami, Florida",
     class: "block w-full appearance-none focus:outline-none bg-transparent",
-    validations: { required: true},
+    validations: { required: true },
   },
   {
     title: "Project Images",
@@ -30,7 +30,7 @@ const projectFields = [
     placeholder: "Upload File",
     class: "hidden",
     typeFile: ".png, .jpg",
-    validations: { required: true},
+    validations: { required: true },
   },
 ]
 
