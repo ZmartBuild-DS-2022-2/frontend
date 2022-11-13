@@ -3,8 +3,10 @@ import { useState, useEffect } from "react"
 
 export const useFetch = (requestParams) => {
   const BACKEND_HOST = process.env.NEXT_PUBLIC_BACKEND_HOST || "http://localhost:5000"
+
   axios.defaults.baseURL = `${BACKEND_HOST}/api`
   axios.defaults.withCredentials = true
+
   const [response, setResponse] = useState(null)
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(true)
@@ -31,6 +33,7 @@ export const useFetch = (requestParams) => {
 export const useMockFetch = (requestParams) => {
   axios.defaults.baseURL = "/api"
   axios.defaults.withCredentials = true
+
   const [response, setResponse] = useState(null)
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(true)

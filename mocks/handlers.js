@@ -2,7 +2,7 @@ import { rest } from "msw"
 
 export const handlers = [
   // Handles a GET request
-  rest.get("/api/myprojects", (req, res, ctx) => {
+  rest.get("/api/projects", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json([
@@ -37,6 +37,47 @@ export const handlers = [
           imgUrl:
             // eslint-disable-next-line max-len
             "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+        },
+      ])
+    )
+  }),
+  rest.get("/api/invitations", (req, res, ctx) => {
+    // const id = req.url.searchParams.getAll('id')
+    // console.log("ID:", id)
+    return res(
+      ctx.status(200),
+      ctx.json([
+        {
+          id: "1",
+          name: "ZmartBuild",
+          imgUrl:
+            // eslint-disable-next-line max-len
+            "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+          createdAt: "12/11/2022",
+        },
+        {
+          id: "2",
+          name: "Inmobiliaria Berlini",
+          imgUrl:
+            // eslint-disable-next-line max-len
+            "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+          createdAt: "12/11/2022",
+        },
+        {
+          id: "3",
+          name: "Constructora Los Castores Felices S.A",
+          imgUrl:
+            // eslint-disable-next-line max-len
+            "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+          createdAt: "12/11/2022",
+        },
+        {
+          id: "4",
+          name: "Fundación Mi Casita",
+          imgUrl:
+            // eslint-disable-next-line max-len
+            "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+          createdAt: "12/11/2022",
         },
       ])
     )

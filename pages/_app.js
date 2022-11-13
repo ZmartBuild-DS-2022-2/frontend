@@ -24,9 +24,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <AuthContextProvider>
-      <div className="bg-gradient-to-r from-gray-50 to-white h-full">
-        <Component {...pageProps} />
-      </div>
+      <Component {...pageProps} />
     </AuthContextProvider>
   )
 }

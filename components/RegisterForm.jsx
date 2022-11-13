@@ -87,7 +87,12 @@ export default function RegisterForm() {
             )
           })}
 
-          <PrimaryButton text="Continue" disabled={!isValid || isSubmitting} />
+          <PrimaryButton
+            className="bg-primary text-primary-contrast enabled:hover:bg-primary-hover"
+            disabled={!isValid || isSubmitting}
+          >
+            Continue
+          </PrimaryButton>
 
           <div className="text-center text-red-500">
             <span>{errorMessage}</span>

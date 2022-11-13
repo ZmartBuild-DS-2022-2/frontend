@@ -1,11 +1,12 @@
-export default function PrimaryButton({ text, ...props }) {
+export default function PrimaryButton({ ...props }) {
+  const { className, disabled } = props
   return (
     <button
-      className="rounded-md px-4 py-1.5 bg-primary text-primary-contrast 
-    hover:bg-primary-hover disabled:opacity-30 transition-all duration-150"
-      {...props}
+      className={`rounded-md px-1.5 sm:px-4 py-1.5 disabled:opacity-30 transition-all duration-150 
+      ${className}`}
+      disabled={disabled}
     >
-      {text}
+      {props.children}
     </button>
   )
 }
