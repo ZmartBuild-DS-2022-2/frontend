@@ -35,10 +35,11 @@ export default function ProjectInfo({ project }) {
         </PrimaryButton>
       </div>
 
-      <div className="text-left my-10 mx-8 text-center">
+      <div className="text-left mt-10 mx-8 text-center">
         <h1 className="text-2xl md:text-2xl lg:text-2xl font-semibold">Project Images</h1>
-        <Carousel images={project.images} total={project.images.length} />
       </div>
+
+      <Carousel images={project.images} total={project.images.length} />
     </div>
   )
 }

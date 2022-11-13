@@ -1,5 +1,7 @@
 import { useState } from "react"
 
+import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid"
+
 export default function Carousel({ images, total }) {
   const [currentImage, setCurrentImage] = useState(0)
 
@@ -10,63 +12,33 @@ export default function Carousel({ images, total }) {
   }
 
   return (
-    <div id="default-carousel" className="relative" data-carousel="static">
-      <div className="flex h-auto overflow-hidden rounded-lg md:h-96 mt-10">
-        <div className="duration-700 w-full ease-in-out justified-center inset-0 transition-all">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={images[currentImage]} className="block w-8/12 h-full mx-auto round" alt="..." />
+    <div className="flex w-full justify-center mb-10">
+      <div className="flex w-1/8 justify-center content-center">
+        <button
+          className="flex justify-center items-center"
+          disabled={currentImage === 0}
+          onClick={() => changeImage(currentImage - 1)}
+        >
+          <ArrowLeftCircleIcon className="w-2/5 h-2/5" />
+        </button>
+      </div>
+
+      <div className="flex h-auto w-6/8 overflow-hidden rounded-lg md:h-96 mt-10">
+        <div className="w-full">
+          {/*eslint-disable-next-line @next/next/no-img-element*/}
+          <img src={images[currentImage]} className="block w-11/12 h-full mx-auto round" alt="" />
         </div>
       </div>
-      <button
-        type="button"
-        // eslint-disable-next-line max-len
-        className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-        disabled={currentImage === 0}
-        onClick={() => changeImage(currentImage - 1)}
-      >
-        {/* eslint-disable-next-line max-len */}
-        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-          <svg
-            aria-hidden="true"
-            className="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M15 19l-7-7 7-7"
-            ></path>
-          </svg>
-        </span>
-      </button>
-      <button
-        type="button"
-        className="absolute top-0 right-0 z-30 justify-center h-full px-4 cursor-pointer group"
-        data-carousel-next=""
-        disabled={currentImage === total - 1}
-        onClick={() => changeImage(currentImage + 1)}
-      >
-        {/* eslint-disable-next-line max-len */}
-        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-          <svg
-            aria-hidden="true"
-            className="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M9 5l7 7-7 7"
-            ></path>
-          </svg>
-        </span>
-      </button>
+
+      <div className="flex w-1/8 justify-center content-center">
+        <button
+          className="flex justify-center items-center"
+          disabled={currentImage === total - 1}
+          onClick={() => changeImage(currentImage + 1)}
+        >
+          <ArrowRightCircleIcon className="w-2/5 h-2/5" />
+        </button>
+      </div>
     </div>
   )
 }
