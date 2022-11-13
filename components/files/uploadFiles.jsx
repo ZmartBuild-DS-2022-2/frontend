@@ -59,7 +59,7 @@ export default function UploadFilesForm() {
           ))}
         </div>
         <PrimaryButton
-          className="bg-primary text-primary-contrast hover:bg-primary-hover"
+          className="bg-primary text-primary-contrast enabled:hover:bg-primary-hover"
           disabled={!isValid || isSubmitting}
         >
           Continue

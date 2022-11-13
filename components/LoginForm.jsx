@@ -71,7 +71,7 @@ export default function LoginForm() {
         <div className="flex justify-between items-center">
           <PrimaryLink linkTo="/register">Register</PrimaryLink>
           <PrimaryButton
-            className="bg-primary text-primary-contrast hover:bg-primary-hover"
+            className="bg-primary text-primary-contrast enabled:hover:bg-primary-hover"
             disabled={!isValid || isSubmitting}
           >
             Continue
