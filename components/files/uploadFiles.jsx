@@ -58,7 +58,12 @@ export default function UploadFilesForm() {
             <div key={file.name}>{file.name}</div>
           ))}
         </div>
-        <PrimaryButton text="Continue" disabled={!isValid || isSubmitting} />
+        <PrimaryButton
+          className="bg-primary text-primary-contrast hover:bg-primary-hover"
+          disabled={!isValid || isSubmitting}
+        >
+          Continue
+        </PrimaryButton>
         <div className="text-center text-red-500">
           <span>{modelUrl}</span>
         </div>

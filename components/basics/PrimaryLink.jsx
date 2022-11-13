@@ -1,13 +1,13 @@
 import Link from "next/link"
 
-export default function PrimaryLink({ text, linkTo = "/" }) {
+export default function PrimaryLink({ linkTo = "/", ...props }) {
   return (
     <Link href={linkTo}>
       <a
         className="text-primary-neutral hover:text-primary-neutral-hover 
         font-semibold"
       >
-        {text}
+        {props.children}
       </a>
     </Link>
   )

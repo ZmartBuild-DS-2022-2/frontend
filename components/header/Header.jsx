@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <header
-      className="sticky top-0 z-50 grid grid-cols-2 shadow-md mb-5 px-5 md:px-7 lg:pr-14 py-3
+      className="w-full sticky top-0 z-50 grid grid-cols-2 shadow-md mb-5 px-5 md:px-7 lg:pr-14 py-3
       bg-white"
     >
       <div className="relative flex items-center h-[50px] lg:h-[55px]">
@@ -28,7 +28,7 @@ export default function Header() {
       </div>
 
       <div className="flex justify-end items-center sm:text-md gap-x-5">
-        {user ? <HeaderDropdown /> : <PrimaryLink text="Sign In" linkTo="/login" />}
+        {user ? <HeaderDropdown /> : <PrimaryLink linkTo="/login"> Sign In </PrimaryLink>}
       </div>
     </header>
   )

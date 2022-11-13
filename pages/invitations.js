@@ -29,10 +29,12 @@ export default function Invitations() {
         )}
 
         {invitations && (
-          <section className="grid h-screen place-items-center">
-            {invitations.map((invitation) => {
-              return <Invitation key={invitation.id} data={invitation} />
-            })}
+          <section className="flex justify-center items-center">
+            <div className="inline-flex flex-col items-center gap-4 px-5 w-full ">
+              {invitations.map((invitation) => {
+                return <Invitation key={invitation.id} data={invitation} />
+              })}
+            </div>
           </section>
         )}
       </main>

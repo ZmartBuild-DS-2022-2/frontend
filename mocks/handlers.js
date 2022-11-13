@@ -49,39 +49,35 @@ export const handlers = [
       ctx.json([
         {
           id: "1",
-          author: "Elon Musk",
-          name: "Invitation n°1",
-          organization: "ZmartBuild",
+          name: "ZmartBuild",
           imgUrl:
             // eslint-disable-next-line max-len
             "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+          createdAt: "12/11/2022",
         },
         {
           id: "2",
-          author: "Elon Musk",
-          name: "Invitation n°2",
-          organization: "ZmartBuild",
+          name: "Inmobiliaria Berlini",
           imgUrl:
             // eslint-disable-next-line max-len
             "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+          createdAt: "12/11/2022",
         },
         {
           id: "3",
-          author: "Elon Musk",
-          name: "Invitation n°3",
-          organization: "ZmartBuild",
+          name: "ZmartBuild",
           imgUrl:
             // eslint-disable-next-line max-len
             "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+          createdAt: "12/11/2022",
         },
         {
           id: "4",
-          author: "Elon Musk",
-          name: "Invitation n°4",
-          organization: "ZmartBuild",
+          name: "ZmartBuild",
           imgUrl:
             // eslint-disable-next-line max-len
             "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+          createdAt: "12/11/2022",
         },
       ])
     )

@@ -85,7 +85,7 @@ export default function HeaderDropdown() {
             <a>
               <div className="flex gap-x-2 items-center transition-transform hover:scale-105">
                 <EnvelopeIcon className="h-6 w-6" />
-                <p>My Invitations</p>
+                <p>My invitations</p>
               </div>
             </a>
           </Link>
