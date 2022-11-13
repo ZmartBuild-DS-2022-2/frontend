@@ -2,7 +2,6 @@ import Carousel from "../Carousel"
 import PrimaryButton from "../basics/PrimaryButton"
 
 export default function ProjectInfo({ project }) {
-  console.log(project)
   return (
     <div className="rounded w-3/4 h-1/2 mx-auto border focus-within:border-gray-400">
       <div className="w-full text-center my-8">

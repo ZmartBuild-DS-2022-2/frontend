@@ -49,7 +49,7 @@ export default function Home() {
             {projects && (
               <section className="grid h-screen place-items-center">
                 {projects.map((project) => {
-                  return <ProjectCard key={project.id} name={project.name} />
+                  return <ProjectCard key={project.id} project={project} />
                 })}
               </section>
             )}
