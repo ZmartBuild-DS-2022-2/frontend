@@ -1,19 +1,16 @@
 import { useRouter } from "next/router"
-import { useState, useEffect, createContext } from "react"
+import { useState, createContext, useMemo } from "react"
 import { backendFetch } from "../services"
 
-const AuthContext = createContext({
-  user: null,
-  login: () => {},
-  logout: () => {},
-})
+const AuthContext = createContext()
 
 export const AuthContextProvider = ({ children }) => {
   const router = useRouter()
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(undefined)
   const [isLoading, setIsLoading] = useState(true)
 
   const login = async (credentials) => {
+    setIsLoading(true)
     const user = await backendFetch({ url: "/auth/login", method: "post", data: credentials })
     setUser(user)
     setIsLoading(false)
@@ -21,6 +18,7 @@ export const AuthContextProvider = ({ children }) => {
   }
 
   const logout = async () => {
+    setIsLoading(true)
     try {
       await backendFetch({ url: "/auth/logout", method: "delete" })
     } finally {
@@ -30,15 +28,17 @@ export const AuthContextProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
+  useMemo(() => {
+    setIsLoading(true)
     const refresh = async () => {
       try {
         const user = await backendFetch({ url: "/auth/refresh", method: "post" })
         setUser(user)
       } catch (err) {
         setUser(null)
+      } finally {
+        setIsLoading(false)
       }
-      setIsLoading(false)
     }
     refresh()
   }, [])

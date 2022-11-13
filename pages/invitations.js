@@ -3,9 +3,20 @@ import Header from "../components/header/Header"
 import Invitation from "../components/Invitation"
 import PageSpinner from "../components/PageSpinner"
 import { useMockFetch } from "../hooks/useFetch"
+import { useUser } from "../hooks/useUser"
+import { useEffect } from "react"
+import { useRouter } from "next/router"
 
 export default function Invitations() {
   const [invitations, isLoading, error] = useMockFetch({ url: "/invitations", method: "get" })
+  const [isAuthenticated, isLoadingUser] = useUser()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!isLoadingUser && !isAuthenticated) {
+      router.push("/login")
+    }
+  }, [router, isAuthenticated, isLoadingUser])
 
   return (
     <>
@@ -15,29 +26,37 @@ export default function Invitations() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
-
-      <main>
-        <div className="flex-col items-center text-center my-8">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">My Invitations</h1>
+      {!isAuthenticated || isLoadingUser ? (
+        <div className="grid h-screen place-items-center">
+          <PageSpinner />
         </div>
+      ) : (
+        <>
+          <Header />
 
-        {isLoading && !error && (
-          <div className="grid place-items-center h-72 lg:h-80">
-            <PageSpinner />
-          </div>
-        )}
-
-        {invitations && (
-          <section className="flex justify-center items-center">
-            <div className="inline-flex flex-col items-center gap-4 px-5 w-full ">
-              {invitations.map((invitation) => {
-                return <Invitation key={invitation.id} data={invitation} />
-              })}
+          <main>
+            <div className="flex-col items-center text-center my-8">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">My Invitations</h1>
             </div>
-          </section>
-        )}
-      </main>
+
+            {isLoading && !error && (
+              <div className="grid place-items-center h-72 lg:h-80">
+                <PageSpinner />
+              </div>
+            )}
+
+            {invitations && (
+              <section className="flex justify-center items-center">
+                <div className="inline-flex flex-col items-center gap-4 px-5 w-full ">
+                  {invitations.map((invitation) => {
+                    return <Invitation key={invitation.id} data={invitation} />
+                  })}
+                </div>
+              </section>
+            )}
+          </main>
+        </>
+      )}
     </>
   )
 }
