@@ -65,7 +65,7 @@ export const handlers = [
         },
         {
           id: "3",
-          name: "ZmartBuild",
+          name: "Constructora Los Castores Felices S.A",
           imgUrl:
             // eslint-disable-next-line max-len
             "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
@@ -73,7 +73,7 @@ export const handlers = [
         },
         {
           id: "4",
-          name: "ZmartBuild",
+          name: "Fundación Mi Casita",
           imgUrl:
             // eslint-disable-next-line max-len
             "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",

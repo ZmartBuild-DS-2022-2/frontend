@@ -22,7 +22,7 @@ export default function Invitation({ data }) {
       </div>
 
       <div className="grow">
-        <h1 className="">
+        <h1>
           You were invited to join to the
           <Link href="">
             <a className="font-semibold text-gray-700">{` ${data.name}`}</a>
