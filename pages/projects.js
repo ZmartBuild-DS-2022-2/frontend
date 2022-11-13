@@ -1,5 +1,7 @@
 import { useMockFetch } from "../hooks/useFetch"
 import Head from "next/head"
+import Link from "next/link"
+import PrimaryButton from "../components/basics/PrimaryButton"
 import Header from "../components/header/Header"
 import Project from "../components/Project"
 import { useUser } from "../hooks/useUser"
@@ -37,6 +39,10 @@ export default function Home() {
             <div className="flex-col items-center text-center my-8">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">My Projects</h1>
             </div>
+
+            <Link href="/newproject">
+              <PrimaryButton text="New Project"></PrimaryButton>
+            </Link>
 
             {isLoading && !error && (
               <div className="grid h-screen place-items-center">
