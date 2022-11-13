@@ -14,7 +14,7 @@ function inputField(field, register) {
       >
         <div
           className="h-full w-full text-center flex flex-col 
-                                items-center justify-center items-center"
+                                items-center justify-center"
         >
           <div className="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
             <Image
@@ -96,9 +96,12 @@ export default function ProjectForm() {
           )
         })}
 
-        <div className="flex justify-between items-center">
-          <PrimaryButton text="Create" disabled={!isValid || isSubmitting} />
-        </div>
+        <PrimaryButton
+          className="bg-primary text-primary-contrast hover:bg-primary-hover"
+          disabled={!isValid || isSubmitting}
+        >
+          Create project
+        </PrimaryButton>
 
         <div className="text-center text-red-500">
           <span>{errorMessage}</span>
