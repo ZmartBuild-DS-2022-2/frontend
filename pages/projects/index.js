@@ -1,11 +1,11 @@
-import { useMockFetch } from "../hooks/useFetch"
+import { useMockFetch } from "../../hooks/useFetch"
 import Head from "next/head"
-import Header from "../components/header/Header"
-import Project from "../components/Project"
-import { useUser } from "../hooks/useUser"
+import Header from "../../components/header/Header"
+import ProjectCard from "../../components/projects/ProjectCard"
+import { useUser } from "../../hooks/useUser"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
-import PageSpinner from "../components/PageSpinner"
+import PageSpinner from "../../components/PageSpinner"
 
 export default function Home() {
   const [projects, isLoading, error] = useMockFetch({ url: "/projects", method: "get" })
@@ -49,7 +49,7 @@ export default function Home() {
             {projects && (
               <section className="grid h-screen place-items-center">
                 {projects.map((project) => {
-                  return <Project key={project.id} name={project.name} />
+                  return <ProjectCard key={project.id} name={project.name} />
                 })}
               </section>
             )}
