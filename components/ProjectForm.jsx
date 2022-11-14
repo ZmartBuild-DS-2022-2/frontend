@@ -1,6 +1,7 @@
-import { useState, useContext } from "react"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
-import AuthContext from "../stores/AuthContext"
+import { useRouter } from "next/router"
+import { backendFetch } from "../services"
 import projectFields from "../constants/forms/project"
 import PrimaryButton from "./basics/PrimaryButton"
 import Image from "next/image"
@@ -56,7 +57,7 @@ function inputField(field, register) {
 }
 
 export default function ProjectForm() {
-  const { createProject } = useContext(AuthContext)
+  const router = useRouter()
   const [errorMessage, setErrorMessage] = useState(null)
 
   const {
@@ -67,7 +68,12 @@ export default function ProjectForm() {
 
   const onSubmit = async ({ name, description, location, file }) => {
     try {
-      await createProject({ name, description, location, file })
+      await backendFetch({
+        url: "/newproject",
+        method: "post",
+        data: { name, description, location, file },
+      })
+      router.push({pathname: "/projects"})
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
       setTimeout(() => setErrorMessage(null), 5000)
