@@ -17,7 +17,7 @@ export default function ProjectInfo({ data }) {
 
       <div className="flex justify-center my-2">
         <Link href="">
-          <a 
+          <a
             className="rounded-md px-2 sm:px-4 py-1.5 disabled:opacity-30 transition-all 
             duration-150 bg-primary text-primary-contrast hover:bg-primary-hover"
           >
