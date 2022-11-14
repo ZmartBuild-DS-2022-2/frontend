@@ -1,3 +1,4 @@
+import Link from "next/link"
 import Carousel from "../Carousel"
 
 export default function ProjectInfo({ data }) {
@@ -12,6 +13,17 @@ export default function ProjectInfo({ data }) {
       <div className="text-left">
         <h1 className="text-xl md:text-2xl lg:text-2xl font-semibold mb-1 md:mb-2">Description</h1>
         <p className="text-xs sm:text-base">{data.description}</p>
+      </div>
+
+      <div className="flex justify-center my-2">
+        <Link href="">
+          <a 
+            className="rounded-md px-2 sm:px-4 py-1.5 disabled:opacity-30 transition-all 
+            duration-150 bg-primary text-primary-contrast hover:bg-primary-hover"
+          >
+            View subprojects
+          </a>
+        </Link>
       </div>
     </div>
   )
