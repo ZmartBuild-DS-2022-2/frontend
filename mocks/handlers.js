@@ -95,13 +95,7 @@ export const handlers = [
           latitude: 12.3456,
           longitude: 12.3456,
         },
-        images: [
-          "https://static.dw.com/image/52876284_303.jpg",
-          "https://static.dw.com/image/51802842_303.jpg",
-          "https://static.dw.com/image/45623799_303.jpg",
-          "https://static.dw.com/image/51802842_303.jpg",
-          "https://static.dw.com/image/45623799_303.jpg",
-        ],
+        images: ["/LogoZmartBuild.png", "/user_placeholder.png", "/LogoZmartBuildText.png"],
       })
     )
   }),

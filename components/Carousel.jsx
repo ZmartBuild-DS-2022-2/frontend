@@ -1,44 +1,50 @@
 import { useState } from "react"
-
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid"
+import Image from "next/image"
 
-export default function Carousel({ images, total }) {
+export default function Carousel({ images }) {
   const [currentImage, setCurrentImage] = useState(0)
   if (!images) return <></>
 
-  const changeImage = (newValue) => {
-    if (newValue < 0 || newValue < total) {
-      setCurrentImage(newValue)
+  const decreaseImage = () => {
+    if (currentImage === 0) {
+      setCurrentImage(images.length - 1)
+    } else {
+      setCurrentImage(currentImage - 1)
+    }
+  }
+
+  const increaseImage = () => {
+    if (currentImage === images.length - 1) {
+      setCurrentImage(0)
+    } else {
+      setCurrentImage(currentImage + 1)
     }
   }
 
   return (
-    <div className="flex w-full justify-center mb-10">
-      <div className="flex w-1/8 justify-center content-center">
-        <button
-          className="flex justify-center items-center"
-          disabled={currentImage === 0}
-          onClick={() => changeImage(currentImage - 1)}
-        >
-          <ArrowLeftCircleIcon className="w-2/5 h-2/5" />
+    <div
+      className="w-full my-5 box-border relative shadow-md bg-[#fbfbfb] rounded-lg h-52 
+      lg:h-96"
+    >
+      <Image src={images[currentImage]} layout="fill" objectFit="contain" alt="projectImg" />
+
+      <div className="absolute left-0 top-0 bottom-0 flex justify-center items-center sm:ml-2">
+        <button onClick={decreaseImage} className="w-5 lg:w-10 aspect-square">
+          <ArrowLeftCircleIcon className="fill-gray-400 hover:fill-gray-500" />
         </button>
       </div>
 
-      <div className="flex h-auto w-6/8 overflow-hidden rounded-lg md:h-96 mt-10">
-        <div className="w-full">
-          {/*eslint-disable-next-line @next/next/no-img-element*/}
-          <img src={images[currentImage]} className="block w-11/12 h-full mx-auto round" alt="" />
-        </div>
+      <div className="absolute right-0 top-0 bottom-0 flex justify-center items-center sm:mr-2">
+        <button onClick={increaseImage} className="w-5 lg:w-10 aspect-square">
+          <ArrowRightCircleIcon className="fill-gray-400 hover:fill-gray-500" />
+        </button>
       </div>
 
-      <div className="flex w-1/8 justify-center content-center">
-        <button
-          className="flex justify-center items-center"
-          disabled={currentImage === total - 1}
-          onClick={() => changeImage(currentImage + 1)}
-        >
-          <ArrowRightCircleIcon className="w-2/5 h-2/5" />
-        </button>
+      <div className="absolute bottom-0 left-0 right-0 flex justify-center items-center">
+        <p className="px-2 rounded-t bg-gray-800 opacity-80 text-white text-xs md:text-base">
+          {currentImage + 1}/{images.length}
+        </p>
       </div>
     </div>
   )
