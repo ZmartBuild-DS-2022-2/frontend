@@ -4,6 +4,7 @@ import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/s
 
 export default function Carousel({ images, total }) {
   const [currentImage, setCurrentImage] = useState(0)
+  if (!images) return <></>
 
   const changeImage = (newValue) => {
     if (newValue < 0 || newValue < total) {

@@ -182,4 +182,12 @@ export const handlers = [
       })
     )
   }),
+  rest.post("/api/neworganization", (req, res, ctx) => {
+    return res(
+      ctx.status(201),
+      ctx.json({
+        id: 1,
+      })
+    )
+  }),
 ]

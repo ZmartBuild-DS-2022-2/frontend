@@ -40,7 +40,7 @@ export const useMockFetch = (requestParams) => {
 
   useEffect(() => {
     fetchData(requestParams)
-  }, [])
+  }, [requestParams])
 
   const fetchData = async (requestParams) => {
     try {
@@ -54,4 +54,16 @@ export const useMockFetch = (requestParams) => {
   }
 
   return [response, isLoading, error]
+}
+
+export const UseMockFetchPost = async (requestParams) => {
+  axios.defaults.baseURL = "/api"
+  axios.defaults.withCredentials = true
+
+  try {
+    const res = await axios(requestParams)
+    return res.data
+  } catch (err) {
+    return err
+  }
 }
