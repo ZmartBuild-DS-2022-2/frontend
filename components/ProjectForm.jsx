@@ -73,7 +73,7 @@ export default function ProjectForm() {
         method: "post",
         data: { name, description, location, file },
       })
-      router.push({pathname: "/projects"})
+      router.push({ pathname: "/projects" })
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
       setTimeout(() => setErrorMessage(null), 5000)
