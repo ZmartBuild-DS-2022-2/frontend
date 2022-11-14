@@ -7,9 +7,9 @@ import ImageWithFallback from "../basics/ImageWithFallBack"
 
 export default function OrganizationInfo({ org }) {
   return (
-    <div className="rounded w-4/5 h-1/2 mx-auto">
+    <div className="rounded w-4/5 md:w-1/2 h-1/2 mx-auto">
       <div className="flex text-center mt-4 items-center">
-        <div className="flex relative w-1/5 aspect-square rounded-full ml-4">
+        <div className="flex flex-initial relative w-1/3 md:w-1/6 aspect-square rounded-full">
           <Image
             src={org.imgUrl}
             layout="fill"
@@ -18,7 +18,7 @@ export default function OrganizationInfo({ org }) {
             alt="orgImg"
           />
         </div>
-        <h1 className="ml-2 inline text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">
+        <h1 className="text-left grow ml-2 inline text-2xl md:text-3xl font-semibold">
           {org.name}
         </h1>
       </div>
@@ -31,7 +31,7 @@ export default function OrganizationInfo({ org }) {
                 <>
                   <div key={proj.id} className="w-full h-20 align-middle mb-2">
                     <a className="flex rounded h-full" href={`/projects/${proj.id}`}>
-                      <div className="relative max-h-fit aspect-square rounded-full ml-4 flex items-center">
+                      <div className="relative h-full max-w-1/4 aspect-square rounded-full flex items-center">
                         <ImageWithFallback
                           src={proj.imgUrl}
                           layout="fill"
@@ -40,12 +40,12 @@ export default function OrganizationInfo({ org }) {
                           alt="projectImg"
                         />
                       </div>
-                      <div className="flex items-center justify-center">
+                      <div className="grow flex items-center justify-left">
                         <p className="ml-4">{proj.name}</p>
                       </div>
                     </a>
                   </div>
-                  <hr className="w-4/5 m-auto last:hidden" />
+                  <hr className="w-4/5 m-auto md:m-0 last:hidden" />
                 </>
               )
             })}
