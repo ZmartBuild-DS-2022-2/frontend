@@ -46,7 +46,9 @@ export default function Home() {
 
             {!isLoading && error && <div>{JSON.stringify(error)}</div>}
 
-            <ProjectInfo project={project} />
+            <section className="grid place-items-center lg:mx-44 lg:my-10">
+              <ProjectInfo project={project} />
+            </section>
           </main>
         </>
       )}
