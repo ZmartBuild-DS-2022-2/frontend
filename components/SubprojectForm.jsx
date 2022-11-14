@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 import { UseMockFetchPost } from "../hooks/useFetch"
-import projectFields from "../constants/forms/project"
+import subprojectFields from "../constants/forms/subproject"
 import PrimaryButton from "./basics/PrimaryButton"
 import Image from "next/image"
 
@@ -66,14 +66,14 @@ export default function ProjectForm() {
     handleSubmit,
   } = useForm({ mode: "onChange" })
 
-  const onSubmit = async ({ name, description, location, file }) => {
+  const onSubmit = async ({ name, description, file }) => {
     try {
       await UseMockFetchPost({
-        url: "/newproject",
+        url: "/newsubproject",
         method: "post",
-        data: { name, description, location, file },
+        data: { name, description, file },
       })
-      router.push({ pathname: "/projects" })
+      router.push({ pathname: "/subprojects" })
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
       setTimeout(() => setErrorMessage(null), 5000)
@@ -88,10 +88,10 @@ export default function ProjectForm() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="text-center">
-          <h1 className="font-bold text-3xl text-primary-neutral">New Project</h1>
+          <h1 className="font-bold text-3xl text-primary-neutral">New Subproject</h1>
         </div>
 
-        {projectFields.map((field) => {
+        {subprojectFields.map((field) => {
           return (
             <div key={field.name} className="relative border-b-2 focus-within:border-gray-400">
               <label className="font-bold mb-2 block text-sm text-red-500" htmlFor={field.name}>
@@ -106,7 +106,7 @@ export default function ProjectForm() {
           className="bg-primary text-primary-contrast hover:bg-primary-hover"
           disabled={!isValid || isSubmitting}
         >
-          Create project
+          Create subproject
         </PrimaryButton>
 
         <div className="text-center text-red-500">

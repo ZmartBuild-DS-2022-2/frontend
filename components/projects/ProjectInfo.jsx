@@ -1,5 +1,6 @@
 import Carousel from "../Carousel"
 import PrimaryButton from "../basics/PrimaryButton"
+import PrimaryLink from "../basics/PrimaryLink"
 
 export default function ProjectInfo({ project }) {
   return (
@@ -30,9 +31,11 @@ export default function ProjectInfo({ project }) {
       </div>
 
       <div className="w-full text-center my-8">
-        <PrimaryButton className="bg-primary text-primary-contrast hover:bg-primary-hover">
-          Sub-Projects
-        </PrimaryButton>
+        <PrimaryLink linkTo="/subprojects" state={{ from: project.id }}>
+          <PrimaryButton className="bg-primary text-primary-contrast hover:bg-primary-hover">
+            Sub-Projects
+          </PrimaryButton>
+        </PrimaryLink>
       </div>
 
       <div className="text-left mt-10 mx-8 text-center">
