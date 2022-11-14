@@ -8,7 +8,6 @@ export default function ProjectInfo({ data }) {
         <h1 className="text-2xl md:text-4xl lg:text-5xl font-semibold mb-4">{data.title}</h1>
       </div>
 
-
       {data.images.length > 0 && <Carousel images={data.images} />}
 
       <div className="text-left">
