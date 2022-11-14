@@ -1,9 +1,9 @@
 import { useMockFetch } from "../../hooks/useFetch"
 import Head from "next/head"
-import PrimaryButton from "../components/basics/PrimaryButton"
-import PrimaryLink from "../components/basics/PrimaryLink"
-import Header from "../components/header/Header"
-import { useUser } from "../hooks/useUser"
+import PrimaryButton from "../../components/basics/PrimaryButton"
+import PrimaryLink from "../../components/basics/PrimaryLink"
+import Header from "../../components/header/Header"
+import { useUser } from "../../hooks/useUser"
 import ProjectCard from "../../components/projects/ProjectCard"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
@@ -57,7 +57,7 @@ export default function Home() {
 
               {projects &&
                 projects.map((project) => {
-                  return <ProjectCard key={project.id} name={project.name} />
+                  return <ProjectCard key={project.id} project={project} />
                 })}
             </section>
           </main>
