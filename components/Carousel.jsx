@@ -23,7 +23,7 @@ export default function Carousel({ images }) {
 
   return (
     <div
-      className="w-full my-5 box-border relative shadow-md bg-[#fcfcfc] rounded-lg h-52 
+      className="w-full my-5 box-border relative shadow-md bg-[#fbfbfb] rounded-lg h-52 
       lg:h-96"
     >
       <Image src={images[currentImage]} layout="fill" objectFit="contain" alt="projectImg" />
