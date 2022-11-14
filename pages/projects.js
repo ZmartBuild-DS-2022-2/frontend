@@ -1,5 +1,7 @@
 import { useMockFetch } from "../hooks/useFetch"
 import Head from "next/head"
+import PrimaryButton from "../components/basics/PrimaryButton"
+import PrimaryLink from "../components/basics/PrimaryLink"
 import Header from "../components/header/Header"
 import Project from "../components/Project"
 import { useUser } from "../hooks/useUser"
@@ -46,13 +48,18 @@ export default function Home() {
 
             {!isLoading && error && <div>{JSON.stringify(error)}</div>}
 
-            {projects && (
-              <section className="grid h-screen place-items-center">
-                {projects.map((project) => {
+            <section className="grid h-screen place-items-center">
+              <PrimaryLink linkTo="/newproject">
+                <PrimaryButton disabled={false} className="border hover:shadow-md">
+                  New project
+                </PrimaryButton>
+              </PrimaryLink>
+
+              {projects &&
+                projects.map((project) => {
                   return <Project key={project.id} name={project.name} />
                 })}
-              </section>
-            )}
+            </section>
           </main>
         </>
       )}
