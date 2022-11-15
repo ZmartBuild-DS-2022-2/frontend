@@ -40,11 +40,6 @@ export default function Home() {
         <>
           <Header />
           <main className="flex flex-col content-center">
-            <div className="flex-col items-center text-center my-4">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">Caucau</h1>
-              {/* <h4>From {project.title}</h4> */}
-            </div>
-
             {isLoading && !error && (
               <div className="grid h-screen place-items-center">
                 <PageSpinner />
@@ -55,42 +50,48 @@ export default function Home() {
             <div className="flex justify-center items-center my-3 md:my-5"></div>
 
             {subprojects && (
-              <div className="w-full grid grid-col-1 justify-items-center ">
-                <div className="px-5 md:w-1/2">
-                  <div className="flex justify-between items-center pb-4">
-                    <p className="text-xl md:text-xl lg:text-2xl font-normal pb-2 pl-1">
-                      Subprojects
-                    </p>
-                    <Link href={`/projects/${router.query.id}/subprojects/new`}>
-                      <a>
-                        <div
-                          className="flex justify-center items-center gap-2 rounded-md px-2 
-                            sm:px-3 py-1.5 disabled:opacity-30 transition-all 
-                            duration-150 bg-primary 
-                            text-primary-contrast hover:bg-primary-hover
-                            text-xs sm:text-sm mr-1"
-                        >
-                          <PlusIcon className="h-3 md:h-6 aspect-square fill-white" />
-                          New subproject
-                        </div>
-                      </a>
-                    </Link>
-                  </div>
-                  <section className="flex justify-center items-center">
-                    <div className="inline-flex flex-col items-center gap-4  w-full ">
-                      {subprojects.map((subproj) => {
-                        return (
-                          <SubprojectCard
-                            key={subproj.id}
-                            subproject={subproj}
-                            current_path={current_path}
-                          />
-                        )
-                      })}
-                    </div>
-                  </section>
+              <>
+                <div className="flex-col items-center text-center my-4">
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">Caucau</h1>
+                  {/* <h4>From {project.title}</h4> */}
                 </div>
-              </div>
+                <div className="w-full grid grid-col-1 justify-items-center ">
+                  <div className="px-5 md:w-1/2">
+                    <div className="flex flex-col md:flex-row md:justify-between items-center pb-4">
+                      <p className="text-xl md:text-xl lg:text-2xl font-normal pb-2 pl-1">
+                        Subprojects
+                      </p>
+                      <Link href={`/projects/${router.query.id}/subprojects/new`}>
+                        <a>
+                          <div
+                            className="flex justify-center items-center gap-2 rounded-md px-2 
+                              sm:px-3 py-1.5 disabled:opacity-30 transition-all 
+                              duration-150 bg-primary 
+                              text-primary-contrast hover:bg-primary-hover
+                              text-sm sm:text-base mr-1"
+                          >
+                            <PlusIcon className="h-3 md:h-6 aspect-square fill-white" />
+                            New subproject
+                          </div>
+                        </a>
+                      </Link>
+                    </div>
+                    <section className="flex justify-center items-center">
+                      <div className="inline-flex flex-col items-center gap-4 w-full">
+                        {subprojects.map((subproj) => {
+                          return (
+                            <SubprojectCard
+                              key={subproj.id}
+                              subproject={subproj}
+                              current_path={current_path}
+                            />
+                          )
+                        })}
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </>
             )}
           </main>
         </>
