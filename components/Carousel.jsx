@@ -4,7 +4,6 @@ import Image from "next/image"
 
 export default function Carousel({ images }) {
   const [currentImage, setCurrentImage] = useState(0)
-  if (!images) return <></>
 
   const decreaseImage = () => {
     if (currentImage === 0) {
