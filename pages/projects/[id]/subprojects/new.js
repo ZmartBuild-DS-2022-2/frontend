@@ -1,9 +1,9 @@
 import Head from "next/head"
-import PageSpinner from "../components/PageSpinner"
+import PageSpinner from "../../../../components/PageSpinner"
 
-import SubprojectForm from "../components/SubprojectForm"
-import Header from "../components/header/Header"
-import { useUser } from "../hooks/useUser"
+import SubprojectForm from "../../../../components/SubprojectForm"
+import Header from "../../../../components/header/Header"
+import { useUser } from "../../../../hooks/useUser"
 
 export default function NewProject() {
   const [isAuthenticated, isLoadingUser] = useUser()

@@ -1,24 +1,16 @@
-import Image from "next/image"
+import PrimaryButton from "../basics/PrimaryButton"
 
 export default function SubprojectCard({ subproject }) {
   return (
     // eslint-disable-next-line max-len
-    <a
-      className="flex rounded w-1/2 h-1/2 border focus-within:border-gray-400"
-      href={`/subprojects/${subproject.id}`}
-    >
-      <div className="relative max-h-fit aspect-square rounded-full ml-4 flex items-center">
-        <Image
-          src={"/LogoZmartBuild.png"}
-          layout="fill"
-          objectFit="contain"
-          objectPosition="left"
-          alt="projectImg"
-        />
+    <div className="rounded w-full h-1/2 border focus-within:border-gray-400">
+      <div className="p-4 space-x-4 flex justify-between">
+        <div className="w-4/5 grow">
+          <p className=" text-lg font-normal">{subproject.name}</p>
+          <p className="text-sm font-light"> {subproject.description}</p>
+        </div>
+        <PrimaryButton className="grow-0 bg-pale-yellow">Open 3D viewer</PrimaryButton>
       </div>
-      <div className="flex items-center justify-center">
-        <p className="ml-4">{subproject.name}</p>
-      </div>
-    </a>
+    </div>
   )
 }

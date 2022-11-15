@@ -10,6 +10,7 @@ module.exports = {
         "primary-contrast": "#fafafa",
         "primary-neutral": "#262626",
         "primary-neutral-hover": "#4c4c4c",
+        "pale-yellow": "#ffecd7",
       },
     },
   },
