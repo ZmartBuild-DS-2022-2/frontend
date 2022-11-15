@@ -13,7 +13,7 @@ export default function ProjectInfo({ data }) {
         <p className="text-xs sm:text-base">{data?.description}</p>
       </div>
       <div className="flex justify-center my-3">
-        <Link href="/">
+        <Link href={`/projects/${data.id}/subprojects`}>
           <a
             className="rounded-md px-2 sm:px-4 py-1.5 disabled:opacity-30 transition-all 
             duration-150 bg-primary text-primary-contrast hover:bg-primary-hover text-xs 

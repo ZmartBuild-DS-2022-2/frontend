@@ -1,13 +1,13 @@
-import { useMockFetch } from "../../hooks/useFetch"
+import { useMockFetch } from "../../../../hooks/useFetch"
 import Head from "next/head"
-import PrimaryButton from "../../components/basics/PrimaryButton"
-import PrimaryLink from "../../components/basics/PrimaryLink"
-import Header from "../../components/header/Header"
-import { useUser } from "../../hooks/useUser"
+import PrimaryButton from "../../../../components/basics/PrimaryButton"
+import PrimaryLink from "../../../../components/basics/PrimaryLink"
+import Header from "../../../../components/header/Header"
+import { useUser } from "../../../../hooks/useUser"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
-import PageSpinner from "../../components/PageSpinner"
-import SubprojectCard from "../../components/subprojects/SubprojectCard"
+import PageSpinner from "../../../../components/PageSpinner"
+import SubprojectCard from "../../../../components/subprojects/SubprojectCard"
 
 export default function Home() {
   const router = useRouter()
