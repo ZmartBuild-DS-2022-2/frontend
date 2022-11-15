@@ -1,74 +1,67 @@
-import Image from "next/image"
 import { Collapse } from "@nextui-org/react"
-import PrimaryLink from "../basics/PrimaryLink"
-import { GlobeAltIcon, ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/solid"
+import { LinkIcon, EnvelopeIcon } from "@heroicons/react/24/solid"
 import ImageWithFallback from "../basics/ImageWithFallBack"
+import ProjectCard from "../projects/ProjectCard"
 
-export default function OrganizationInfo({ org }) {
+export default function OrganizationInfo({ data }) {
   return (
-    <div className="rounded w-4/5 md:w-1/2 h-1/2 mx-auto">
-      <div className="flex text-center mt-4 items-center">
-        <div className="flex flex-initial relative w-1/3 md:w-1/6 aspect-square rounded-full">
-          <Image
-            src={org.imgUrl}
+    <div className="">
+      <div className="flex justify-center gap-5">
+        <div
+          className="flex justify-center items-center relative lg:h-60 aspect-square 
+          border border-gray-200 rounded-lg self-center bg-[#fbfbfb]"
+        >
+          <ImageWithFallback
+            src={data.imgUrl}
             layout="fill"
-            objectFit="contain"
-            objectPosition="left"
-            alt="orgImg"
+            objectFit="cover"
+            objectPosition="center"
+            alt="projectImg"
           />
         </div>
-        <h1 className="text-left grow ml-2 inline text-2xl md:text-3xl font-semibold">
-          {org.name}
-        </h1>
+
+        <div className="flex flex-col grow justify-around">
+          <div>
+            <h1 className="text-left text-2xl md:text-3xl font-semibold mb-2 text-primary-neutral">
+              {data.name}
+            </h1>
+            <p className="text-sm sm:text-base lg:line-clamp-5 text-gray-700">{data.description}</p>
+          </div>
+
+          <div className="flex gap-5 mt-5">
+            <div className="flex items-center gap-1 text-sm sm:text-base">
+              <EnvelopeIcon className="h-5 aspect-square fill-gray-700" />
+              <a
+                target="_blank"
+                href={`mailto:${data.email}`}
+                rel="noopener noreferrer"
+                className="hover:underline text-gray-700"
+              >
+                {data.email}
+              </a>
+            </div>
+
+            <div className="flex items-center gap-1 text-sm sm:text-base">
+              <LinkIcon className="h-5 aspect-square fill-gray-700" />
+              <a
+                target="_blank"
+                href={data.websiteUrl}
+                rel="noopener noreferrer"
+                className="hover:underline text-gray-700"
+              >
+                Website
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
       <Collapse.Group>
-        <Collapse title="Projects" className="text-lg font-medium" expanded>
-          <div className="flex flex-col">
-            {org.projects.map((proj) => {
-              return (
-                <>
-                  <div key={proj.id} className="w-full h-20 align-middle mb-2">
-                    <a className="flex rounded h-full" href={`/projects/${proj.id}`}>
-                      <div
-                        className="relative h-full max-w-1/4 aspect-square rounded-full flex 
-                        items-center"
-                      >
-                        <ImageWithFallback
-                          src={proj.imgUrl}
-                          layout="fill"
-                          objectFit="contain"
-                          objectPosition="left"
-                          alt="projectImg"
-                        />
-                      </div>
-                      <div className="grow flex items-center justify-left">
-                        <p className="ml-4">{proj.name}</p>
-                      </div>
-                    </a>
-                  </div>
-                  <hr className="w-4/5 m-auto md:m-0 last:hidden" />
-                </>
-              )
+        <Collapse title="Projects" className="text-xl font-semibold" expanded>
+          <div className="flex flex-col gap-4">
+            {data.projects.map((project) => {
+              return <ProjectCard key={project.id} data={project} />
             })}
-          </div>
-        </Collapse>
-        <Collapse title="Organization details" className="text-lg font-medium">
-          <div className="flex font-normal flex-col space-y-4">
-            <div className="inline-flex items-center">
-              <ChatBubbleLeftEllipsisIcon className="w-6 h-6 mr-2" />
-              <p className="text-ms"> {org.email}</p>
-            </div>
-            <div className="inline-flex items-center">
-              <GlobeAltIcon className="w-6 h-6 mr-2" />
-              <PrimaryLink linkTo={org.websiteUrl} className="text-ms font-medium">
-                Go to official website
-              </PrimaryLink>
-            </div>
-            <div>
-              <label>Description</label>
-              <p className="text-xs text-justify">{org.description}</p>
-            </div>
           </div>
         </Collapse>
       </Collapse.Group>

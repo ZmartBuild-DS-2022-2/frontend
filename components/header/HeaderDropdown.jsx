@@ -6,7 +6,6 @@ import {
   Bars3Icon,
   ChevronDownIcon,
   ChevronUpIcon,
-  FolderIcon,
   Cog8ToothIcon,
   ArrowRightOnRectangleIcon,
   EnvelopeIcon,
@@ -78,15 +77,6 @@ export default function HeaderDropdown() {
               <div className="flex gap-x-2 items-center transition-transform hover:scale-105">
                 <UserGroupIcon className="h-6 w-6" />
                 <p>My organizations</p>
-              </div>
-            </a>
-          </Link>
-
-          <Link href="/projects">
-            <a>
-              <div className="flex gap-x-2 items-center transition-transform hover:scale-105">
-                <FolderIcon className="h-6 w-6" />
-                <p>My projects</p>
               </div>
             </a>
           </Link>

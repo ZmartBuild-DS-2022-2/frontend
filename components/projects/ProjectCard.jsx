@@ -1,24 +1,27 @@
-import Image from "next/image"
+import Link from "next/link"
+import ImageWithFallback from "../basics/ImageWithFallBack"
 
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ data }) {
   return (
-    // eslint-disable-next-line max-len
-    <a
-      className="flex rounded w-1/2 h-1/2 border focus-within:border-gray-400"
-      href={`/projects/${project.id}`}
-    >
-      <div className="relative max-h-fit aspect-square rounded-full ml-4 flex items-center">
-        <Image
-          src={"/LogoZmartBuild.png"}
+    <div className="flex gap-4 box-border w-full h-20 align-middle border p-2">
+      <div
+        className="relative box-border h-full aspect-square rounded-md flex items-center border
+      bg-[#fbfbfb]"
+      >
+        <ImageWithFallback
+          src={data.imgUrl}
           layout="fill"
-          objectFit="contain"
-          objectPosition="left"
+          objectFit="cover"
+          objectPosition="center"
           alt="projectImg"
         />
       </div>
-      <div className="flex items-center justify-center">
-        <p className="ml-4">{project.name}</p>
+
+      <div className="grow flex items-start">
+        <Link href={`/projects/${data.id}`}>
+          <a className="text-base lg:text-md hover:underline font-medium">{data.name}</a>
+        </Link>
       </div>
-    </a>
+    </div>
   )
 }

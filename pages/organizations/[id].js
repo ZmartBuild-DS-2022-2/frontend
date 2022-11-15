@@ -47,7 +47,11 @@ export default function Home() {
 
             {!isLoading && error && <div>{JSON.stringify(error)}</div>}
 
-            <OrganizationInfo org={organization} />
+            {organization && (
+              <section className="grid place-items-center lg:mx-44 lg:my-10">
+                <OrganizationInfo data={organization} />
+              </section>
+            )}
           </main>
         </>
       )}
