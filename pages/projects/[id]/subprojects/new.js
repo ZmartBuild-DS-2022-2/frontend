@@ -1,7 +1,7 @@
 import Head from "next/head"
 import PageSpinner from "../../../../components/PageSpinner"
 
-import SubprojectForm from "../../../../components/SubprojectForm"
+import SubprojectForm from "../../../../components/subprojects/SubprojectForm"
 import Header from "../../../../components/header/Header"
 import { useUser } from "../../../../hooks/useUser"
 
