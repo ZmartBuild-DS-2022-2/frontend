@@ -1,13 +1,13 @@
 import { useMockFetch } from "../../hooks/useFetch"
 import Head from "next/head"
-import PrimaryButton from "../../components/basics/PrimaryButton"
-import PrimaryLink from "../../components/basics/PrimaryLink"
+import Link from "next/link"
 import Header from "../../components/header/Header"
 import { useUser } from "../../hooks/useUser"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
 import PageSpinner from "../../components/PageSpinner"
 import OrganizationCard from "../../components/organizations/OrganizationCard"
+import { PlusIcon } from "@heroicons/react/24/solid"
 
 export default function Home() {
   const [organizations, isLoading, error] = useMockFetch({ url: "/organizations", method: "get" })
@@ -35,8 +35,9 @@ export default function Home() {
       ) : (
         <>
           <Header />
+
           <main>
-            <div className="flex-col items-center text-center my-8">
+            <div className="flex-col items-center text-center my-5 md:my-8">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">My Organizations</h1>
             </div>
 
@@ -48,19 +49,29 @@ export default function Home() {
 
             {!isLoading && error && <div>{JSON.stringify(error)}</div>}
 
-            <div className="flex justify-center">
-              <PrimaryLink linkTo="/neworganization">
-                <PrimaryButton disabled={false} className="border hover:shadow-md">
-                  New organization
-                </PrimaryButton>
-              </PrimaryLink>
+            <div className="flex justify-center items-center my-3 md:my-5">
+              <Link href="/organizations/new">
+                <a>
+                  <div
+                    className="flex justify-center items-center gap-2 rounded-md px-2 
+                      sm:px-4 py-1.5 disabled:opacity-30 transition-all duration-150 bg-primary 
+                      text-primary-contrast hover:bg-primary-hover text-xs sm:text-base"
+                  >
+                    <PlusIcon className="h-5 md:h-6 aspect-square fill-white" /> New organization
+                  </div>
+                </a>
+              </Link>
             </div>
-            <div className="grid h-screen place-items-center">
-              {organizations &&
-                organizations.map((organization) => {
-                  return <OrganizationCard key={organization.id} org={organization} />
-                })}
-            </div>
+
+            {organizations && (
+              <section className="flex justify-center items-center">
+                <div className="inline-flex flex-col items-center gap-4 px-5 w-full ">
+                  {organizations.map((organization) => {
+                    return <OrganizationCard key={organization.id} data={organization} />
+                  })}
+                </div>
+              </section>
+            )}
           </main>
         </>
       )}

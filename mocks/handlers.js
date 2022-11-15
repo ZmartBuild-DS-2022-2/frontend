@@ -125,7 +125,7 @@ export const handlers = [
         },
         {
           id: "3",
-          name: "Mi Casita S.A.",
+          name: "Fundación Sin Fines de Lucro Mi Casita S.A.",
           email: "casita@mi.com",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id ullamcorper sapien, non euismod mi. In semper dignissim efficitur. Integer porta nulla in efficitur mollis. Aenean risus orci, vestibulum quis ullamcorper pharetra, placerat non lorem. Aenean pharetra sagittis mattis. Proin maximus porttitor luctus.",

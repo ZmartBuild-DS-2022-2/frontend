@@ -1,9 +1,8 @@
 import Head from "next/head"
-import PageSpinner from "../components/PageSpinner"
-
-import OrganizationForm from "../components/organizations/OrganizationForm"
-import Header from "../components/header/Header"
-import { useUser } from "../hooks/useUser"
+import PageSpinner from "../../components/PageSpinner"
+import OrganizationForm from "../../components/organizations/OrganizationForm"
+import Header from "../../components/header/Header"
+import { useUser } from "../../hooks/useUser"
 
 export default function NewOrganization() {
   const [isAuthenticated, isLoadingUser] = useUser()

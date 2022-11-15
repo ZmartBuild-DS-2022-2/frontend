@@ -1,22 +1,34 @@
-/* eslint-disable max-len */
 import Image from "next/image"
+import Link from "next/link"
 
-export default function OrganizationCard({ org }) {
+export default function OrganizationCard({ data }) {
   return (
-    <a
-      className="flex items-center rounded w-4/5 py-4 md:w-1/2 h-1/2 border focus-within:border-gray-400 hover:shadow-md"
-      href={`/organizations/${org.id}`}
+    <div
+      className="flex justify-between px-2 sm:px-5 py-3 border rounded-md gap-x-3 
+      max-w-3xl w-full text-sm sm:text-base"
     >
-      <div className="relative h-3/5 md:h-full aspect-square rounded-full ml-4 flex items-center">
+      <div
+        className="flex justify-center items-center relative h-[70px] lg:h-[80px] aspect-square 
+        border border-gray-200 rounded-full self-center"
+      >
         <Image
-          src={org.imgUrl}
+          src={"/LogoZmartBuild.png"}
           layout="fill"
           objectFit="contain"
           objectPosition="left"
-          alt="orgImg"
+          alt="projectImg"
         />
       </div>
-      <div className="grow ml-4 text-lg font-semibold">{org.name}</div>
-    </a>
+
+      <div className="grow">
+        <Link href={`/organizations/${data.id}`}>
+          <a className="font-bold text-gray-700 text-base md:text-xl line-clamp-1 hover:underline">
+            {` ${data.name}`}
+          </a>
+        </Link>
+
+        <p className="line-clamp-3">{data.description}</p>
+      </div>
+    </div>
   )
 }
