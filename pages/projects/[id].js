@@ -10,9 +10,8 @@ import ProjectInfo from "../../components/projects/ProjectInfo"
 export default function Home() {
   const router = useRouter()
   const [projectData, isLoading, error] = useMockFetch({
-    url: "/project",
+    url: `/projects/${router.query.id}`,
     method: "get",
-    params: router.query,
   })
   const [isAuthenticated, isLoadingUser] = useUser()
 
@@ -47,7 +46,7 @@ export default function Home() {
             {!isLoading && error && <div>{JSON.stringify(error)}</div>}
 
             {projectData && (
-              <section className="grid place-items-center lg:mx-44 lg:my-10">
+              <section className="grid place-items-center w-11/12 lg:w-3/4 mx-auto lg:my-10">
                 <ProjectInfo data={projectData} />
               </section>
             )}

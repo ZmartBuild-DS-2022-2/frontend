@@ -1,6 +1,6 @@
-const projectFields = [
+const subprojectFields = [
   {
-    title: "Project Name",
+    title: "Subproject Name (*)",
     name: "name",
     type: "text",
     placeholder: "Miles Bridge Construction",
@@ -13,18 +13,29 @@ const projectFields = [
     type: "text",
     placeholder: "Squared m2, location, etc",
     class: "block w-full appearance-none focus:outline-none bg-transparent",
+    maxLength: 300,
+    validations: { required: false },
+  },
+  {
+    title: "gltf file",
+    name: "gltf_file",
+    type: "file",
+    placeholder: "Upload File",
+    class: "hidden",
+    typeFile: ".gltf",
     validations: { required: true },
   },
   {
-    title: "Location",
-    name: "location",
-    type: "text",
-    placeholder: "Miami, Florida",
-    class: "block w-full appearance-none focus:outline-none bg-transparent",
+    title: "bin file",
+    name: "bin_file",
+    type: "file",
+    placeholder: "Upload File",
+    class: "hidden",
+    typeFile: ".bin",
     validations: { required: true },
   },
   {
-    title: "Project Images",
+    title: "Subproject Images",
     name: "images",
     type: "file",
     placeholder: "Upload File",
@@ -34,4 +45,4 @@ const projectFields = [
   },
 ]
 
-export default projectFields
+export default subprojectFields

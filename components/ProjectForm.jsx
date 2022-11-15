@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
-import { backendFetch } from "../services"
 import projectFields from "../constants/forms/project"
 import PrimaryButton from "./basics/PrimaryButton"
 import Image from "next/image"
+import { mockBackendFetch } from "../services"
 
 function inputField(field, register) {
   if (field.type == "file") {
@@ -68,9 +68,10 @@ export default function ProjectForm() {
 
   const onSubmit = async ({ name, description, location, file }) => {
     try {
-      await backendFetch({
+      await mockBackendFetch({
         url: "/newproject",
         method: "post",
+        headers: { "Content-Type": "multipart/form-data" },
         data: { name, description, location, file },
       })
       router.push({ pathname: "/projects" })

@@ -1,20 +1,19 @@
-import { useMockFetch } from "../../hooks/useFetch"
 import Head from "next/head"
-import Header from "../../components/header/Header"
-import { useUser } from "../../hooks/useUser"
+import PageSpinner from "../../../../components/PageSpinner"
+import Header from "../../../../components/header/Header"
+import { useUser } from "../../../../hooks/useUser"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
-import PageSpinner from "../../components/PageSpinner"
-import OrganizationInfo from "../../components/organizations/OrganizationInfo"
+import { useMockFetch } from "../../../../hooks/useFetch"
+import SubprojectInfo from "../../../../components/subprojects/SubprojectInfo"
 
-export default function Home() {
+export default function NewProject() {
+  const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()
-  // Este endpoint tiene que traerse los proyectos asociados utilizando eagger loading
-  const [organization, isLoading, error] = useMockFetch({
-    url: `/organizations/${router.query.id}`,
+  const [subprojectData, isLoading, error] = useMockFetch({
+    url: `/subprojects/${router.query.idSubProject}`,
     method: "get",
   })
-  const [isAuthenticated, isLoadingUser] = useUser()
 
   useEffect(() => {
     if (!isLoadingUser && !isAuthenticated) {
@@ -46,9 +45,9 @@ export default function Home() {
 
             {!isLoading && error && <div>{JSON.stringify(error)}</div>}
 
-            {organization && (
-              <section className="grid place-items-center lg:mx-44 lg:my-10">
-                <OrganizationInfo data={organization} />
+            {subprojectData && (
+              <section className="grid place-items-center w-11/12 lg:w-3/4 mx-auto lg:my-10">
+                <SubprojectInfo data={subprojectData} />
               </section>
             )}
           </main>
