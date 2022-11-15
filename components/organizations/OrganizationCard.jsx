@@ -1,5 +1,5 @@
-import Image from "next/image"
 import Link from "next/link"
+import ImageWithFallback from "../basics/ImageWithFallBack"
 
 export default function OrganizationCard({ data }) {
   return (
@@ -8,15 +8,17 @@ export default function OrganizationCard({ data }) {
       max-w-3xl w-full text-sm sm:text-base"
     >
       <div
-        className="flex justify-center items-center relative h-[70px] lg:h-[80px] aspect-square 
+        className="flex justify-center items-center relative h-[70px] w-[70px]
+        lg:h-[80px] lg:w-[80px] aspect-square 
         border border-gray-200 rounded-full self-center"
       >
-        <Image
-          src={"/LogoZmartBuild.png"}
+        <ImageWithFallback
+          src={data.imgUrl}
           layout="fill"
           objectFit="contain"
           objectPosition="left"
           alt="projectImg"
+          className="rounded-full"
         />
       </div>
 
