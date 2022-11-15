@@ -1,6 +1,6 @@
 import Head from "next/head"
 import PageSpinner from "../../../../components/PageSpinner"
-// import SubprojectForm from "../../../../components/subprojects/SubprojectForm"
+import SubprojectForm from "../../../../components/subprojects/SubprojectForm"
 import Header from "../../../../components/header/Header"
 import { useUser } from "../../../../hooks/useUser"
 import { useEffect } from "react"
@@ -31,7 +31,7 @@ export default function NewProject() {
       ) : (
         <>
           <Header />
-          <main>{/* <SubprojectForm /> */}</main>
+          <main><SubprojectForm /></main>
         </>
       )}
     </>
