@@ -52,8 +52,7 @@ export default function Home() {
             {subprojects && (
               <>
                 <div className="flex-col items-center text-center my-4">
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">Caucau</h1>
-                  {/* <h4>From {project.title}</h4> */}
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">ORGANIZATION</h1>
                 </div>
                 <div className="w-full grid grid-col-1 justify-items-center ">
                   <div className="px-5 md:w-1/2">
