@@ -1,25 +1,54 @@
+import Link from "next/link"
+import { useState } from "react"
+import PrimaryButton from "../basics/PrimaryButton"
+import Carousel from "../Carousel"
 import Model from "../Model"
 
-export default function SubprojectInfo({ subproject }) {
+export default function SubprojectInfo({ data }) {
+  const [showModel, setShowModel] = useState(false)
+  const handleShowModel = () => {
+    setShowModel(true)
+  }
+
   return (
-    <div className="rounded w-3/4 h-1/2 mx-auto border focus-within:border-gray-400">
-      <div className="w-full text-center my-8">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">{subproject.title}</h1>
+    <div className="rounded lg:border box-border w-full md:py-5 md:px-9 lg:px-10">
+      <div className="w-full box-border text-center">
+        <h1 className="text-2xl md:text-4xl lg:text-5xl font-semibold mb-1 sm:mb-2">
+          {data?.name}
+        </h1>
+        <h3 className="text-xs md:text-sm italic text-gray-600">
+          From{" "}
+          <Link href="">
+            <a className="underline md:no-underline hover:underline">{data.organization.name}</a>
+          </Link>
+        </h3>
       </div>
 
-      <div className="text-left mt-20 mx-8">
-        <h1 className="text-2xl md:text-2xl lg:text-2xl font-semibold">Work Plan Description</h1>
+      {data.images.length > 0 && <Carousel images={data?.images} />}
+
+      <div className="text-left">
+        <h1 className="text-xl md:text-2xl lg:text-2xl font-semibold mb-1 md:mb-2">Description</h1>
+        <p className="text-xs sm:text-base">{data?.description}</p>
       </div>
 
-      <div className="text-left mt-2 mx-8 text-justify">
-        <h1 className="text-1xl md:text-1xl lg:text-1x">{subproject.description}</h1>
-      </div>
+      {!showModel && (
+        <div className="flex justify-center my-3">
+          <PrimaryButton
+            className="bg-primary text-primary-contrast hover:bg-primary-hover text-sm 
+              md:text-base"
+            onClick={handleShowModel}
+          >
+            Load 3D Model
+          </PrimaryButton>
+        </div>
+      )}
 
-      <div className="text-left mt-10 mx-8 text-center">
-        <h1 className="text-2xl md:text-2xl lg:text-2xl font-semibold">Project Models</h1>
-      </div>
-
-      <Model name={"test"} scale={0.5} autoRotate={true} />
+      {showModel && (
+        <div className="flex flex-col my-3 w-full box-border items-start">
+          <h1 className="text-xl md:text-2xl lg:text-2xl font-semibold mb-1 md:mb-2">3D Model</h1>
+          <Model url={data?.modelUrl} />
+        </div>
+      )}
     </div>
   )
 }

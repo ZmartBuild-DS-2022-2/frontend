@@ -2,15 +2,15 @@ import Head from "next/head"
 import PageSpinner from "../../../../components/PageSpinner"
 import Header from "../../../../components/header/Header"
 import { useUser } from "../../../../hooks/useUser"
-import LoadModel from "../../../../components/Model"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
 import { useMockFetch } from "../../../../hooks/useFetch"
+import SubprojectInfo from "../../../../components/subprojects/SubprojectInfo"
 
 export default function NewProject() {
   const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()
-  const [subproject, isLoading, error] = useMockFetch({
+  const [subprojectData, isLoading, error] = useMockFetch({
     url: `/subprojects/${router.query.idSubProject}`,
     method: "get",
   })
@@ -44,10 +44,12 @@ export default function NewProject() {
             )}
 
             {!isLoading && error && <div>{JSON.stringify(error)}</div>}
-            <div className="grid justify-items-center">
-              <h1>{subproject?.name}</h1>
-              <LoadModel url={subproject?.modelUrl} />
-            </div>
+
+            {subprojectData && (
+              <section className="grid place-items-center w-11/12 lg:w-3/4 mx-auto lg:my-10">
+                <SubprojectInfo data={subprojectData} />
+              </section>
+            )}
           </main>
         </>
       )}
