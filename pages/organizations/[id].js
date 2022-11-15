@@ -11,9 +11,8 @@ export default function Home() {
   const router = useRouter()
   // Este endpoint tiene que traerse los proyectos asociados utilizando eagger loading
   const [organization, isLoading, error] = useMockFetch({
-    url: "/organization",
+    url: `/organizations/${router.query.id}`,
     method: "get",
-    params: router.query,
   })
   const [isAuthenticated, isLoadingUser] = useUser()
 

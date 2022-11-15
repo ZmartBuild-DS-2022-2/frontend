@@ -10,7 +10,7 @@ import ProjectInfo from "../../components/projects/ProjectInfo"
 export default function Home() {
   const router = useRouter()
   const [projectData, isLoading, error] = useMockFetch({
-    url: `/project/${router.query.id}`,
+    url: `/projects/${router.query.id}`,
     method: "get",
   })
   const [isAuthenticated, isLoadingUser] = useUser()
