@@ -46,9 +46,7 @@ export default function Home() {
             {!isLoading && error && <div>{JSON.stringify(error)}</div>}
 
             {projectData && (
-              <section 
-                className="grid place-items-center w-11/12 lg:w-3/4 mx-auto lg:mx-44 lg:my-10"
-              >
+              <section className="grid place-items-center w-11/12 lg:w-3/4 mx-auto lg:my-10">
                 <ProjectInfo data={projectData} />
               </section>
             )}
