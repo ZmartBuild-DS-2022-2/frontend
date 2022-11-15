@@ -6,10 +6,10 @@ import {
   Bars3Icon,
   ChevronDownIcon,
   ChevronUpIcon,
-  FolderIcon,
   Cog8ToothIcon,
   ArrowRightOnRectangleIcon,
   EnvelopeIcon,
+  UserGroupIcon,
 } from "@heroicons/react/24/solid"
 
 export default function HeaderDropdown() {
@@ -72,11 +72,11 @@ export default function HeaderDropdown() {
           className="flex flex-col gap-y-3 w-40 sm:w-52 absolute py-4 px-3 rounded-md shadow-md
           bg-slate-100 right-0 text-primary-neutral"
         >
-          <Link href="/projects">
+          <Link href="/organizations">
             <a>
               <div className="flex gap-x-2 items-center transition-transform hover:scale-105">
-                <FolderIcon className="h-6 w-6" />
-                <p>My projects</p>
+                <UserGroupIcon className="h-6 w-6" />
+                <p>My organizations</p>
               </div>
             </a>
           </Link>
