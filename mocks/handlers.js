@@ -158,7 +158,7 @@ export const handlers = [
   }),
 
   // Subprojects requests
-  rest.get("/api/project/:id/subprojects", (req, res, ctx) => {
+  rest.get("/api/projects/:id/subprojects", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json([
@@ -181,12 +181,12 @@ export const handlers = [
     )
   }),
 
-  rest.get("/api/project/:id/subprojects/:idSubProject", (req, res, ctx) => {
-    const idSubProject = req.url.searchParams.getAll("idSubProject")
+  rest.get("/api/subprojects/:id", (req, res, ctx) => {
+    const { id } = req.params
     return res(
       ctx.status(200),
       ctx.json({
-        id: idSubProject,
+        id: id,
         name: "Foundations",
         description: "Foundations model with measures",
         modelUrl: "https://zb-bucket-models.s3.amazonaws.com/test/scene.gltf",
@@ -194,7 +194,7 @@ export const handlers = [
     )
   }),
 
-  rest.post("/api/project/:id/subprojects/new", (req, res, ctx) => {
+  rest.post("/api/projects/:id/subprojects/new", (req, res, ctx) => {
     return res(
       ctx.status(201),
       ctx.json({

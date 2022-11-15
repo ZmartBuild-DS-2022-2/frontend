@@ -10,13 +10,13 @@ function Loader() {
   return <Html center>{Math.round(progress)} % loaded</Html>
 }
 
-const Model = ({ name, scale }) => {
+const Model = ({ url, scale }) => {
   // location of the 3D model, currently we have to save the model in the directory,
   // so the name is the name of the folder where the model is saved
   // For the moment the name and url is hardcoded
 
   // eslint-disable-next-line max-len
-  const gltf = useLoader(GLTFLoader, `https://zb-bucket-models.s3.amazonaws.com/${name}/scene.gltf`)
+  const gltf = useLoader(GLTFLoader, url)
 
   return (
     <>
@@ -26,14 +26,14 @@ const Model = ({ name, scale }) => {
   )
 }
 
-export default function LoadModel({ name, scale, autoRotate }) {
+export default function LoadModel({ url, scale = 0.8, autoRotate = false }) {
   return (
-    <div className="w-1/2 h-80 my-5 rounded-sm mx-auto border border-black">
+    <div className="my-5 rounded-sm w-[80vw] h-[80vh] border">
       <Canvas camera={{ position: [0, 0, 4], fov: 50 }}>
         <ambientLight intensity={1.7} />
         <spotLight intensity={0.5} angle={0.1} penumbra={1} position={[10, 15, 10]} castShadow />
         <Suspense fallback={<Loader />}>
-          <Model name={name} scale={scale} />
+          <Model url={url} scale={scale} />
           {/* To add environment effect to the model */}
           <Environment preset="city" />
         </Suspense>

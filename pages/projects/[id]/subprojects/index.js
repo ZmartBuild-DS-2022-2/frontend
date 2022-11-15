@@ -11,8 +11,9 @@ import { PlusIcon } from "@heroicons/react/24/solid"
 
 export default function Home() {
   const router = useRouter()
+  const current_path = `/projects/${router.query.id}/subprojects`
   const [subprojects, isLoading, error] = useMockFetch({
-    url: `/project/${router.query.id}/subprojects`,
+    url: current_path,
     method: "get",
   })
   const [isAuthenticated, isLoadingUser] = useUser()
@@ -78,7 +79,13 @@ export default function Home() {
                   <section className="flex justify-center items-center">
                     <div className="inline-flex flex-col items-center gap-4  w-full ">
                       {subprojects.map((subproj) => {
-                        return <SubprojectCard key={subproj.id} subproject={subproj} />
+                        return (
+                          <SubprojectCard
+                            key={subproj.id}
+                            subproject={subproj}
+                            current_path={current_path}
+                          />
+                        )
                       })}
                     </div>
                   </section>

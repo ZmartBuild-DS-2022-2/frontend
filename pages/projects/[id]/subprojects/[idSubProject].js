@@ -1,20 +1,19 @@
-import { useMockFetch } from "../../../../hooks/useFetch"
 import Head from "next/head"
+import PageSpinner from "../../../../components/PageSpinner"
 import Header from "../../../../components/header/Header"
 import { useUser } from "../../../../hooks/useUser"
+import LoadModel from "../../../../components/Model"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
-import PageSpinner from "../../../../components/PageSpinner"
-import SubprojectInfo from "../../../../components/subprojects/SubprojectInfo"
+import { useMockFetch } from "../../../../hooks/useFetch"
 
-export default function Home() {
+export default function NewProject() {
+  const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()
   const [subproject, isLoading, error] = useMockFetch({
-    url: "/subproject",
+    url: `/subprojects/${router.query.idSubProject}`,
     method: "get",
-    params: router.query,
   })
-  const [isAuthenticated, isLoadingUser] = useUser()
 
   useEffect(() => {
     if (!isLoadingUser && !isAuthenticated) {
@@ -45,8 +44,10 @@ export default function Home() {
             )}
 
             {!isLoading && error && <div>{JSON.stringify(error)}</div>}
-
-            <SubprojectInfo subproject={subproject} />
+            <div className="grid justify-items-center">
+              <h1>{subproject?.name}</h1>
+              <LoadModel url={subproject?.modelUrl} />
+            </div>
           </main>
         </>
       )}
