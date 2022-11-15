@@ -1,38 +1,59 @@
 const OrganizationFields = [
   {
-    title: "Organization Name",
+    title: "Organization Name (*)",
     name: "name",
     type: "text",
     placeholder: "My Company S.A.",
-    class: "block w-full appearance-none focus:outline-none bg-transparent",
-    validations: { required: false },
+    class: "border-none outline-none pl-0 w-full",
+    validations: {
+      required: { value: true, message: "Organization name can't be empty" },
+      pattern: {
+        value: /^[a-zA-Z][a-zA-Z0-9 . \- ]{2,25}$/,
+        message: "Provide a valid name (min. 2 characters and max. 20)",
+      },
+    },
   },
   {
-    title: "Organization email",
+    title: "Organization Email",
     name: "email",
     type: "email",
     placeholder: "contact@company.com",
-    class: "block w-full appearance-none focus:outline-none bg-transparent",
-    validations: { required: false },
+    class: "border-none outline-none pl-0 w-full",
+    validations: {
+      required: false,
+      pattern: {
+        value: /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/,
+        message: "Enter a valid email address",
+      },
+    },
   },
   {
     title: "Description",
     name: "description",
     type: "text",
     placeholder: "What does this organization do?",
-    class: "block w-full appearance-none focus:outline-none bg-transparent",
+    class: "border-none outline-none pl-0 w-full min-h-min",
+    maxLength: { value: 300, message: "Maximum of 300 characters" },
     validations: { required: false },
   },
   {
-    title: "Organization web site",
+    title: "Organization Web Site",
     name: "websiteUrl",
     type: "text",
     placeholder: "mycompany.com",
-    class: "block w-full appearance-none focus:outline-none bg-transparent",
-    validations: { required: false },
+    class: "border-none outline-none pl-0 w-full",
+    validations: {
+      required: false,
+      pattern: {
+        value:
+          /* eslint-disable */
+          /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
+        message: "Provide a valid URL",
+      },
+    },
   },
   {
-    title: "Organization logo",
+    title: "Organization Logo",
     name: "image",
     type: "file",
     placeholder: "Upload File",

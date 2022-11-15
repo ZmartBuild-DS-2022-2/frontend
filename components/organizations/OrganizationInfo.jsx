@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import Image from "next/image"
 import { Collapse } from "@nextui-org/react"
 import PrimaryLink from "../basics/PrimaryLink"
@@ -31,7 +30,10 @@ export default function OrganizationInfo({ org }) {
                 <>
                   <div key={proj.id} className="w-full h-20 align-middle mb-2">
                     <a className="flex rounded h-full" href={`/projects/${proj.id}`}>
-                      <div className="relative h-full max-w-1/4 aspect-square rounded-full flex items-center">
+                      <div
+                        className="relative h-full max-w-1/4 aspect-square rounded-full flex 
+                        items-center"
+                      >
                         <ImageWithFallback
                           src={proj.imgUrl}
                           layout="fill"

@@ -9,3 +9,11 @@ export const backendFetch = async (requestParams) => {
   const res = await axios(requestParams)
   return res.data
 }
+
+export const mockBackendFetch = async (requestParams) => {
+  axios.defaults.baseURL = "/api"
+  axios.defaults.withCredentials = true
+
+  const res = await axios(requestParams)
+  return res.data
+}
