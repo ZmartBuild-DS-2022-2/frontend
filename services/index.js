@@ -5,7 +5,7 @@ export const backendFetch = async (requestParams) => {
 
   axios.defaults.withCredentials = true
   requestParams.url = BACKEND_HOST + "/api" + requestParams.url
-  
+
   const res = await axios(requestParams)
   return res.data
 }
