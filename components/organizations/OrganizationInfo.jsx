@@ -62,7 +62,7 @@ export default function OrganizationInfo({ data }) {
         <Collapse title="Projects" className="text-xl font-semibold" expanded>
           <div className="flex flex-col gap-4">
             {/* This should be deleted when the Projects model is done */}
-            {data.projects = []}
+            {(data.projects = [])}
             {data.projects.map((project) => {
               return <ProjectCard key={project.id} data={project} />
             })}
