@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 import organizationFields from "../../constants/forms/organization"
 import PrimaryButton from "../basics/PrimaryButton"
-import { mockBackendFetch } from "../../services"
+import { backendFetch } from "../../services"
 import { CloudArrowUpIcon } from "@heroicons/react/24/solid"
 
 const getinputField = (field, register) => {
@@ -55,12 +55,12 @@ export default function OrganizationForm() {
     handleSubmit,
   } = useForm({ mode: "onChange" })
 
-  const onSubmit = async ({ name, description, location, file }) => {
+  const onSubmit = async ({ name, email, description, websiteUrl, image }) => {
     try {
-      await mockBackendFetch({
-        url: "/neworganization",
+      await backendFetch({
+        url: "/organizations",
         method: "post",
-        data: { name, description, location, file },
+        data: { name, email, description, websiteUrl, image },
       })
       router.push({ pathname: "/organizations" })
     } catch (err) {

@@ -1,4 +1,4 @@
-import { useMockFetch } from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 import Head from "next/head"
 import Link from "next/link"
 import Header from "../../components/header/Header"
@@ -10,7 +10,7 @@ import OrganizationCard from "../../components/organizations/OrganizationCard"
 import { PlusIcon } from "@heroicons/react/24/solid"
 
 export default function Home() {
-  const [organizations, isLoading, error] = useMockFetch({ url: "/organizations", method: "get" })
+  const [organizations, isLoading, error] = useFetch({ url: "/organizations", method: "get" })
   const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()
 
