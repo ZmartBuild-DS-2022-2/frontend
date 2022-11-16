@@ -13,10 +13,10 @@ export default function OrganizationCard({ data }) {
         border border-gray-200 rounded-full self-center"
       >
         <ImageWithFallback
-          src={data.imgUrl}
+          src={data.imgUrl ? data.imgUrl : "/fallbackimage.png"}
           layout="fill"
-          objectFit="contain"
-          objectPosition="left"
+          objectFit="cover"
+          objectPosition="center"
           alt="projectImg"
           className="rounded-full"
         />
@@ -25,11 +25,11 @@ export default function OrganizationCard({ data }) {
       <div className="grow">
         <Link href={`/organizations/${data.id}`}>
           <a className="font-bold text-gray-700 text-base md:text-xl line-clamp-1 hover:underline">
-            {` ${data.name}`}
+            {` ${data?.name}`}
           </a>
         </Link>
 
-        <p className="line-clamp-3">{data.description}</p>
+        <p className="line-clamp-3">{data?.description}</p>
       </div>
     </div>
   )
