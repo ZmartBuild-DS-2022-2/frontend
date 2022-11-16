@@ -12,7 +12,7 @@ export default function OrganizationInfo({ data }) {
           border border-gray-200 rounded-lg self-center bg-[#fbfbfb]"
         >
           <ImageWithFallback
-            src={data.imgUrl}
+            src={data.imgUrl ? data.imgUrl : "/fallbackimage.png"}
             layout="fill"
             objectFit="cover"
             objectPosition="center"
@@ -23,9 +23,11 @@ export default function OrganizationInfo({ data }) {
         <div className="flex flex-col grow justify-around">
           <div>
             <h1 className="text-left text-2xl md:text-3xl font-semibold mb-2 text-primary-neutral">
-              {data.name}
+              {data?.name}
             </h1>
-            <p className="text-sm sm:text-base lg:line-clamp-5 text-gray-700">{data.description}</p>
+            <p className="text-sm sm:text-base lg:line-clamp-5 text-gray-700">
+              {data?.description}
+            </p>
           </div>
 
           <div className="flex gap-5 mt-5">
@@ -33,11 +35,11 @@ export default function OrganizationInfo({ data }) {
               <EnvelopeIcon className="h-5 aspect-square fill-gray-700" />
               <a
                 target="_blank"
-                href={`mailto:${data.email}`}
+                href={`mailto:${data?.email}`}
                 rel="noopener noreferrer"
                 className="hover:underline text-gray-700"
               >
-                {data.email}
+                {data?.email}
               </a>
             </div>
 
@@ -45,7 +47,7 @@ export default function OrganizationInfo({ data }) {
               <LinkIcon className="h-5 aspect-square fill-gray-700" />
               <a
                 target="_blank"
-                href={data.websiteUrl}
+                href={data?.websiteUrl}
                 rel="noopener noreferrer"
                 className="hover:underline text-gray-700"
               >
@@ -59,6 +61,8 @@ export default function OrganizationInfo({ data }) {
       <Collapse.Group>
         <Collapse title="Projects" className="text-xl font-semibold" expanded>
           <div className="flex flex-col gap-4">
+            {/* This should be deleted when the Projects model is done */}
+            {data.projects = []}
             {data.projects.map((project) => {
               return <ProjectCard key={project.id} data={project} />
             })}
