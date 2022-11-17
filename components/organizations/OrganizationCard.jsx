@@ -13,7 +13,7 @@ export default function OrganizationCard({ data }) {
         border border-gray-200 rounded-full self-center"
       >
         <ImageWithFallback
-          src={data.imgUrl ? data.imgUrl : "/fallbackimage.png"}
+          src={data.imgUrl}
           layout="fill"
           objectFit="cover"
           objectPosition="center"
