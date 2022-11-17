@@ -25,7 +25,7 @@ const projectFields = [
     placeholder: "Upload File",
     class: "hidden",
     typeFile: ".png, .jpg",
-    validations: { required: false },
+    validations: { required: true },
   },
 ]
 
