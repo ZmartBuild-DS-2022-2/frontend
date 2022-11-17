@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid"
-import Image from "next/image"
+import ImageWithFallback from "./basics/ImageWithFallBack"
 
 export default function Carousel({ images }) {
   const [currentImage, setCurrentImage] = useState(0)
@@ -26,7 +26,12 @@ export default function Carousel({ images }) {
       className="w-full my-2 sm:my-3 md:my-5 box-border relative shadow-md bg-[#fbfbfb] rounded-lg 
       h-52 lg:h-96"
     >
-      <Image src={images[currentImage]} layout="fill" objectFit="contain" alt="projectImg" />
+      <ImageWithFallback
+        src={images[currentImage].url}
+        layout="fill"
+        objectFit="contain"
+        alt="projectImg"
+      />
 
       <div className="absolute left-0 top-0 bottom-0 flex justify-center items-center sm:ml-2">
         <button onClick={decreaseImage} className="w-5 lg:w-10 aspect-square">

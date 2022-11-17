@@ -7,7 +7,7 @@ export default function ProjectInfo({ data }) {
       <div className="w-full text-center">
         <h1 className="text-2xl md:text-4xl lg:text-5xl font-semibold mb-4">{data?.name}</h1>
       </div>
-      {data.imgsUrls.length > 0 && <Carousel images={data?.imgsUrls} />}
+      {data.projectImages.length > 0 && <Carousel images={data?.projectImages} />}
       <div className="text-left">
         <h1 className="text-xl md:text-2xl lg:text-2xl font-semibold mb-1 md:mb-2">Description</h1>
         <p className="text-xs sm:text-base">{data?.description}</p>
