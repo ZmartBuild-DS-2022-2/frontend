@@ -90,9 +90,10 @@ export default function OrganizationInfo({ organizationData }) {
                   <PageSpinner />
                 </div>
               )}
-              {projectsData && projectsData.map((project) => {
-                return <ProjectCard key={project.id} data={project} />
-              })}
+              {projectsData &&
+                projectsData.map((project) => {
+                  return <ProjectCard key={project.id} data={project} />
+                })}
             </div>
           </Collapse>
         </Collapse.Group>
