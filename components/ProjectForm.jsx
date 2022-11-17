@@ -77,7 +77,7 @@ export default function ProjectForm() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="text-center">
-          <h1 className="font-bold text-2xl md:text-3xl text-primary-neutral">New Organization</h1>
+          <h1 className="font-bold text-2xl md:text-3xl text-primary-neutral">New Project</h1>
         </div>
 
         {projectFields.map((field) => {
@@ -99,7 +99,7 @@ export default function ProjectForm() {
           className="bg-primary text-primary-contrast hover:bg-primary-hover"
           disabled={!isValid || isSubmitting}
         >
-          Create organization
+          Create project
         </PrimaryButton>
 
         <div className="text-center text-red-500">
