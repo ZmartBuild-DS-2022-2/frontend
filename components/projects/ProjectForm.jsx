@@ -2,7 +2,6 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 import { CloudArrowUpIcon } from "@heroicons/react/24/solid"
-
 import projectFields from "../../constants/forms/project"
 import PrimaryButton from "../basics/PrimaryButton"
 import { backendFetch } from "../../services"
@@ -64,12 +63,18 @@ export default function ProjectForm() {
   } = useForm({ mode: "onChange" })
 
   const onSubmit = async ({ name, description, images }) => {
-    images = Array.prototype.slice.call(images)
+    let formData = new FormData()
+    formData.append("name", name)
+    formData.append("description", description)
+    Array.from(images).forEach((image) => {
+      formData.append("images", image)
+    })
+
     try {
       await backendFetch({
         url: `/organizations/${router.query.id}/project`,
         method: "post",
-        data: { name, description, images },
+        data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
         },
