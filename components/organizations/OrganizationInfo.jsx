@@ -11,8 +11,8 @@ export default function OrganizationInfo({ organizationData }) {
   const [projectsData, isLoadingProjects, projectError] = useFetch({
     url: "/projects",
     method: "get",
-    params: { organizationId: `${organizationData?.id}` }
-    })
+    params: { organizationId: `${organizationData?.id}` },
+  })
 
   return (
     <div>
