@@ -3,33 +3,21 @@ import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 import projectFields from "../constants/forms/project"
 import PrimaryButton from "./basics/PrimaryButton"
-import Image from "next/image"
-import { mockBackendFetch } from "../services"
+import { CloudArrowUpIcon } from "@heroicons/react/24/solid"
+import { backendFetch } from "../services"
 
-function inputField(field, register) {
+const getinputField = (field, register) => {
   if (field.type == "file") {
     return (
       <label
-        className="flex flex-col rounded-lg border-4 
-                           border-dashed w-full h-60 p-10 group text-center"
+        className="flex flex-col rounded-lg border-2 border-dashed w-full h-40 md:h-60 p-5 md:p-10 
+        cursor-pointer"
       >
-        <div
-          className="h-full w-full text-center flex flex-col 
-                                items-center justify-center"
-        >
-          <div className="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
-            <Image
-              src="/LogoZmartBuild.png"
-              objectFit="contain"
-              alt="ZmartBuild logo"
-              height={200}
-              width={250}
-            />
-          </div>
-          <p className="pointer-none text-gray-500 ">
-            <span className="text-sm">Drag and drop</span> files here <br />
-            or select a file from your computer <br />
-            <span className="text-sm text-gray-400">File type: {field.typeFile}</span>
+        <div className="h-full w-full text-center flex flex-col items-center justify-center">
+          <CloudArrowUpIcon className="fill-gray-700 h-16 md:h-24 aspect-square" />
+          <p className="text-gray-500">
+            Upload a photo from your computer
+            <span className="block text-sm text-gray-400">File type: {field.typeFile}</span>
           </p>
         </div>
         <input type="file" className={field.class} {...register(field.name, field.validations)} />
@@ -41,6 +29,7 @@ function inputField(field, register) {
         className={field.class}
         type={field.type}
         placeholder={field.placeholder}
+        maxLength={field.maxLength.value}
         {...register(field.name, field.validations)}
       />
     )
@@ -62,19 +51,18 @@ export default function ProjectForm() {
 
   const {
     register,
-    formState: { isValid, isSubmitting },
+    formState: { errors, isValid, isSubmitting },
     handleSubmit,
   } = useForm({ mode: "onChange" })
 
-  const onSubmit = async ({ name, description, location, file }) => {
+  const onSubmit = async ({ name, description, images }) => {
     try {
-      await mockBackendFetch({
-        url: "/newproject",
+      await backendFetch({
+        url: `/organizations/${router.query.id}/project`,
         method: "post",
-        headers: { "Content-Type": "multipart/form-data" },
-        data: { name, description, location, file },
+        data: { name, description, images },
       })
-      router.push({ pathname: "/projects" })
+      router.push(`/organizations/${router.query.id}`)
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
       setTimeout(() => setErrorMessage(null), 5000)
@@ -82,23 +70,27 @@ export default function ProjectForm() {
   }
 
   return (
-    <section className="grid h-screen place-items-center">
+    <div className="grid place-items-center pb-4">
       <form
-        className="flex flex-col gap-5 w-72 sm:w-96 sm:border-2 px-5 sm:px-10 py-1 sm:py-10 
+        className="flex flex-col gap-5 w-11/12 sm:w-96 sm:border-2 px-5 sm:px-10 py-1 sm:py-10 
         md:rounded-md bg-transparent md:bg-white"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="text-center">
-          <h1 className="font-bold text-3xl text-primary-neutral">New Project</h1>
+          <h1 className="font-bold text-2xl md:text-3xl text-primary-neutral">New Organization</h1>
         </div>
 
         {projectFields.map((field) => {
           return (
-            <div key={field.name} className="relative border-b-2 focus-within:border-gray-400">
-              <label className="font-bold mb-2 block text-sm text-red-500" htmlFor={field.name}>
+            <div
+              key={field.name}
+              className="relative border-b-2 mb-1 py-1 focus-within:border-gray-400"
+            >
+              <label className="inline-block font-semibold mb-2 text-base" htmlFor={field.name}>
                 {field.title}
               </label>
-              {inputField(field, register)}
+              {getinputField(field, register)}
+              <span className="text-sm text-red-500">{errors[field.name]?.message}</span>
             </div>
           )
         })}
@@ -107,13 +99,13 @@ export default function ProjectForm() {
           className="bg-primary text-primary-contrast hover:bg-primary-hover"
           disabled={!isValid || isSubmitting}
         >
-          Create project
+          Create organization
         </PrimaryButton>
 
         <div className="text-center text-red-500">
           <span>{errorMessage}</span>
         </div>
       </form>
-    </section>
+    </div>
   )
 }

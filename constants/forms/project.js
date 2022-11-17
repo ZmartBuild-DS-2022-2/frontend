@@ -5,7 +5,9 @@ const projectFields = [
     type: "text",
     placeholder: "Miles Bridge Construction",
     class: "block w-full appearance-none focus:outline-none bg-transparent",
-    validations: { required: true },
+    validations: {
+      required: { value: true, message: "Project name can't be empty" },
+    },
   },
   {
     title: "Description",
@@ -13,15 +15,8 @@ const projectFields = [
     type: "text",
     placeholder: "Squared m2, location, etc",
     class: "block w-full appearance-none focus:outline-none bg-transparent",
-    validations: { required: true },
-  },
-  {
-    title: "Location",
-    name: "location",
-    type: "text",
-    placeholder: "Miami, Florida",
-    class: "block w-full appearance-none focus:outline-none bg-transparent",
-    validations: { required: true },
+    maxLength: 250,
+    validations: { required: false },
   },
   {
     title: "Project Images",

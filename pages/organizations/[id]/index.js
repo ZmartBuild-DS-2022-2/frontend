@@ -1,11 +1,11 @@
-import { useFetch } from "../../hooks/useFetch"
+import { useFetch } from "../../../hooks/useFetch"
 import Head from "next/head"
-import Header from "../../components/header/Header"
-import { useUser } from "../../hooks/useUser"
+import Header from "../../../components/header/Header"
+import { useUser } from "../../../hooks/useUser"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
-import PageSpinner from "../../components/PageSpinner"
-import OrganizationInfo from "../../components/organizations/OrganizationInfo"
+import PageSpinner from "../../../components/PageSpinner"
+import OrganizationInfo from "../../../components/organizations/OrganizationInfo"
 
 export default function Home() {
   const router = useRouter()
