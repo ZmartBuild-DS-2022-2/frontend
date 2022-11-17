@@ -4,7 +4,7 @@ import Image from "next/image"
 const ImageWithFallback = (props) => {
   const fallbackSrc = "/fallbackimage.png"
   const { src, alt, ...rest } = props
-  const [imgSrc, setImgSrc] = useState(src)
+  const [imgSrc, setImgSrc] = useState(src ? src : "")
 
   return (
     <Image

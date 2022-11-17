@@ -1,6 +1,6 @@
 import Head from "next/head"
 import PageSpinner from "../../../components/PageSpinner"
-import ProjectForm from "../../../components/ProjectForm"
+import ProjectForm from "../../../components/projects/ProjectForm"
 import Header from "../../../components/header/Header"
 import { useUser } from "../../../hooks/useUser"
 import { useEffect } from "react"
