@@ -9,9 +9,10 @@ import PageSpinner from "../PageSpinner"
 export default function OrganizationInfo({ organizationData }) {
   // Este endpoint tiene que traerse los proyectos asociados utilizando eagger loading
   const [projectsData, isLoadingProjects, projectError] = useFetch({
-    url: `/projects?organizationId=${organizationData?.id}`,
+    url: "/projects",
     method: "get",
-  })
+    params: { organizationId: `${organizationData?.id}` }
+    })
 
   return (
     <div>
