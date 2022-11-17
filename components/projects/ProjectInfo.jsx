@@ -8,7 +8,7 @@ export default function ProjectInfo({ data }) {
         <h1 className="text-2xl md:text-4xl lg:text-5xl font-semibold mb-4">{data?.name}</h1>
       </div>
       {/* This should be deleted when images system is done */}
-      {data.images = []}
+      {(data.images = [])}
       {data.images.length > 0 && <Carousel images={data?.images} />}
       <div className="text-left">
         <h1 className="text-xl md:text-2xl lg:text-2xl font-semibold mb-1 md:mb-2">Description</h1>
