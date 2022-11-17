@@ -9,7 +9,7 @@ export default function ProjectCard({ data }) {
       bg-[#fbfbfb]"
       >
         <ImageWithFallback
-          src={data.imgUrl}
+          src={data.imgUrl ? data.imgUrl : "/fallbackimage.png"}
           layout="fill"
           objectFit="cover"
           objectPosition="center"
@@ -18,8 +18,8 @@ export default function ProjectCard({ data }) {
       </div>
 
       <div className="grow flex items-start">
-        <Link href={`/projects/${data.id}`}>
-          <a className="text-base lg:text-md hover:underline font-medium">{data.name}</a>
+        <Link href={`/projects/${data?.id}`}>
+          <a className="text-base lg:text-md hover:underline font-medium">{data?.name}</a>
         </Link>
       </div>
     </div>
