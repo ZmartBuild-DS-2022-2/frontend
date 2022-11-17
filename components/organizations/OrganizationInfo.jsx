@@ -21,7 +21,7 @@ export default function OrganizationInfo({ organizationData }) {
           border border-gray-200 rounded-lg bg-[#fbfbfb]"
         >
           <ImageWithFallback
-            src={organizationData.imgUrl ? organizationData.imgUrl : "/fallbackimage.png"}
+            src={organizationData.imgUrl}
             layout="fill"
             objectFit="cover"
             objectPosition="center"

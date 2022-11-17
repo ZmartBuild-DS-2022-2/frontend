@@ -9,7 +9,7 @@ export default function ProjectCard({ data }) {
       bg-[#fbfbfb]"
       >
         <ImageWithFallback
-          src={data.imgUrl ? data.imgUrl : "/fallbackimage.png"}
+          src={data.imgsUrls[0]}
           layout="fill"
           objectFit="cover"
           objectPosition="center"

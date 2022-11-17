@@ -54,7 +54,7 @@ const OrganizationFields = [
   },
   {
     title: "Organization Logo",
-    name: "image",
+    name: "file",
     type: "file",
     placeholder: "Upload File",
     class: "hidden",

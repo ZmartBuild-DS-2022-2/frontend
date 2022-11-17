@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["static.dw.com"],
+    domains: ["static.dw.com", "zb-bucket-models.s3.amazonaws.com"],
   },
 }
 

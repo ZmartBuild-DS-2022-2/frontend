@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
-import projectFields from "../constants/forms/project"
-import PrimaryButton from "./basics/PrimaryButton"
 import { CloudArrowUpIcon } from "@heroicons/react/24/solid"
-import { backendFetch } from "../services"
+
+import projectFields from "../../constants/forms/project"
+import PrimaryButton from "../basics/PrimaryButton"
+import { backendFetch } from "../../services"
 
 const getinputField = (field, register) => {
   if (field.type == "file") {
@@ -20,7 +21,14 @@ const getinputField = (field, register) => {
             <span className="block text-sm text-gray-400">File type: {field.typeFile}</span>
           </p>
         </div>
-        <input type="file" className={field.class} {...register(field.name, field.validations)} />
+        <input
+          type="file"
+          multiple="multiple"
+          accept={field.typeFile}
+          ref={register}
+          className={field.class}
+          {...register(field.name, field.validations)}
+        />
       </label>
     )
   } else if (field.name == "description") {
@@ -56,11 +64,15 @@ export default function ProjectForm() {
   } = useForm({ mode: "onChange" })
 
   const onSubmit = async ({ name, description, images }) => {
+    images = Array.prototype.slice.call(images)
     try {
       await backendFetch({
         url: `/organizations/${router.query.id}/project`,
         method: "post",
         data: { name, description, images },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
       router.push(`/organizations/${router.query.id}`)
     } catch (err) {
@@ -75,6 +87,7 @@ export default function ProjectForm() {
         className="flex flex-col gap-5 w-11/12 sm:w-96 sm:border-2 px-5 sm:px-10 py-1 sm:py-10 
         md:rounded-md bg-transparent md:bg-white"
         onSubmit={handleSubmit(onSubmit)}
+        encType="multipart/form-data"
       >
         <div className="text-center">
           <h1 className="font-bold text-2xl md:text-3xl text-primary-neutral">New Project</h1>
