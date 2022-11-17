@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
-import organizationFields from "../../constants/forms/organization"
+import { CloudArrowUpIcon } from "@heroicons/react/24/solid"
+import projectFields from "../../constants/forms/project"
 import PrimaryButton from "../basics/PrimaryButton"
 import { backendFetch } from "../../services"
-import { CloudArrowUpIcon } from "@heroicons/react/24/solid"
 
 const getinputField = (field, register) => {
   if (field.type == "file") {
@@ -22,6 +22,7 @@ const getinputField = (field, register) => {
         </div>
         <input
           type="file"
+          multiple="multiple"
           accept={field.typeFile}
           ref={register}
           className={field.class}
@@ -51,7 +52,7 @@ const getinputField = (field, register) => {
   }
 }
 
-export default function OrganizationForm() {
+export default function ProjectForm() {
   const router = useRouter()
   const [errorMessage, setErrorMessage] = useState(null)
 
@@ -61,21 +62,27 @@ export default function OrganizationForm() {
     handleSubmit,
   } = useForm({ mode: "onChange" })
 
-  const onSubmit = async ({ name, email, description, websiteUrl, file }) => {
-    let image = file[0]
+  const onSubmit = async ({ name, description, images }) => {
+    let formData = new FormData()
+    formData.append("name", name)
+    formData.append("description", description)
+    Array.from(images).forEach((image) => {
+      formData.append("images", image)
+    })
+
     try {
       await backendFetch({
-        url: "/organizations",
+        url: `/organizations/${router.query.id}/project`,
         method: "post",
+        data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        data: { name, email, description, websiteUrl, image },
       })
-      router.push({ pathname: "/organizations" })
+      router.push(`/organizations/${router.query.id}`)
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
-      return setTimeout(() => setErrorMessage(null), 5000)
+      setTimeout(() => setErrorMessage(null), 5000)
     }
   }
 
@@ -88,10 +95,10 @@ export default function OrganizationForm() {
         encType="multipart/form-data"
       >
         <div className="text-center">
-          <h1 className="font-bold text-2xl md:text-3xl text-primary-neutral">New Organization</h1>
+          <h1 className="font-bold text-2xl md:text-3xl text-primary-neutral">New Project</h1>
         </div>
 
-        {organizationFields.map((field) => {
+        {projectFields.map((field) => {
           return (
             <div
               key={field.name}
@@ -110,7 +117,7 @@ export default function OrganizationForm() {
           className="bg-primary text-primary-contrast hover:bg-primary-hover"
           disabled={!isValid || isSubmitting}
         >
-          Create organization
+          Create project
         </PrimaryButton>
 
         <div className="text-center text-red-500">

@@ -1,4 +1,4 @@
-import { useMockFetch } from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 import Head from "next/head"
 import Header from "../../components/header/Header"
 import { useUser } from "../../hooks/useUser"
@@ -9,7 +9,7 @@ import ProjectInfo from "../../components/projects/ProjectInfo"
 
 export default function Home() {
   const router = useRouter()
-  const [projectData, isLoading, error] = useMockFetch({
+  const [projectData, isLoading, error] = useFetch({
     url: `/projects/${router.query.id}`,
     method: "get",
   })

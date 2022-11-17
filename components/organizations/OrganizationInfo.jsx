@@ -1,18 +1,28 @@
 import { Collapse } from "@nextui-org/react"
-import { LinkIcon, EnvelopeIcon } from "@heroicons/react/24/solid"
+import { LinkIcon, EnvelopeIcon, PlusIcon } from "@heroicons/react/24/solid"
 import ImageWithFallback from "../basics/ImageWithFallBack"
 import ProjectCard from "../projects/ProjectCard"
+import Link from "next/link"
+import { useFetch } from "../../hooks/useFetch"
+import PageSpinner from "../PageSpinner"
 
-export default function OrganizationInfo({ data }) {
+export default function OrganizationInfo({ organizationData }) {
+  // Este endpoint tiene que traerse los proyectos asociados utilizando eagger loading
+  const [projectsData, isLoadingProjects, projectError] = useFetch({
+    url: "/projects",
+    method: "get",
+    params: { organizationId: `${organizationData?.id}` },
+  })
+
   return (
-    <div className="">
-      <div className="flex justify-center gap-5">
+    <div>
+      <div className="flex flex-col md:flex-row gap-5">
         <div
           className="flex justify-center items-center relative lg:h-60 aspect-square 
-          border border-gray-200 rounded-lg self-center bg-[#fbfbfb]"
+          border border-gray-200 rounded-lg bg-[#fbfbfb]"
         >
           <ImageWithFallback
-            src={data.imgUrl ? data.imgUrl : "/fallbackimage.png"}
+            src={organizationData.imgUrl}
             layout="fill"
             objectFit="cover"
             objectPosition="center"
@@ -23,10 +33,10 @@ export default function OrganizationInfo({ data }) {
         <div className="flex flex-col grow justify-around">
           <div>
             <h1 className="text-left text-2xl md:text-3xl font-semibold mb-2 text-primary-neutral">
-              {data?.name}
+              {organizationData?.name}
             </h1>
             <p className="text-sm sm:text-base lg:line-clamp-5 text-gray-700">
-              {data?.description}
+              {organizationData?.description}
             </p>
           </div>
 
@@ -35,11 +45,11 @@ export default function OrganizationInfo({ data }) {
               <EnvelopeIcon className="h-5 aspect-square fill-gray-700" />
               <a
                 target="_blank"
-                href={`mailto:${data?.email}`}
+                href={`mailto:${organizationData?.email}`}
                 rel="noopener noreferrer"
                 className="hover:underline text-gray-700"
               >
-                {data?.email}
+                {organizationData?.email}
               </a>
             </div>
 
@@ -47,7 +57,7 @@ export default function OrganizationInfo({ data }) {
               <LinkIcon className="h-5 aspect-square fill-gray-700" />
               <a
                 target="_blank"
-                href={data?.websiteUrl}
+                href={organizationData?.websiteUrl}
                 rel="noopener noreferrer"
                 className="hover:underline text-gray-700"
               >
@@ -58,17 +68,37 @@ export default function OrganizationInfo({ data }) {
         </div>
       </div>
 
-      <Collapse.Group>
-        <Collapse title="Projects" className="text-xl font-semibold" expanded>
-          <div className="flex flex-col gap-4">
-            {/* This should be deleted when the Projects model is done */}
-            {(data.projects = [])}
-            {data.projects.map((project) => {
-              return <ProjectCard key={project.id} data={project} />
-            })}
-          </div>
-        </Collapse>
-      </Collapse.Group>
+      <div className="flex justify-center md:justify-start my-3 md:my-5 ">
+        <Link href={`/organizations/${organizationData?.id}/newproject`}>
+          <a>
+            <div
+              className="flex justify-center items-center gap-2 rounded-md px-2 
+                sm:px-4 py-1.5 disabled:opacity-30 transition-all duration-150 bg-primary 
+                text-primary-contrast hover:bg-primary-hover text-xs sm:text-base"
+            >
+              <PlusIcon className="h-5 md:h-6 aspect-square fill-white" /> Create Project
+            </div>
+          </a>
+        </Link>
+      </div>
+
+      <div>
+        <Collapse.Group>
+          <Collapse title="Projects" className="text-xl font-semibold">
+            <div className="flex flex-col gap-4">
+              {isLoadingProjects && !projectError && (
+                <div className="grid place-items-center">
+                  <PageSpinner />
+                </div>
+              )}
+              {projectsData &&
+                projectsData.map((project) => {
+                  return <ProjectCard key={project.id} data={project} />
+                })}
+            </div>
+          </Collapse>
+        </Collapse.Group>
+      </div>
     </div>
   )
 }

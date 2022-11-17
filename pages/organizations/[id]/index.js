@@ -1,16 +1,16 @@
-import { useFetch } from "../../hooks/useFetch"
+import { useFetch } from "../../../hooks/useFetch"
 import Head from "next/head"
-import Header from "../../components/header/Header"
-import { useUser } from "../../hooks/useUser"
+import Header from "../../../components/header/Header"
+import { useUser } from "../../../hooks/useUser"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
-import PageSpinner from "../../components/PageSpinner"
-import OrganizationInfo from "../../components/organizations/OrganizationInfo"
+import PageSpinner from "../../../components/PageSpinner"
+import OrganizationInfo from "../../../components/organizations/OrganizationInfo"
 
 export default function Home() {
   const router = useRouter()
   // Este endpoint tiene que traerse los proyectos asociados utilizando eagger loading
-  const [organization, isLoading, error] = useFetch({
+  const [organizationData, isLoading, error] = useFetch({
     url: `/organizations/${router.query.id}`,
     method: "get",
   })
@@ -46,9 +46,9 @@ export default function Home() {
 
             {!isLoading && error && <div>{JSON.stringify(error)}</div>}
 
-            {organization && (
+            {organizationData && (
               <section className="grid place-items-center mx-auto lg:my-10">
-                <OrganizationInfo data={organization} />
+                <OrganizationInfo organizationData={organizationData} />
               </section>
             )}
           </main>
