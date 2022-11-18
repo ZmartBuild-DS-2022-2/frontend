@@ -1,5 +1,5 @@
-backend url: https://zmartbuild-api-1brt.onrender.com  
-front url: https://main.d2bcutzftlxj73.amplifyapp.com/
+backend url: https://api.zmartbuild-api.me  
+front url: https://app.zmartbuild-api.me
 
 ## Getting Started
 
