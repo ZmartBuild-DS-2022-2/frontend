@@ -1,25 +1,42 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 import organizationFields from "../../constants/forms/organization"
 import PrimaryButton from "../basics/PrimaryButton"
 import { backendFetch } from "../../services"
 import { CloudArrowUpIcon } from "@heroicons/react/24/solid"
+import ImageWithFallback from "../basics/ImageWithFallBack"
 
-const getinputField = (field, register) => {
+const getinputField = (field, register, uploadedFile) => {
   if (field.type == "file") {
     return (
       <label
         className="flex flex-col rounded-lg border-2 border-dashed w-full h-40 md:h-60 p-5 md:p-10 
         cursor-pointer"
       >
-        <div className="h-full w-full text-center flex flex-col items-center justify-center">
-          <CloudArrowUpIcon className="fill-gray-700 h-16 md:h-24 aspect-square" />
-          <p className="text-gray-500">
-            Upload a photo from your computer
-            <span className="block text-sm text-gray-400">File type: {field.typeFile}</span>
-          </p>
-        </div>
+        {!uploadedFile ? (
+          <div className="h-full w-full text-center flex flex-col items-center justify-center">
+            <CloudArrowUpIcon className="fill-gray-700 h-16 md:h-24 aspect-square" />
+            <p className="text-gray-500">
+              Upload a photo from your computer
+              <span className="block text-sm text-gray-400">File type: {field.typeFile}</span>
+            </p>
+          </div>
+        ) : (
+          <div className="flex flex-col m-auto relative h-full  w-full">
+            <div className="h-4/5 w-full relative">
+              <ImageWithFallback
+                src={uploadedFile.file}
+                alt={"uploaded img"}
+                layout="fill"
+                objectFit="contain"
+              />
+            </div>
+            <div className="">
+              <p>{uploadedFile.name}</p>
+            </div>
+          </div>
+        )}
         <input
           type="file"
           accept={field.typeFile}
@@ -54,12 +71,24 @@ const getinputField = (field, register) => {
 export default function OrganizationForm() {
   const router = useRouter()
   const [errorMessage, setErrorMessage] = useState(null)
+  const [uploadedFile, setUploadedFile] = useState(null)
 
   const {
     register,
+    watch,
     formState: { errors, isValid, isSubmitting },
     handleSubmit,
   } = useForm({ mode: "onChange" })
+
+  useEffect(() => {
+    watch((value, { name }) => {
+      const selectedFile = value[name][0]
+      if (!selectedFile) return setUploadedFile(false)
+      const objectUrl = URL.createObjectURL(selectedFile)
+      setUploadedFile({ file: objectUrl, name: selectedFile.name })
+      return () => URL.revokeObjectURL(objectUrl)
+    })
+  }, [watch])
 
   const onSubmit = async ({ name, email, description, websiteUrl, file }) => {
     let image = file[0]
@@ -100,7 +129,7 @@ export default function OrganizationForm() {
               <label className="inline-block font-semibold mb-2 text-base" htmlFor={field.name}>
                 {field.title}
               </label>
-              {getinputField(field, register)}
+              {getinputField(field, register, uploadedFile)}
               <span className="text-sm text-red-500">{errors[field.name]?.message}</span>
             </div>
           )
