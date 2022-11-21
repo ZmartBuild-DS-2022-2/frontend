@@ -1,25 +1,32 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 import { CloudArrowUpIcon } from "@heroicons/react/24/solid"
 import projectFields from "../../constants/forms/project"
 import PrimaryButton from "../basics/PrimaryButton"
 import { backendFetch } from "../../services"
+import Carousel from "../Carousel"
 
-const getinputField = (field, register) => {
+const getinputField = (field, register, uploadedFiles) => {
   if (field.type == "file") {
     return (
       <label
         className="flex flex-col rounded-lg border-2 border-dashed w-full h-40 md:h-60 p-5 md:p-10 
         cursor-pointer"
       >
-        <div className="h-full w-full text-center flex flex-col items-center justify-center">
-          <CloudArrowUpIcon className="fill-gray-700 h-16 md:h-24 aspect-square" />
-          <p className="text-gray-500">
-            Upload a photo from your computer
-            <span className="block text-sm text-gray-400">File type: {field.typeFile}</span>
-          </p>
-        </div>
+        {!uploadedFiles ? (
+          <div className="h-full w-full text-center flex flex-col items-center justify-center">
+            <CloudArrowUpIcon className="fill-gray-700 h-16 md:h-24 aspect-square" />
+            <p className="text-gray-500">
+              Upload a photo from your computer
+              <span className="block text-sm text-gray-400">File type: {field.typeFile}</span>
+            </p>
+          </div>
+        ) : (
+          <div className="relative h-full w-full">
+            <Carousel images={uploadedFiles} />
+          </div>
+        )}
         <input
           type="file"
           multiple="multiple"
@@ -55,12 +62,26 @@ const getinputField = (field, register) => {
 export default function ProjectForm() {
   const router = useRouter()
   const [errorMessage, setErrorMessage] = useState(null)
+  const [uploadedFiles, setUploadedFiles] = useState(null)
 
   const {
     register,
+    watch,
     formState: { errors, isValid, isSubmitting },
     handleSubmit,
   } = useForm({ mode: "onChange" })
+
+  useEffect(() => {
+    watch((value, { name }) => {
+      if (name == "images") {
+        const selectedFiles = Object.values(value[name])
+        if (!selectedFiles.length) return setUploadedFiles(false)
+        const files = selectedFiles.map((selectedFile) => URL.createObjectURL(selectedFile))
+        setUploadedFiles(files)
+        return () => files.map((element) => URL.revokeObjectURL(element))
+      }
+    })
+  }, [watch])
 
   const onSubmit = async ({ name, description, images }) => {
     let formData = new FormData()
@@ -107,7 +128,7 @@ export default function ProjectForm() {
               <label className="inline-block font-semibold mb-2 text-base" htmlFor={field.name}>
                 {field.title}
               </label>
-              {getinputField(field, register)}
+              {getinputField(field, register, uploadedFiles)}
               <span className="text-sm text-red-500">{errors[field.name]?.message}</span>
             </div>
           )
