@@ -82,11 +82,13 @@ export default function OrganizationForm() {
 
   useEffect(() => {
     watch((value, { name }) => {
-      const selectedFile = value[name][0]
-      if (!selectedFile) return setUploadedFile(false)
-      const objectUrl = URL.createObjectURL(selectedFile)
-      setUploadedFile({ file: objectUrl, name: selectedFile.name })
-      return () => URL.revokeObjectURL(objectUrl)
+      if (name == "file") {
+        const selectedFile = value[name][0]
+        if (!selectedFile) return setUploadedFile(false)
+        const objectUrl = URL.createObjectURL(selectedFile)
+        setUploadedFile({ file: objectUrl, name: selectedFile.name })
+        return () => URL.revokeObjectURL(objectUrl)
+      }
     })
   }, [watch])
 
