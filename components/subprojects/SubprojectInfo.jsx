@@ -24,7 +24,14 @@ export default function SubprojectInfo({ data }) {
         </h3>
       </div>
 
-      {data.images.length > 0 && <Carousel images={data?.images} />}
+      {data.images.length > 0 && (
+        <div
+          className="w-full my-2 sm:my-3 md:my-5 box-border relative shadow-md
+        bg-[#fbfbfb] rounded-lg h-52 lg:h-96"
+        >
+          <Carousel images={data?.images} />
+        </div>
+      )}
 
       <div className="text-left">
         <h1 className="text-xl md:text-2xl lg:text-2xl font-semibold mb-1 md:mb-2">Description</h1>
