@@ -65,15 +65,17 @@ export default function OrganizationForm() {
     let image = file[0]
     try {
       // Regex validation from url
-      // eslint-disable-next-line max-len
-      const httpRegex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_.~#?&=]*)$/
-      const isValid = httpRegex.test(websiteUrl)  
+
+      const httpRegex =
+        // eslint-disable-next-line max-len
+        /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_.~#?&=]*)$/
+      const isValid = httpRegex.test(websiteUrl)
 
       if (!isValid) {
         setErrorMessage("Please provide a valid url for your project")
         return setTimeout(() => setErrorMessage(null), 5000)
       }
-      
+
       await backendFetch({
         url: "/organizations",
         method: "post",
@@ -83,7 +85,6 @@ export default function OrganizationForm() {
         data: { name, email, description, websiteUrl, image },
       })
       router.push({ pathname: "/organizations" })
-      
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
       return setTimeout(() => setErrorMessage(null), 5000)
