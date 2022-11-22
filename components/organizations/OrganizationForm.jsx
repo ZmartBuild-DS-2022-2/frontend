@@ -72,7 +72,7 @@ export default function OrganizationForm() {
       const isValid = httpRegex.test(websiteUrl)
 
       if (!isValid) {
-        setErrorMessage("Please provide a valid url for your project")
+        setErrorMessage("Please provide a valid url for your organization website")
         return setTimeout(() => setErrorMessage(null), 5000)
       }
 
