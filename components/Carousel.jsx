@@ -31,13 +31,13 @@ export default function Carousel({ images }) {
       />
 
       <div className="absolute left-0 top-0 bottom-0 flex justify-center items-center sm:ml-2">
-        <button onClick={decreaseImage} className="w-5 lg:w-10 aspect-square">
+        <button type="button" onClick={decreaseImage} className="w-5 lg:w-10 aspect-square">
           <ArrowLeftCircleIcon className="fill-gray-400 hover:fill-gray-500" />
         </button>
       </div>
 
       <div className="absolute right-0 top-0 bottom-0 flex justify-center items-center sm:mr-2">
-        <button onClick={increaseImage} className="w-5 lg:w-10 aspect-square">
+        <button type="button" onClick={increaseImage} className="w-5 lg:w-10 aspect-square">
           <ArrowRightCircleIcon className="fill-gray-400 hover:fill-gray-500" />
         </button>
       </div>

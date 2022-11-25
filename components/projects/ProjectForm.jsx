@@ -11,8 +11,8 @@ const getinputField = (field, register, uploadedFiles) => {
   if (field.type == "file") {
     return (
       <label
-        className="flex flex-col rounded-lg border-2 border-dashed w-full h-40 md:h-60 p-5 md:p-10 
-        cursor-pointer"
+        className="flex flex-col rounded-lg border-2 border-dashed w-full h-60 p-5 
+        cursor-pointer items-center"
       >
         {!uploadedFiles ? (
           <div className="h-full w-full text-center flex flex-col items-center justify-center">
@@ -32,7 +32,7 @@ const getinputField = (field, register, uploadedFiles) => {
           multiple="multiple"
           accept={field.typeFile}
           ref={register}
-          className={field.class}
+          className={uploadedFiles ? `block ${field.class}` : "hidden"}
           {...register(field.name, field.validations)}
         />
       </label>
