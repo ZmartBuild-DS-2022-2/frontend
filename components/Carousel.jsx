@@ -1,9 +1,14 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid"
 import ImageWithFallback from "./basics/ImageWithFallBack"
 
 export default function Carousel({ images }) {
   const [currentImage, setCurrentImage] = useState(0)
+
+  useEffect(() => {
+    // Reset currentImage when uploading different set of images
+    setCurrentImage(0)
+  }, [images])
 
   const decreaseImage = () => {
     if (currentImage === 0) {
