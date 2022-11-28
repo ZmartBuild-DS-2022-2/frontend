@@ -23,7 +23,7 @@ const projectFields = [
     name: "images",
     type: "file",
     placeholder: "Upload File",
-    class: "hidden",
+    class: "text-xs py-4 w-fit",
     typeFile: ".png, .jpg",
     validations: { required: false },
   },

@@ -3,7 +3,11 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["static.dw.com", "zmartbuild-bucket.s3.amazonaws.com"],
+    domains: [
+      "static.dw.com", 
+      "zmartbuild-bucket.s3.amazonaws.com", 
+      "zb-bucket-models.s3.amazonaws.com"
+    ],
   },
 }
 

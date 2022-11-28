@@ -1,9 +1,14 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid"
 import ImageWithFallback from "./basics/ImageWithFallBack"
 
 export default function Carousel({ images }) {
   const [currentImage, setCurrentImage] = useState(0)
+
+  useEffect(() => {
+    // Reset currentImage when uploading different set of images
+    setCurrentImage(0)
+  }, [images])
 
   const decreaseImage = () => {
     if (currentImage === 0) {
@@ -22,25 +27,22 @@ export default function Carousel({ images }) {
   }
 
   return (
-    <div
-      className="w-full my-2 sm:my-3 md:my-5 box-border relative shadow-md bg-[#fbfbfb] rounded-lg 
-      h-52 lg:h-96"
-    >
+    <>
       <ImageWithFallback
-        src={images[currentImage].url}
+        src={images[currentImage]?.url || images[currentImage]}
         layout="fill"
         objectFit="contain"
         alt="projectImg"
       />
 
       <div className="absolute left-0 top-0 bottom-0 flex justify-center items-center sm:ml-2">
-        <button onClick={decreaseImage} className="w-5 lg:w-10 aspect-square">
+        <button type="button" onClick={decreaseImage} className="w-5 lg:w-10 aspect-square">
           <ArrowLeftCircleIcon className="fill-gray-400 hover:fill-gray-500" />
         </button>
       </div>
 
       <div className="absolute right-0 top-0 bottom-0 flex justify-center items-center sm:mr-2">
-        <button onClick={increaseImage} className="w-5 lg:w-10 aspect-square">
+        <button type="button" onClick={increaseImage} className="w-5 lg:w-10 aspect-square">
           <ArrowRightCircleIcon className="fill-gray-400 hover:fill-gray-500" />
         </button>
       </div>
@@ -50,6 +52,6 @@ export default function Carousel({ images }) {
           {currentImage + 1}/{images.length}
         </p>
       </div>
-    </div>
+    </>
   )
 }
