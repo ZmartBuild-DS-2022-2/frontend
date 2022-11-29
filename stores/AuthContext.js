@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useState, createContext, useMemo } from "react"
+import { useState, createContext, useEffect } from "react"
 import { backendFetch } from "../services"
 
 const AuthContext = createContext()
@@ -28,7 +28,7 @@ export const AuthContextProvider = ({ children }) => {
     }
   }
 
-  useMemo(() => {
+  useEffect(() => {
     setIsLoading(true)
     const refresh = async () => {
       try {
@@ -41,7 +41,7 @@ export const AuthContextProvider = ({ children }) => {
       }
     }
     refresh()
-  }, [])
+  }, [children])
 
   const context = { user, isLoading, login, logout }
   return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>
