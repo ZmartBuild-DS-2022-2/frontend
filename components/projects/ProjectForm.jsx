@@ -93,7 +93,7 @@ export default function ProjectForm() {
 
     try {
       await backendFetch({
-        url: `/organizations/${router.query.id}/project`,
+        url: `/projects/${router.query.id}`,
         method: "post",
         data: formData,
         headers: {
