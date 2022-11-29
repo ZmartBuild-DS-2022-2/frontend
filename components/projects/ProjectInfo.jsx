@@ -1,7 +1,13 @@
+import { UserPlusIcon } from "@heroicons/react/24/outline"
 import Link from "next/link"
+import { useState } from "react"
 import Carousel from "../Carousel"
+import InvitationForm from "../shared/InvitationForm"
 
 export default function ProjectInfo({ data }) {
+  const [openAddPeople, setOpenAddPeople] = useState(false)
+  const closeHandler = () => setOpenAddPeople(false)
+
   return (
     <div className="rounded lg:border py-2 px-5 md:py-5 sm:px-8 md:px-9 lg:px-10">
       <div className="w-full text-center">
@@ -19,7 +25,7 @@ export default function ProjectInfo({ data }) {
         <h1 className="text-xl md:text-2xl lg:text-2xl font-semibold mb-1 md:mb-2">Description</h1>
         <p className="text-xs sm:text-base">{data?.description}</p>
       </div>
-      <div className="flex justify-center my-3">
+      <div className="flex justify-between my-3">
         <Link href={`/projects/${data.id}/subprojects`}>
           <a
             className="rounded-md px-2 sm:px-4 py-1.5 disabled:opacity-30 transition-all 
@@ -29,7 +35,25 @@ export default function ProjectInfo({ data }) {
             View subprojects
           </a>
         </Link>
+        <button type="button" onClick={() => setOpenAddPeople(true)}>
+          <a>
+            <div
+              className="flex justify-center items-center gap-2 rounded-md px-2 
+                sm:px-4 py-1.5 disabled:opacity-30 transition-all duration-150 
+                bg-primary-neutral-hover 
+                text-primary-contrast hover:bg-primary-neutral text-xs sm:text-base"
+            >
+              Add collaborators <UserPlusIcon className="h-5 md:h-6 aspect-square" />
+            </div>
+          </a>
+        </button>
       </div>
+      <InvitationForm
+        openAddPeople={openAddPeople}
+        closeHandler={closeHandler}
+        data={data}
+        label_="project"
+      />
     </div>
   )
 }
