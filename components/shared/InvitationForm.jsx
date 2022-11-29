@@ -120,6 +120,13 @@ export default function InvitationForm({ openAddPeople, closeHandler, data, labe
           </div>
         </Modal.Body>
         <Modal.Footer justify="space-between">
+          <button
+            type="button"
+            className="rounded-md py-1.5 transition-all duration-150 bg-gray-600 enabled:hover:bg-gray-700 text-primary-contrast font-medium px-5 md:px-7"
+            onClick={closeHandler}
+          >
+            Close
+          </button>
           <div className="flex items-center">
             <PrimaryButton
               className="bg-primary text-primary-contrast enabled:hover:bg-primary-hover font-medium mr-2"
@@ -130,13 +137,6 @@ export default function InvitationForm({ openAddPeople, closeHandler, data, labe
             {loading && <PageSpinner w={5} wsm={5} wlg={5} />}
             {uploadMessage && <p className="text-xs">Invitation sended!</p>}
           </div>
-          <button
-            type="button"
-            className="rounded-md py-1.5 transition-all duration-150 bg-gray-600 enabled:hover:bg-gray-700 text-primary-contrast font-medium px-5 md:px-7"
-            onClick={closeHandler}
-          >
-            Close
-          </button>
         </Modal.Footer>
       </form>
     </Modal>
