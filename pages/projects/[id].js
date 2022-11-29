@@ -64,7 +64,7 @@ export default function Home() {
 
             {!isLoading && error && <div>{JSON.stringify(error)}</div>}
 
-            <div className="flex flex-col py-4 mx-4 divide-y divide-gray-500/20">
+            <div className="flex flex-col py-4 mx-4 divide-y divide-gray-500/20 md:w-3/5 md:m-auto">
               <div>
                 <div className="flex justify-between items-center">
                   <h1 className="text-2xl md:text-3xl font-semibold">{projectData?.name}</h1>
@@ -122,7 +122,7 @@ export default function Home() {
                   )}
                 </div>
               </div>
-              <div className="flex flex-col py-3 items-center">
+              <div className="flex flex-col py-3 items-center md:gap-3">
                 <div
                   className="rounded md:border focus-within:border-gray-400 px-2 py-2 text-sm 
                   sm:text-base"
