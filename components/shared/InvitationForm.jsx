@@ -5,6 +5,8 @@ import { Modal } from "@nextui-org/react"
 import { EnvelopeIcon } from "@heroicons/react/24/solid"
 import PrimaryButton from "../basics/PrimaryButton"
 import RadioInput from "../basics/RadioInput"
+import { mockBackendFetch } from "../../services"
+import PageSpinner from "../PageSpinner"
 
 export default function InvitationForm({ openAddPeople, closeHandler, data, label_ }) {
   const {
@@ -19,6 +21,8 @@ export default function InvitationForm({ openAddPeople, closeHandler, data, labe
   })
 
   const [errorMessage, setErrorMessage] = useState(null)
+  const [uploadMessage, setuploadMessage] = useState(false)
+  const [loading, setLoading] = useState(null)
 
   const radioButtons = {
     reader: {
@@ -45,10 +49,19 @@ export default function InvitationForm({ openAddPeople, closeHandler, data, labe
 
   const onSubmit = async ({ email, accessType }) => {
     try {
-      console.log(email, accessType)
+      setLoading(true)
+      await mockBackendFetch({
+        url: `/${label_}s/${data.id}/new_invitation`,
+        method: "post",
+        data: { email, accessType },
+      })
+      setuploadMessage(true)
+      setTimeout(() => setuploadMessage(null), 5000)
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
       setTimeout(() => setErrorMessage(null), 5000)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -107,12 +120,16 @@ export default function InvitationForm({ openAddPeople, closeHandler, data, labe
           </div>
         </Modal.Body>
         <Modal.Footer justify="space-between">
-          <PrimaryButton
-            className="bg-primary text-primary-contrast enabled:hover:bg-primary-hover font-medium"
-            disabled={!isValid || isSubmitting}
-          >
-            Add collaborator
-          </PrimaryButton>
+          <div className="flex items-center">
+            <PrimaryButton
+              className="bg-primary text-primary-contrast enabled:hover:bg-primary-hover font-medium mr-2"
+              disabled={!isValid || isSubmitting}
+            >
+              Add collaborator
+            </PrimaryButton>
+            {loading && <PageSpinner w={5} wsm={5} wlg={5} />}
+            {uploadMessage && <p className="text-xs">Invitation sended!</p>}
+          </div>
           <button
             type="button"
             className="rounded-md py-1.5 transition-all duration-150 bg-gray-600 enabled:hover:bg-gray-700 text-primary-contrast font-medium px-5 md:px-7"
