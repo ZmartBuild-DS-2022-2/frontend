@@ -28,7 +28,7 @@ export default function Home() {
   const current_path = `/projects/${router.query.id}/subprojects`
 
   // /projects/:id should return subprojects with eager loading
-  const [subprojects, isLoading2] = useMockFetch({
+  const [subprojects, subprojectsLoading] = useMockFetch({
     url: current_path,
     method: "get",
   })
@@ -56,7 +56,7 @@ export default function Home() {
         <>
           <Header />
           <main>
-            {(isLoading || isLoading2) && !error && (
+            {(isLoading || subprojectsLoading) && !error && (
               <div className="grid h-screen place-items-center">
                 <PageSpinner />
               </div>
