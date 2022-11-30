@@ -1,10 +1,13 @@
+import { useState } from "react"
 import { Collapse } from "@nextui-org/react"
 import { LinkIcon, EnvelopeIcon, PlusIcon } from "@heroicons/react/24/solid"
+import { UserPlusIcon } from "@heroicons/react/24/outline"
 import ImageWithFallback from "../basics/ImageWithFallBack"
 import ProjectCard from "../projects/ProjectCard"
 import Link from "next/link"
 import { useFetch } from "../../hooks/useFetch"
 import PageSpinner from "../PageSpinner"
+import InvitationForm from "../shared/InvitationForm"
 
 export default function OrganizationInfo({ organizationData }) {
   // Este endpoint tiene que traerse los proyectos asociados utilizando eagger loading
@@ -13,6 +16,9 @@ export default function OrganizationInfo({ organizationData }) {
     method: "get",
     params: { organizationId: `${organizationData?.id}` },
   })
+  const [openAddPeople, setOpenAddPeople] = useState(false)
+
+  const closeHandler = () => setOpenAddPeople(false)
 
   return (
     <div>
@@ -68,7 +74,7 @@ export default function OrganizationInfo({ organizationData }) {
         </div>
       </div>
 
-      <div className="flex justify-center md:justify-start my-3 md:my-5 ">
+      <div className="flex justify-between my-3 md:my-5 ">
         <Link href={`/organizations/${organizationData?.id}/newproject`}>
           <a>
             <div
@@ -80,6 +86,18 @@ export default function OrganizationInfo({ organizationData }) {
             </div>
           </a>
         </Link>
+        <button type="button" onClick={() => setOpenAddPeople(true)}>
+          <a>
+            <div
+              className="flex justify-center items-center gap-2 rounded-md px-2 
+                sm:px-4 py-1.5 disabled:opacity-30 transition-all duration-150 
+                bg-primary-neutral-hover 
+                text-primary-contrast hover:bg-primary-neutral text-xs sm:text-base"
+            >
+              Add collaborators <UserPlusIcon className="h-5 md:h-6 aspect-square" />
+            </div>
+          </a>
+        </button>
       </div>
 
       <div>
@@ -99,6 +117,12 @@ export default function OrganizationInfo({ organizationData }) {
           </Collapse>
         </Collapse.Group>
       </div>
+      <InvitationForm
+        openAddPeople={openAddPeople}
+        closeHandler={closeHandler}
+        data={organizationData}
+        label_="organization"
+      />
     </div>
   )
 }

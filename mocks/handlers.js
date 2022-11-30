@@ -248,4 +248,10 @@ export const handlers = [
       ])
     )
   }),
+  rest.post("/api/organizations/:id/new_invitation", (req, res, ctx) => {
+    return res(ctx.delay(), ctx.status(201))
+  }),
+  rest.post("/api/projects/:id/new_invitation", (req, res, ctx) => {
+    return res(ctx.delay(), ctx.status(201))
+  }),
 ]

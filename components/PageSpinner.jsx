@@ -1,9 +1,10 @@
-export default function PageSpinner() {
+export default function PageSpinner({ w = 14, wsm = 16, wlg = 20 }) {
   return (
     <div role="status">
       <svg
         aria-hidden="true"
-        className="aspect-square w-14 sm:w-16 lg:w-20 text-gray-300 animate-spin 1s fill-primary"
+        className={`aspect-square w-${w} sm:w-${wsm} lg:w-${wlg}
+        text-gray-300 animate-spin 1s fill-primary`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
