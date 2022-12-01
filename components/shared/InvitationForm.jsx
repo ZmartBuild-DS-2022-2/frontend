@@ -7,7 +7,6 @@ import PrimaryButton from "../basics/PrimaryButton"
 import RadioInput from "../basics/RadioInput"
 import { mockBackendFetch } from "../../services"
 import PageSpinner from "../PageSpinner"
-import { radioButtons } from "../../constants/forms/invitationsFormInfo"
 
 export default function InvitationForm({ openAddPeople, closeHandler, data, label_ }) {
   const {
@@ -24,6 +23,29 @@ export default function InvitationForm({ openAddPeople, closeHandler, data, labe
   const [errorMessage, setErrorMessage] = useState(null)
   const [uploadMessage, setuploadMessage] = useState(false)
   const [loading, setLoading] = useState(null)
+
+  const radioButtons = {
+    reader: {
+      value: "r",
+      label: "Reader",
+      organization: "Readers can see all projects from the organization",
+      project: "Readers can see all subprojects from the project",
+    },
+    member: {
+      value: "w",
+      label: "Member",
+      organization: "Members can edit the information from the organization and from all projects",
+      project: "Members can edit the information from the project and from all subprojects",
+    },
+    administrator: {
+      value: "a",
+      label: "Administrator",
+      organization:
+        "Administrators have full administrative rights to the organization and have complete access to all projects",
+      project:
+        "Administrators have full administrative rights to the projects and have complete access to all subprojects",
+    },
+  }
 
   const onSubmit = async ({ email, accessType }) => {
     try {

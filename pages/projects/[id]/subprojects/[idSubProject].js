@@ -4,13 +4,13 @@ import Header from "../../../../components/header/Header"
 import { useUser } from "../../../../hooks/useUser"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
-import { useMockFetch } from "../../../../hooks/useFetch"
+import { useFetch } from "../../../../hooks/useFetch"
 import SubprojectInfo from "../../../../components/subprojects/SubprojectInfo"
 
-export default function NewProject() {
+export default function Home() {
   const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()
-  const [subprojectData, isLoading, error] = useMockFetch({
+  const [subprojectData, isLoading, error] = useFetch({
     url: `/subprojects/${router.query.idSubProject}`,
     method: "get",
   })

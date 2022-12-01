@@ -1,26 +1,75 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 import subprojectFields from "../../constants/forms/subproject"
 import PrimaryButton from "../basics/PrimaryButton"
-import { mockBackendFetch } from "../../services"
+import { backendFetch } from "../../services"
 import { CloudArrowUpIcon } from "@heroicons/react/24/solid"
+import Carousel from "../Carousel"
+import ImageWithFallback from "../basics/ImageWithFallBack"
 
-const getinputField = (field, register) => {
-  if (field.type == "file") {
+const getinputField = (field, register, uploadedFiles, uploadedGltf, uploadedBin) => {
+  if (field.type == "file" && field.name == "images") {
+    return (
+      <label
+        className="flex flex-col rounded-lg border-2 border-dashed w-full h-60 p-5 
+        cursor-pointer items-center"
+      >
+        {!uploadedFiles ? (
+          <div className="h-full w-full text-center flex flex-col items-center justify-center">
+            <CloudArrowUpIcon className="fill-gray-700 h-16 md:h-24 aspect-square" />
+            <p className="text-gray-500">
+              Upload a photo from your computer
+              <span className="block text-sm text-gray-400">File type: {field.typeFile}</span>
+            </p>
+          </div>
+        ) : (
+          <div className="relative h-full w-full">
+            <Carousel images={uploadedFiles} />
+          </div>
+        )}
+        <input
+          type="file"
+          multiple="multiple"
+          accept={field.typeFile}
+          ref={register}
+          className={uploadedFiles ? `block ${field.class}` : `block ${field.class}`}
+          {...register(field.name, field.validations)}
+        />
+      </label>
+    )
+  } else if (field.type == "file") {
     return (
       <label
         className="flex flex-col rounded-lg border-2 border-dashed w-full h-40 md:h-60 p-5 md:p-10 
         cursor-pointer"
       >
-        <div className="h-full w-full text-center flex flex-col items-center justify-center">
-          <CloudArrowUpIcon className="fill-gray-700 h-16 md:h-24 aspect-square" />
-          <p className="text-gray-500">
-            Upload a photo from your computer
-            <span className="block text-sm text-gray-400">File type: {field.typeFile}</span>
-          </p>
-        </div>
-        <input type="file" className={field.class} {...register(field.name, field.validations)} />
+        {(field.name == "gltf_file" && !uploadedGltf) ||
+        (field.name == "bin_file" && !uploadedBin) ? (
+          <div className="h-full w-full text-center flex flex-col items-center justify-center">
+            <CloudArrowUpIcon className="fill-gray-700 h-16 md:h-24 aspect-square" />
+            <p className="text-gray-500">
+              Upload a photo from your computer
+              <span className="block text-sm text-gray-400">File type: {field.typeFile}</span>
+            </p>
+          </div>
+        ) : (
+          <div className="relative h-full w-full flex-col">
+            <ImageWithFallback
+              src={"/fallbackimage.png"}
+              layout="fill"
+              objectFit="contain"
+              alt="projectImg"
+            />
+            <p className="text-gray-500">{"File uploaded"}</p>
+          </div>
+        )}
+        <input
+          type="file"
+          className={field.class}
+          accept={field.typeFile}
+          {...register(field.name, field.validations)}
+        />
       </label>
     )
   } else if (field.name == "description") {
@@ -48,21 +97,62 @@ const getinputField = (field, register) => {
 export default function SubprojectForm() {
   const router = useRouter()
   const [errorMessage, setErrorMessage] = useState(null)
+  const [uploadedFiles, setUploadedFiles] = useState(null)
+  const [uploadedGltf, setUploadedGltf] = useState(null)
+  const [uploadedBin, setUploadedBin] = useState(null)
 
   const {
     register,
+    watch,
     formState: { errors, isValid, isSubmitting },
     handleSubmit,
   } = useForm({ mode: "onChange" })
 
-  const onSubmit = async ({ name, description, location, file }) => {
+  useEffect(() => {
+    watch((value, { name }) => {
+      if (name == "images") {
+        const selectedFiles = Object.values(value[name])
+        if (!selectedFiles.length) return setUploadedFiles(false)
+        const files = selectedFiles.map((selectedFile) => URL.createObjectURL(selectedFile))
+        setUploadedFiles(files)
+        return () => files.map((element) => URL.revokeObjectURL(element))
+      } else if (name == "gltf_file") {
+        const selectedFiles = Object.values(value[name])
+        if (!selectedFiles.length) return setUploadedGltf(false)
+        const files = selectedFiles.map((selectedFile) => URL.createObjectURL(selectedFile))
+        setUploadedGltf(files)
+        return () => files.map((element) => URL.revokeObjectURL(element))
+      } else if (name == "bin_file") {
+        const selectedFiles = Object.values(value[name])
+        if (!selectedFiles.length) return setUploadedBin(false)
+        const files = selectedFiles.map((selectedFile) => URL.createObjectURL(selectedFile))
+        setUploadedBin(files)
+        return () => files.map((element) => URL.revokeObjectURL(element))
+      }
+    })
+  }, [watch])
+
+  const onSubmit = async ({ title, description, images, gltf_file, bin_file }) => {
+    let formData = new FormData()
+    formData.append("title", title)
+    formData.append("description", description)
+    Array.from(images).forEach((image) => {
+      formData.append("images", image)
+    })
+    Array.from(gltf_file).forEach((file) => {
+      formData.append("gltf_file", file)
+    })
+    Array.from(bin_file).forEach((file) => {
+      formData.append("bin_file", file)
+    })
+
     try {
-      await mockBackendFetch({
-        url: "/neworganization",
+      await backendFetch({
+        url: `/subprojects/${router.query.id}`,
         method: "post",
-        data: { name, description, location, file },
+        data: formData,
       })
-      router.push({ pathname: "/organizations" })
+      router.push({ pathname: `/projects/${router.query.id}` })
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
       return setTimeout(() => setErrorMessage(null), 5000)
@@ -77,7 +167,7 @@ export default function SubprojectForm() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="text-center">
-          <h1 className="font-bold text-2xl md:text-3xl text-primary-neutral">New Organization</h1>
+          <h1 className="font-bold text-2xl md:text-3xl text-primary-neutral">New Subproject</h1>
         </div>
 
         {subprojectFields.map((field) => {
@@ -89,7 +179,7 @@ export default function SubprojectForm() {
               <label className="inline-block font-semibold mb-2 text-base" htmlFor={field.name}>
                 {field.title}
               </label>
-              {getinputField(field, register)}
+              {getinputField(field, register, uploadedFiles, uploadedGltf, uploadedBin)}
               <span className="text-sm text-red-500">{errors[field.name]?.message}</span>
             </div>
           )
@@ -99,7 +189,7 @@ export default function SubprojectForm() {
           className="bg-primary text-primary-contrast hover:bg-primary-hover"
           disabled={!isValid || isSubmitting}
         >
-          Create organization
+          Create subproject
         </PrimaryButton>
 
         <div className="text-center text-red-500">

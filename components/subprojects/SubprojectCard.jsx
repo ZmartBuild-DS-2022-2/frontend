@@ -8,7 +8,7 @@ export default function SubprojectCard({ subproject, current_path }) {
     >
       <Link href={`${current_path}/${subproject.id}`}>
         <a className="underline sm:no-underline hover:underline line-clamp-2 md:line-clamp-1 mb-1">
-          {subproject.name}
+          {subproject.title}
         </a>
       </Link>
       <p className="text-sm font-light line-clamp-2 md:line-clamp-1"> {subproject.description}</p>

@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { useFetch, useMockFetch } from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 import Head from "next/head"
 import Header from "../../components/header/Header"
 import { useUser } from "../../hooks/useUser"
@@ -25,12 +25,12 @@ export default function Home() {
     url: `/projects/${router.query.id}`,
     method: "get",
   })
-  const current_path = `/projects/${router.query.id}/subprojects`
+  const current_path = `/projects/${router.query.id}`
 
-  // /projects/:id should return subprojects with eager loading
-  const [subprojects, subprojectsLoading] = useMockFetch({
-    url: current_path,
+  const [subprojects, subprojectsLoading] = useFetch({
+    url: `/subprojects`,
     method: "get",
+    params: { projectId: `${router.query.id}` },
   })
   const [isAuthenticated, isLoadingUser] = useUser()
 
@@ -110,7 +110,7 @@ export default function Home() {
                                   <SubprojectCard
                                     key={subproj.id}
                                     subproject={subproj}
-                                    current_path={current_path}
+                                    current_path={`${current_path}/subprojects`}
                                   />
                                 )
                               })}

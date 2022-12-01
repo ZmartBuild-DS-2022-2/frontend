@@ -5,8 +5,10 @@ import Carousel from "../Carousel"
 import Model from "../Model"
 
 export default function SubprojectInfo({ data }) {
+  console.log(data)
   const [showModel, setShowModel] = useState(false)
   const handleShowModel = () => {
+    // False for the moment, until the model upload is done
     setShowModel(true)
   }
 
@@ -14,22 +16,22 @@ export default function SubprojectInfo({ data }) {
     <div className="rounded lg:border box-border w-full md:py-5 md:px-9 lg:px-10">
       <div className="w-full box-border text-center">
         <h1 className="text-2xl md:text-4xl lg:text-5xl font-semibold mb-1 sm:mb-2">
-          {data?.name}
+          {data?.title}
         </h1>
         <h3 className="text-xs md:text-sm italic text-gray-600">
           From{" "}
-          <Link href="">
+          <Link href={`../../../organizations/${data.organization.id}`}>
             <a className="underline md:no-underline hover:underline">{data.organization.name}</a>
           </Link>
         </h3>
       </div>
 
-      {data.images.length > 0 && (
+      {data.subprojectImages.length > 0 && (
         <div
           className="w-full my-2 sm:my-3 md:my-5 box-border relative shadow-md
         bg-[#fbfbfb] rounded-lg h-52 lg:h-96"
         >
-          <Carousel images={data?.images} />
+          <Carousel images={data?.subprojectImages} />
         </div>
       )}
 
@@ -53,7 +55,7 @@ export default function SubprojectInfo({ data }) {
       {showModel && (
         <div className="flex flex-col my-3 w-full box-border items-start">
           <h1 className="text-xl md:text-2xl lg:text-2xl font-semibold mb-1 md:mb-2">3D Model</h1>
-          <Model url={data?.modelUrl} />
+          <Model url={data?.gltfmodels[0].url} />
         </div>
       )}
     </div>
