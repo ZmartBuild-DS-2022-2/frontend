@@ -121,7 +121,8 @@ export default function OrganizationInfo({ organizationData }) {
         openAddPeople={openAddPeople}
         closeHandler={closeHandler}
         data={organizationData}
-        label_="organization"
+        objectiveId={organizationData.id}
+        type="organization"
       />
     </div>
   )

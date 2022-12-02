@@ -2,13 +2,13 @@ import Head from "next/head"
 import Header from "../components/header/Header"
 import PageSpinner from "../components/PageSpinner"
 import CollapseInvitation from "../components/CollapseInvitation"
-import { useMockFetch } from "../hooks/useFetch"
+import { useFetch } from "../hooks/useFetch"
 import { useUser } from "../hooks/useUser"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
 
 export default function Invitations() {
-  const [invitations, isLoading, error] = useMockFetch({ url: "/invitations", method: "get" })
+  const [invitations, isLoading, error] = useFetch({ url: "/invitations", method: "get" })
   const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()
 
@@ -17,6 +17,9 @@ export default function Invitations() {
       router.push("/login")
     }
   }, [router, isAuthenticated, isLoadingUser])
+
+  const invitationsOrg = invitations?.filter((invitation) => invitation.type == "organization")
+  const invitationsPro = invitations?.filter((invitation) => invitation.type == "project")
 
   return (
     <>
@@ -44,20 +47,22 @@ export default function Invitations() {
                 <PageSpinner />
               </div>
             )}
-            <div className="flex flex-row min-h-screen justify-center items-cente">
-              <CollapseInvitation
-                isLoading={isLoading}
-                error={error}
-                invitations={invitations.organization}
-                type={"Organization"}
-              />
-              <CollapseInvitation
-                isLoading={isLoading}
-                error={error}
-                invitations={invitations.project}
-                type={"Project"}
-              />
-            </div>
+            {invitations && (
+              <div className="flex flex-row min-h-screen justify-center items-cente">
+                <CollapseInvitation
+                  isLoading={isLoading}
+                  error={error}
+                  invitations={invitationsOrg}
+                  type={"Organization"}
+                />
+                <CollapseInvitation
+                  isLoading={isLoading}
+                  error={error}
+                  invitations={invitationsPro}
+                  type={"Project"}
+                />
+              </div>
+            )}
           </main>
         </>
       )}

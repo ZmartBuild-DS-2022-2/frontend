@@ -152,7 +152,8 @@ export default function Home() {
               openAddPeople={openAddPeople}
               closeHandler={closeHandler}
               data={projectData}
-              label_="project"
+              objectiveId={router.query.id}
+              type="project"
             />
             <Modal
               closeButton
