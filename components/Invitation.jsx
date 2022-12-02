@@ -1,8 +1,30 @@
 import Image from "next/image"
 import PrimaryButton from "./basics/PrimaryButton"
 import Link from "next/link"
+import { useForm } from "react-hook-form"
 
-export default function Invitation({ data }) {
+export default function Invitation({ data, type }) {
+  const {
+    register,
+    formState: { isSubmitting },
+    handleSubmit,
+  } = useForm({ mode: "onChange" })
+
+  const onSubmitAccept = async (data) => {
+    try {
+      console.log("Aceptamos", data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const onSubmitDecline = async (data) => {
+    try {
+      console.log("Rechazamos", data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <div
       className="flex overflow-auto justify-between px-2 sm:px-5 py-3 border rounded-md gap-x-3 
@@ -22,27 +44,41 @@ export default function Invitation({ data }) {
       </div>
 
       <div className="grow">
+        <h1>You were invited to join to the following {type}:</h1>
         <h1>
-          You were invited to join to the
           <Link href="">
             <a className="font-semibold text-gray-700">{` ${data.name}`}</a>
           </Link>{" "}
-          organization
         </h1>
 
-        <h3 className="text-xs sm:text-sm italic text-gray-600">Sent on {data.createdAt}</h3>
+        <div className="flex flex-row place-content-between">
+          <h3 className="text-xs sm:text-sm italic text-gray-600">Sent on {data.createdAt} </h3>
+          <h3 className="text-xs sm:text-sm italic text-gray-600">
+            {type == "Project" ? `Access: ${data.accessType}` : ""}
+          </h3>
+        </div>
       </div>
 
       <div className="inline-flex flex-col gap-1 md:gap-2 justify-center">
-        <PrimaryButton className="bg-primary text-primary-contrast hover:bg-primary-hover">
-          Accept
-        </PrimaryButton>
-        <PrimaryButton
-          className="text-border-gray-400 border border-gray-400 
-          hover:text-primary-neutral-hover hover:border-primary-neutral-hover"
-        >
-          Decline
-        </PrimaryButton>
+        <form onSubmit={handleSubmit(onSubmitAccept)} encType="multipart/form-data">
+          <input {...register("invitationId")} value={data.id} type="hidden" />
+          <PrimaryButton
+            className="bg-primary text-primary-contrast hover:bg-primary-hover"
+            disabled={isSubmitting}
+          >
+            Accept
+          </PrimaryButton>
+        </form>
+        <form onSubmit={handleSubmit(onSubmitDecline)} encType="multipart/form-data">
+          <input {...register("invitationId")} value={data.id} type="hidden" />
+          <PrimaryButton
+            className="text-border-gray-400 border border-gray-400 
+            hover:text-primary-neutral-hover hover:border-primary-neutral-hover"
+            disabled={isSubmitting}
+          >
+            Decline
+          </PrimaryButton>
+        </form>
       </div>
     </div>
   )

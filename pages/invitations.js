@@ -1,7 +1,7 @@
 import Head from "next/head"
 import Header from "../components/header/Header"
-import Invitation from "../components/Invitation"
 import PageSpinner from "../components/PageSpinner"
+import CollapseInvitation from "../components/CollapseInvitation"
 import { useMockFetch } from "../hooks/useFetch"
 import { useUser } from "../hooks/useUser"
 import { useEffect } from "react"
@@ -44,16 +44,20 @@ export default function Invitations() {
                 <PageSpinner />
               </div>
             )}
-
-            {invitations && (
-              <section className="flex justify-center items-center">
-                <div className="inline-flex flex-col items-center gap-4 px-5 w-full ">
-                  {invitations.map((invitation) => {
-                    return <Invitation key={invitation.id} data={invitation} />
-                  })}
-                </div>
-              </section>
-            )}
+            <div className="flex flex-row min-h-screen justify-center items-cente">
+              <CollapseInvitation
+                isLoading={isLoading}
+                error={error}
+                invitations={invitations.organization}
+                type={"Organization"}
+              />
+              <CollapseInvitation
+                isLoading={isLoading}
+                error={error}
+                invitations={invitations.project}
+                type={"Project"}
+              />
+            </div>
           </main>
         </>
       )}
