@@ -1,13 +1,13 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react"
 import Home from "../pages/index";
 
-test("Given render App When the page load Then show text learn react link", () => {
+test("Given render App When the page load Then show text Zmartbuild", () => {
   // Given
-  render(<Home />);
+  render(<Home />)
 
   // When
-  const linkElement = screen.getByText(/ZmartBuild/i);
+  const homeElement = screen.getByText(/ZmartBuild/i)
 
   // Then
-  expect(linkElement).toBeInTheDocument();
-});
+  expect(homeElement).toBeInTheDocument()
+})
