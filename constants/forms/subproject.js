@@ -1,7 +1,7 @@
 const subprojectFields = [
   {
     title: "Subproject Name (*)",
-    name: "name",
+    name: "title",
     type: "text",
     placeholder: "Miles Bridge Construction",
     class: "block w-full appearance-none focus:outline-none bg-transparent",
@@ -23,7 +23,7 @@ const subprojectFields = [
     placeholder: "Upload File",
     class: "hidden",
     typeFile: ".gltf",
-    validations: { required: true },
+    validations: { required: false },
   },
   {
     title: "bin file",
@@ -32,14 +32,14 @@ const subprojectFields = [
     placeholder: "Upload File",
     class: "hidden",
     typeFile: ".bin",
-    validations: { required: true },
+    validations: { required: false },
   },
   {
     title: "Subproject Images",
     name: "images",
     type: "file",
     placeholder: "Upload File",
-    class: "hidden",
+    class: "text-xs py-4 w-fit",
     typeFile: ".png, .jpg",
     validations: { required: false },
   },

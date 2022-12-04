@@ -158,23 +158,23 @@ export const handlers = [
   }),
 
   // Subprojects requests
-  rest.get("/api/projects/:id/subprojects", (req, res, ctx) => {
+  rest.get("/api/subprojects", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json([
         {
           id: "1",
-          name: "Foundations",
+          title: "Foundations",
           description: "Foundations model with measures",
         },
         {
           id: "2",
-          name: "Lifting Pulleys",
+          title: "Lifting Pulleys",
           description: "Lifting Pulleys model with measures",
         },
         {
           id: "3",
-          name: "Structure and metals",
+          title: "Structure and metals",
           description: "Structure and metals model",
         },
       ])
@@ -203,7 +203,7 @@ export const handlers = [
     )
   }),
 
-  rest.post("/api/projects/:id/subprojects/new", (req, res, ctx) => {
+  rest.post("/api/subprojects/:id", (req, res, ctx) => {
     return res(
       ctx.status(201),
       ctx.json({
