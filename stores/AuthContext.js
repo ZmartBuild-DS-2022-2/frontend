@@ -8,6 +8,7 @@ export const AuthContextProvider = ({ children }) => {
   const router = useRouter()
   const [user, setUser] = useState(undefined)
   const [isLoading, setIsLoading] = useState(true)
+  
 
   const login = async (credentials) => {
     setIsLoading(true)
