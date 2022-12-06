@@ -7,7 +7,7 @@ import ProjectForm from "../components/projects/ProjectForm"
 test("Given render ProjectForm When the page load Then show title New Project", () => {
   // Given
   const context = { user: "yes" }
-  
+
   render(
     <AuthContextProvider value={context}>
       <ProjectForm />
@@ -19,12 +19,12 @@ test("Given render ProjectForm When the page load Then show title New Project", 
 
   // Then
   expect(formElement).toBeInTheDocument()
-});
+})
 
 test("Given render ProjectForm When the page load Then show Project name input", () => {
   // Given
   const context = { user: "yes" }
-  
+
   render(
     <AuthContextProvider value={context}>
       <ProjectForm />
@@ -36,12 +36,12 @@ test("Given render ProjectForm When the page load Then show Project name input",
 
   // Then
   expect(nameInput).toBeInTheDocument()
-});
+})
 
 test("Given render ProjectForm When the page load Then show Description input", () => {
   // Given
   const context = { user: "yes" }
-  
+
   render(
     <AuthContextProvider value={context}>
       <ProjectForm />
@@ -53,12 +53,12 @@ test("Given render ProjectForm When the page load Then show Description input", 
 
   // Then
   expect(descInput).toBeInTheDocument()
-});
+})
 
 test("Given render ProjectForm When the page load Then show Project Images input", () => {
   // Given
   const context = { user: "yes" }
-  
+
   render(
     <AuthContextProvider value={context}>
       <ProjectForm />
@@ -70,12 +70,12 @@ test("Given render ProjectForm When the page load Then show Project Images input
 
   // Then
   expect(imgInput).toBeInTheDocument()
-});
+})
 
 test("Given render ProjectForm When the page load Then show Project Images input", () => {
   // Given
   const context = { user: "yes" }
-  
+
   render(
     <AuthContextProvider value={context}>
       <ProjectForm />
@@ -87,4 +87,4 @@ test("Given render ProjectForm When the page load Then show Project Images input
 
   // Then
   expect(imgInput).toBeInTheDocument()
-});
+})

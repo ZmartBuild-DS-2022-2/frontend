@@ -18,7 +18,7 @@ test("Given render Home When the page load Then show text Zmartbuild", () => {
 
   // Then
   expect(homeElement).toBeInTheDocument()
-});
+})
 
 test("Given render Home When the page load Then show login because there is no valid user", () => {
   // Given
@@ -34,4 +34,4 @@ test("Given render Home When the page load Then show login because there is no v
 
   // Then
   expect(loginLink).toBeInTheDocument()
-});
+})
