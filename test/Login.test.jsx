@@ -18,7 +18,7 @@ test("Given render Login When the page load Then show text Sign in", () => {
 
   // Then
   expect(loginElement).toBeInTheDocument()
-});
+})
 
 test("Given render Login When the page load Then show input email", () => {
   // Given
@@ -34,7 +34,7 @@ test("Given render Login When the page load Then show input email", () => {
 
   // Then
   expect(emailElement).toBeInTheDocument()
-});
+})
 
 test("Given render Login When the page load Then show input password", () => {
   // Given
@@ -50,4 +50,4 @@ test("Given render Login When the page load Then show input password", () => {
 
   // Then
   expect(pwdElement).toBeInTheDocument()
-});
+})

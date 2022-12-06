@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
 import { AuthContextProvider } from "../stores/AuthContext"
 import "@testing-library/jest-dom"
 
@@ -23,7 +22,7 @@ test("Given render Home When the page load Then show text Zmartbuild", () => {
 
 test("Given render Home When the page load Then show login because there is no valid user", () => {
   // Given
-  const context = { user: "yes"}
+  const context = { user: "yes" }
   render(
     <AuthContextProvider value={context}>
       <Home />

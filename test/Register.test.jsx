@@ -18,7 +18,7 @@ test("Given render Register When the page load Then show text Sign up", () => {
 
   // Then
   expect(registerElement).toBeInTheDocument()
-});
+})
 
 test("Given render Register When the page load Then show input email", () => {
   // Given
@@ -34,7 +34,7 @@ test("Given render Register When the page load Then show input email", () => {
 
   // Then
   expect(emailElement).toBeInTheDocument()
-});
+})
 
 test("Given render Register When the page load Then show input name", () => {
   // Given
@@ -50,7 +50,7 @@ test("Given render Register When the page load Then show input name", () => {
 
   // Then
   expect(nameElement).toBeInTheDocument()
-});
+})
 
 test("Given render Register When the page load Then show password input", () => {
   // Given
@@ -62,11 +62,11 @@ test("Given render Register When the page load Then show password input", () => 
   )
 
   // When
-  const pwdElement = screen.getByPlaceholderText('Password')
+  const pwdElement = screen.getByPlaceholderText("Password")
 
   // Then
   expect(pwdElement).toBeInTheDocument()
-});
+})
 
 test("Given render Register When the page load Then show confirm password input", () => {
   // Given
@@ -82,4 +82,4 @@ test("Given render Register When the page load Then show confirm password input"
 
   // Then
   expect(confirmPwdElement).toBeInTheDocument()
-});
+})

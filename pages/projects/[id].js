@@ -14,7 +14,7 @@ import InvitationForm from "../../components/shared/InvitationForm"
 import Carousel from "../../components/Carousel"
 import PrimaryButton from "../../components/basics/PrimaryButton"
 
-export default function Home() {
+export default function Project() {
   const [openAddPeople, setOpenAddPeople] = useState(false)
   const closeHandler = () => setOpenAddPeople(false)
   const [openImages, setOpenImages] = useState(false)
