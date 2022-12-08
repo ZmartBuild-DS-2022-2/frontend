@@ -7,6 +7,7 @@ import PrimaryLink from "./basics/PrimaryLink"
 import SecondaryLink from "./basics/SecondaryLink"
 import Image from "next/image"
 import Link from "next/link"
+import LogoZmartBuild from "../public/LogoZmartBuild.png"
 
 export default function LoginForm() {
   const { login } = useContext(AuthContext)
@@ -36,12 +37,7 @@ export default function LoginForm() {
         <div className="relative h-[170px] sm:h-[200px] md:h-[230px] lg:h-[260px]">
           <Link href="/">
             <a>
-              <Image
-                src="/LogoZmartBuild.png"
-                layout="fill"
-                objectFit="contain"
-                alt="ZmartBuild logo"
-              />
+              <Image src={LogoZmartBuild} layout="fill" objectFit="contain" alt="ZmartBuild logo" />
             </a>
           </Link>
         </div>

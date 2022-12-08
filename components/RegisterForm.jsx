@@ -7,6 +7,7 @@ import PrimaryButton from "./basics/PrimaryButton"
 import SecondaryLink from "./basics/SecondaryLink"
 import Image from "next/image"
 import Link from "next/link"
+import LogoZmartBuild from "../public/LogoZmartBuild.png"
 
 export default function RegisterForm() {
   const router = useRouter()
@@ -45,7 +46,7 @@ export default function RegisterForm() {
             <Link href="/">
               <a>
                 <Image
-                  src="/LogoZmartBuild.png"
+                  src={LogoZmartBuild}
                   layout="fill"
                   objectFit="contain"
                   alt="ZmartBuild logo"

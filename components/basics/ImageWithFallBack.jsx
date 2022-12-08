@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import Image from "next/image"
+import fallbackImg from "../../public/fallbackimage.png"
 
 const ImageWithFallback = (props) => {
-  const fallbackSrc = "/fallbackimage.png"
   const { src, alt, ...rest } = props
   const [imgSrc, setImgSrc] = useState(src ? src : "")
 
@@ -10,7 +10,7 @@ const ImageWithFallback = (props) => {
     if (src) {
       setImgSrc(src)
     } else {
-      setImgSrc(fallbackSrc)
+      setImgSrc(fallbackImg)
     }
   }, [src])
 
@@ -20,7 +20,7 @@ const ImageWithFallback = (props) => {
       alt={alt}
       src={imgSrc}
       onError={() => {
-        setImgSrc(fallbackSrc)
+        setImgSrc(fallbackImg)
       }}
     />
   )

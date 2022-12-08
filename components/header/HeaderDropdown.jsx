@@ -11,6 +11,7 @@ import {
   EnvelopeIcon,
   UserGroupIcon,
 } from "@heroicons/react/24/solid"
+import userPlaceHolder from "../../public/user_placeholder.png"
 
 export default function HeaderDropdown() {
   const { user, logout } = useContext(AuthContext)
@@ -44,7 +45,7 @@ export default function HeaderDropdown() {
         >
           <div className="relative h-[40px] aspect-square rounded-full">
             <Image
-              src={user.imgUrl || "/user_placeholder.png"}
+              src={user.imgUrl || userPlaceHolder}
               layout="fill"
               objectFit="contain"
               alt="Profile avatar"
