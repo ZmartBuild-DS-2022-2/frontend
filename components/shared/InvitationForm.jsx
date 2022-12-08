@@ -28,12 +28,12 @@ export default function InvitationForm({ openAddPeople, closeHandler, data, type
   const onSubmit = async ({ email, accessType }) => {
     try {
       setLoading(true)
-      const response = await backendFetch({
+      await backendFetch({
         url: "/invitations",
         method: "post",
         data: { email, objectiveId, type, accessType },
       })
-      console.log("R", response)
+
       setuploadMessage(true)
       setTimeout(() => setuploadMessage(null), 5000)
     } catch (err) {

@@ -68,7 +68,7 @@ export default function Invitation({ data, type }) {
         <div className="flex flex-row place-content-between">
           <h3 className="text-xs sm:text-sm italic text-gray-600">Sent on {date} </h3>
           <h3 className="text-xs sm:text-sm italic text-gray-600">
-            {type == "Project" ? `Access: ${data.accessType}` : ""}
+            {data.type == "project" ? `Access: ${data.accessType}` : ""}
           </h3>
         </div>
       </div>
