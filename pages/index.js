@@ -1,5 +1,25 @@
+/* eslint-disable max-len */
 import Head from "next/head"
+import PrimaryButton from "../components/basics/PrimaryButton"
 import Header from "../components/header/Header"
+import img1 from "../public/ladingPageImages/1.png"
+import img2 from "../public/ladingPageImages/2.jpeg"
+import img3 from "../public/ladingPageImages/3.jpg"
+import Link from "next/link"
+import Carousel from "../components/Carousel"
+
+const GetStaterd = () => {
+  return (
+    <Link href="/register">
+      <PrimaryButton
+        type="button"
+        className="px-8 bg-primary text-primary-contrast hover:bg-primary-hover"
+      >
+        Get Started
+      </PrimaryButton>
+    </Link>
+  )
+}
 
 export default function Home() {
   return (
@@ -13,8 +33,23 @@ export default function Home() {
       <Header />
 
       <main>
-        <div className="flex-col items-center text-center">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">ZmartBuild</h1>
+        <div className="flex flex-col p-2 md:py-4 md:px-8">
+          <div className="flex flex-col md:flex-row-reverse items-center md:justify-between">
+            <div className="flex flex-col items-center p-2">
+              <p className="text-3xl font-medium">3D Model Visualizer</p>
+              <p>Upload, share and visualize</p>
+              <p>It&apos;s simple.</p>
+              <div className="p-4 hidden md:block">
+                <GetStaterd />
+              </div>
+            </div>
+            <div className="relative w-[95vw] m-auto h-[40vh] md:w-[70vw]  ">
+              <Carousel images={[img1, img2, img3]} className="rounded-xl" objectFit="cover" />
+            </div>
+            <div className="p-4 md:hidden">
+              <GetStaterd />
+            </div>
+          </div>
         </div>
       </main>
     </>
