@@ -5,11 +5,11 @@ import { Modal } from "@nextui-org/react"
 import { EnvelopeIcon } from "@heroicons/react/24/solid"
 import PrimaryButton from "../basics/PrimaryButton"
 import RadioInput from "../basics/RadioInput"
-import { mockBackendFetch } from "../../services"
+import { backendFetch } from "../../services"
 import PageSpinner from "../PageSpinner"
 import { radioButtons } from "../../constants/forms/invitationsFormInfo"
 
-export default function InvitationForm({ openAddPeople, closeHandler, data, label_ }) {
+export default function InvitationForm({ openAddPeople, closeHandler, data, type, objectiveId }) {
   const {
     register,
     formState: { isValid, isSubmitting },
@@ -28,11 +28,12 @@ export default function InvitationForm({ openAddPeople, closeHandler, data, labe
   const onSubmit = async ({ email, accessType }) => {
     try {
       setLoading(true)
-      await mockBackendFetch({
-        url: `/${label_}s/${data.id}/new_invitation`,
+      await backendFetch({
+        url: "/invitations",
         method: "post",
-        data: { email, accessType },
+        data: { email, objectiveId, type, accessType },
       })
+
       setuploadMessage(true)
       setTimeout(() => setuploadMessage(null), 5000)
     } catch (err) {
@@ -74,18 +75,18 @@ export default function InvitationForm({ openAddPeople, closeHandler, data, labe
             </div>
             <div className="flex rounded px-2 py-1 focus-within:border-gray-400">
               <div className="flex flex-col">
-                <label className="pb-2 text-gray-700">{`Role in the ${label_}`}</label>
+                <label className="pb-2 text-gray-700">{`Role in the ${type}`}</label>
                 <div className="flex flex-col space-y-4">
-                  {Array.from(Object.keys(radioButtons)).map((type) => {
+                  {Array.from(Object.keys(radioButtons)).map((labelType) => {
                     return (
                       <RadioInput
-                        key={type}
+                        key={labelType}
                         register={register}
-                        label={radioButtons[type].label}
-                        description={radioButtons[type][label_]}
-                        value={radioButtons[type].value}
+                        label={radioButtons[labelType].label}
+                        description={radioButtons[labelType][type]}
+                        value={radioButtons[labelType].value}
                         fieldName="accessType"
-                        checked={radioButtons[type]?.checked}
+                        checked={radioButtons[labelType]?.checked}
                       />
                     )
                   })}

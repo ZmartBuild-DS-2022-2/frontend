@@ -1,14 +1,14 @@
 import Head from "next/head"
 import Header from "../components/header/Header"
-import Invitation from "../components/Invitation"
 import PageSpinner from "../components/PageSpinner"
-import { useMockFetch } from "../hooks/useFetch"
+import CollapseInvitation from "../components/CollapseInvitation"
+import { useFetch } from "../hooks/useFetch"
 import { useUser } from "../hooks/useUser"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
 
 export default function Invitations() {
-  const [invitations, isLoading, error] = useMockFetch({ url: "/invitations", method: "get" })
+  const [invitations, isLoading, error] = useFetch({ url: "/invitations", method: "get" })
   const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()
 
@@ -17,6 +17,9 @@ export default function Invitations() {
       router.push("/login")
     }
   }, [router, isAuthenticated, isLoadingUser])
+
+  const invitationsOrg = invitations?.filter((invitation) => invitation.type == "organization")
+  const invitationsPro = invitations?.filter((invitation) => invitation.type == "project")
 
   return (
     <>
@@ -44,15 +47,21 @@ export default function Invitations() {
                 <PageSpinner />
               </div>
             )}
-
             {invitations && (
-              <section className="flex justify-center items-center">
-                <div className="inline-flex flex-col items-center gap-4 px-5 w-full ">
-                  {invitations.map((invitation) => {
-                    return <Invitation key={invitation.id} data={invitation} />
-                  })}
-                </div>
-              </section>
+              <div className="flex flex-row min-h-screen justify-center items-cente">
+                <CollapseInvitation
+                  isLoading={isLoading}
+                  error={error}
+                  invitations={invitationsOrg}
+                  type={"Organization"}
+                />
+                <CollapseInvitation
+                  isLoading={isLoading}
+                  error={error}
+                  invitations={invitationsPro}
+                  type={"Project"}
+                />
+              </div>
             )}
           </main>
         </>

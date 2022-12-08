@@ -216,42 +216,60 @@ export const handlers = [
   rest.get("/api/invitations", (req, res, ctx) => {
     return res(
       ctx.status(200),
-      ctx.json([
-        {
-          id: "1",
-          name: "ZmartBuild",
-          imgUrl:
-            "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
-          createdAt: "12/11/2022",
-        },
-        {
-          id: "2",
-          name: "Inmobiliaria Berlini",
-          imgUrl:
-            "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
-          createdAt: "12/11/2022",
-        },
-        {
-          id: "3",
-          name: "Constructora Los Castores Felices S.A",
-          imgUrl:
-            "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
-          createdAt: "12/11/2022",
-        },
-        {
-          id: "4",
-          name: "Fundación Mi Casita",
-          imgUrl:
-            "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
-          createdAt: "12/11/2022",
-        },
-      ])
+      ctx.json({
+        organization: [
+          {
+            id: "1",
+            name: "ZmartBuild",
+            imgUrl:
+              "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+            createdAt: "12/11/2022",
+          },
+          {
+            id: "2",
+            name: "Inmobiliaria Berlini",
+            imgUrl:
+              "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+            createdAt: "12/11/2022",
+          },
+          {
+            id: "3",
+            name: "Constructora Los Castores Felices S.A",
+            imgUrl:
+              "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+            createdAt: "12/11/2022",
+          },
+          {
+            id: "4",
+            name: "Fundación Mi Casita",
+            imgUrl:
+              "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+            createdAt: "12/11/2022",
+          },
+        ],
+        project: [
+          {
+            id: "5",
+            name: "Proyecto Especial",
+            imgUrl:
+              "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+            createdAt: "12/11/2022",
+            accessType: "a",
+          },
+          {
+            id: "6",
+            name: "Proyecto Especial 2",
+            imgUrl:
+              "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg",
+            createdAt: "12/11/2022",
+            accessType: "a",
+          },
+        ],
+      })
     )
   }),
-  rest.post("/api/organizations/:id/new_invitation", (req, res, ctx) => {
-    return res(ctx.delay(), ctx.status(201))
-  }),
-  rest.post("/api/projects/:id/new_invitation", (req, res, ctx) => {
+
+  rest.post("/api/invitations", (req, res, ctx) => {
     return res(ctx.delay(), ctx.status(201))
   }),
 ]
