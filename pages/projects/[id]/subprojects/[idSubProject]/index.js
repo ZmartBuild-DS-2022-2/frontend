@@ -1,11 +1,11 @@
 import Head from "next/head"
-import PageSpinner from "../../../../components/PageSpinner"
-import Header from "../../../../components/header/Header"
-import { useUser } from "../../../../hooks/useUser"
+import PageSpinner from "../../../../../components/PageSpinner"
+import Header from "../../../../../components/header/Header"
+import { useUser } from "../../../../../hooks/useUser"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
-import { useFetch } from "../../../../hooks/useFetch"
-import SubprojectInfo from "../../../../components/subprojects/SubprojectInfo"
+import { useFetch } from "../../../../../hooks/useFetch"
+import SubprojectInfo from "../../../../../components/subprojects/SubprojectInfo"
 
 export default function Home() {
   const [isAuthenticated, isLoadingUser] = useUser()
