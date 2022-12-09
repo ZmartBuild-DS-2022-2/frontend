@@ -1,13 +1,15 @@
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { useState } from "react"
 import PrimaryButton from "../basics/PrimaryButton"
 import Carousel from "../Carousel"
 import Model from "../Model"
 
-export default function SubprojectInfo({ data }) {
+export default function SubprojectInfo({ data, isAdmin = false, isWritter = false }) {
   // We can access what role the user have in the project by the following code:
   // const userRole = data.project.projectUsers[0].projectPermission.role)
   const [showModel, setShowModel] = useState(false)
+  const { asPath } = useRouter()
 
   const handleShowModel = () => {
     setShowModel(true)
@@ -38,9 +40,26 @@ export default function SubprojectInfo({ data }) {
         </div>
       )}
 
-      <div className="text-left">
-        <h1 className="text-xl md:text-2xl lg:text-2xl font-semibold mb-1 md:mb-2">Description</h1>
-        <p className="text-xs sm:text-base">{data?.description}</p>
+      <div className="flex justify-between md:flex-col">
+        <div className="text-left">
+          <h1 className="text-xl md:text-2xl lg:text-2xl font-semibold mb-1 md:mb-2">
+            Description
+          </h1>
+          <p className="text-xs sm:text-base">{data?.description}</p>
+        </div>
+        {(isAdmin || isWritter) && (
+          <div className="self-end justify-self-end md:self-start md:justify-self-start">
+            <Link href={`${asPath}/edit`}>
+              <a
+                className=" text-primary-neutral 
+                  hover:text-primary-neutral-hover 
+                  font-semibold text-xs md:pb-1"
+              >
+                Edit Project
+              </a>
+            </Link>
+          </div>
+        )}
       </div>
 
       {!showModel && (

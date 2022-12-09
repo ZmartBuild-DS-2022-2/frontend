@@ -48,7 +48,11 @@ export default function Home() {
 
             {subprojectData && !error && (
               <section className="grid place-items-center w-11/12 lg:w-3/4 mx-auto lg:my-10">
-                <SubprojectInfo data={subprojectData} />
+                <SubprojectInfo
+                  data={subprojectData}
+                  isAdmin={subprojectData.project.projectUsers[0].projectPermission.role == "a"}
+                  isWritter={subprojectData.project.projectUsers[0].projectPermission.role == "w"}
+                />
               </section>
             )}
           </main>
