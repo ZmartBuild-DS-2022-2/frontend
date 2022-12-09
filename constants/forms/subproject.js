@@ -35,7 +35,7 @@ const subprojectFields = [
     validations: { required: false },
   },
   {
-    title: "<Subproject> Images",
+    title: "Subproject Images",
     name: "images",
     type: "file",
     placeholder: "Upload File",
