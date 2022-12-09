@@ -1,7 +1,15 @@
+/* eslint-disable max-len */
 import Head from "next/head"
+import { useContext } from "react"
+
 import Header from "../components/header/Header"
+import LandingPage from "../components/LandingPage/LandingPage"
+import DashBoard from "../components/LandingPage/DashBoard"
+import AuthContext from "../stores/AuthContext"
+import PageSpinner from "../components/PageSpinner"
 
 export default function Home() {
+  const { user, isLoading } = useContext(AuthContext)
   return (
     <>
       <Head>
@@ -11,12 +19,16 @@ export default function Home() {
       </Head>
 
       <Header />
-
-      <main>
-        <div className="flex-col items-center text-center">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">ZmartBuild</h1>
+      {isLoading ? (
+        <div className="grid h-[70vh] place-items-center">
+          <PageSpinner />
         </div>
-      </main>
+      ) : user ? (
+        <DashBoard />
+      ) : (
+        <LandingPage />
+      )}
+      <main></main>
     </>
   )
 }

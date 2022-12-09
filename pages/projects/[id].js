@@ -17,9 +17,8 @@ export default function Home() {
   })
 
   const [subprojects, subprojectsLoading] = useFetch({
-    url: `/subprojects`,
+    url: `/projects/${router.query.id}/subprojects`,
     method: "get",
-    params: { projectId: `${router.query.id}` },
   })
 
   useEffect(() => {
