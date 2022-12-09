@@ -7,7 +7,6 @@ import PrimaryButton from "../basics/PrimaryButton"
 import { backendFetch } from "../../services"
 import { CloudArrowUpIcon } from "@heroicons/react/24/solid"
 import ImageWithFallback from "../basics/ImageWithFallBack"
-import { useFetch } from "../../hooks/useFetch"
 
 const getinputField = (field, register, uploadedFile) => {
   if (field.type == "file") {
@@ -70,18 +69,10 @@ const getinputField = (field, register, uploadedFile) => {
   }
 }
 
-export default function OrganizationForm() {
+export default function OrganizationForm({ isAddMode = true, organizationData = null }) {
   const router = useRouter()
   const [errorMessage, setErrorMessage] = useState(null)
   const [uploadedFile, setUploadedFile] = useState(null)
-  const { id } = router.query
-  // eslint-disable-next-line no-empty
-  const isAddMode = !id
-
-  const [organizationData, isLoading] = useFetch({
-    url: `/organizations/${id}`,
-    method: "get",
-  })
 
   const {
     register,
@@ -104,12 +95,12 @@ export default function OrganizationForm() {
   }, [watch])
 
   useEffect(() => {
-    if (!isAddMode && !isLoading) {
+    if (!isAddMode) {
       organizationFields.forEach((field) => {
         setValue(field.name, organizationData[field.name])
       })
     }
-  }, [isLoading])
+  }, [])
 
   const onSubmit = async ({ name, email, description, websiteUrl, file }) => {
     let image = null
@@ -170,7 +161,7 @@ export default function OrganizationForm() {
           className="bg-primary text-primary-contrast hover:bg-primary-hover"
           disabled={!isValid || isSubmitting}
         >
-          Create organization
+          {isAddMode ? "Create organization" : "Update"}
         </PrimaryButton>
 
         <div className="text-center text-red-500">

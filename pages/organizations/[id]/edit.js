@@ -5,6 +5,7 @@ import Header from "../../../components/header/Header"
 import { useUser } from "../../../hooks/useUser"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
+import { useFetch } from "../../../hooks/useFetch"
 
 export default function NewOrganization() {
   const [isAuthenticated, isLoadingUser] = useUser()
@@ -16,6 +17,15 @@ export default function NewOrganization() {
     }
   }, [router, isAuthenticated, isLoadingUser])
 
+  const { id } = router.query
+  // eslint-disable-next-line no-empty
+  const isAddMode = !id
+
+  const [organizationData, isLoading] = useFetch({
+    url: `/organizations/${id}`,
+    method: "get",
+  })
+
   return (
     <>
       <Head>
@@ -24,7 +34,7 @@ export default function NewOrganization() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {!isAuthenticated || isLoadingUser ? (
+      {!isAuthenticated || isLoadingUser || isLoading ? (
         <div className="grid h-screen place-items-center">
           <PageSpinner />
         </div>
@@ -32,7 +42,7 @@ export default function NewOrganization() {
         <>
           <Header />
           <main className="">
-            <OrganizationForm />
+            <OrganizationForm isAddMode={isAddMode} organizationData={organizationData} />
           </main>
         </>
       )}
