@@ -10,11 +10,9 @@ import PageSpinner from "../PageSpinner"
 import InvitationForm from "../shared/InvitationForm"
 
 export default function OrganizationInfo({ organizationData }) {
-  // Este endpoint tiene que traerse los proyectos asociados utilizando eagger loading
   const [projectsData, isLoadingProjects, projectError] = useFetch({
-    url: "/projects",
+    url: `/organizations/${organizationData.id}/projects`,
     method: "get",
-    params: { organizationId: `${organizationData?.id}` },
   })
   const [openAddPeople, setOpenAddPeople] = useState(false)
 
