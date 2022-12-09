@@ -18,10 +18,12 @@ export default function Home() {
   })
 
   useEffect(() => {
-    if (!isLoadingUser && !isAuthenticated) {
-      router.push("/login")
-    }
+    if (!isLoadingUser && !isAuthenticated) router.push("/login")
   }, [router, isAuthenticated, isLoadingUser])
+
+  useEffect(() => {
+    if (!isLoading && error && error.response.status == "401") router.push("/")
+  }, [router, isLoading, error])
 
   return (
     <>
@@ -45,9 +47,7 @@ export default function Home() {
               </div>
             )}
 
-            {!isLoading && error && <div>{JSON.stringify(error)}</div>}
-
-            {subprojectData && (
+            {subprojectData && !error && (
               <section className="grid place-items-center w-11/12 lg:w-3/4 mx-auto lg:my-10">
                 <SubprojectInfo data={subprojectData} />
               </section>
