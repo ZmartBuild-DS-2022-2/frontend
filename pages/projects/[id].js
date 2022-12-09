@@ -28,9 +28,8 @@ export default function Home() {
   const current_path = `/projects/${router.query.id}`
 
   const [subprojects, subprojectsLoading] = useFetch({
-    url: `/subprojects`,
+    url: `/projects/${router.query.id}/subprojects`,
     method: "get",
-    params: { projectId: `${router.query.id}` },
   })
   const [isAuthenticated, isLoadingUser] = useUser()
 
