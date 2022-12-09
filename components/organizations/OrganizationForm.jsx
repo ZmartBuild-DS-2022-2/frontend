@@ -137,7 +137,9 @@ export default function OrganizationForm({ isAddMode = true, organizationData = 
         encType="multipart/form-data"
       >
         <div className="text-center">
-          <h1 className="font-bold text-2xl md:text-3xl text-primary-neutral">New Organization</h1>
+          <h1 className="font-bold text-2xl md:text-3xl text-primary-neutral">
+            {isAddMode ? "Create" : "Update"} Organization
+          </h1>
         </div>
 
         {organizationFields.map((field) => {
