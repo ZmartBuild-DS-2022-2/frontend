@@ -116,13 +116,12 @@ export default function OrganizationForm({ isAddMode = true, organizationData = 
 
       if (isAddMode) {
         fetchParams.method = "post"
-        await backendFetch(fetchParams)
       } else {
         fetchParams.method = "patch"
         fetchParams.url = `/organizations/${organizationData.id}`
-        await backendFetch(fetchParams)
       }
-      router.push({ pathname: "/organizations" })
+      const res = await backendFetch(fetchParams)
+      router.push({ pathname: `/organizations/${res.id}` })
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
       return setTimeout(() => setErrorMessage(null), 5000)
