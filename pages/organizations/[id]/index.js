@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useFetch } from "../../../hooks/useFetch"
 import Head from "next/head"
 import Header from "../../../components/header/Header"
@@ -8,19 +9,21 @@ import PageSpinner from "../../../components/PageSpinner"
 import OrganizationInfo from "../../../components/organizations/OrganizationInfo"
 
 export default function Home() {
+  const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()
-  // Este endpoint tiene que traerse los proyectos asociados utilizando eagger loading
+
   const [organizationData, isLoading, error] = useFetch({
     url: `/organizations/${router.query.id}`,
     method: "get",
   })
-  const [isAuthenticated, isLoadingUser] = useUser()
 
   useEffect(() => {
-    if (!isLoadingUser && !isAuthenticated) {
-      router.push("/login")
-    }
+    if (!isLoadingUser && !isAuthenticated) router.push("/login")
   }, [router, isAuthenticated, isLoadingUser])
+
+  useEffect(() => {
+    if (!isLoading && error && error.response.status == "401") router.push("/")
+  }, [router, isLoading, error])
 
   return (
     <>
@@ -43,8 +46,6 @@ export default function Home() {
                 <PageSpinner />
               </div>
             )}
-
-            {!isLoading && error && <div>{JSON.stringify(error)}</div>}
 
             {organizationData && (
               <section className="grid place-items-center mx-auto lg:my-10">

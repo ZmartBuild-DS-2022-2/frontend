@@ -6,6 +6,7 @@ import Model from "../Model"
 
 export default function SubprojectInfo({ data }) {
   const [showModel, setShowModel] = useState(false)
+
   const handleShowModel = () => {
     setShowModel(true)
   }
@@ -18,8 +19,10 @@ export default function SubprojectInfo({ data }) {
         </h1>
         <h3 className="text-xs md:text-sm italic text-gray-600">
           From{" "}
-          <Link href={`../../../organizations/${data.organization.id}`}>
-            <a className="underline md:no-underline hover:underline">{data.organization.name}</a>
+          <Link href={`../../../organizations/${data.project.organization.id}`}>
+            <a className="underline md:no-underline hover:underline">
+              {data.project.organization.name}
+            </a>
           </Link>
         </h3>
       </div>

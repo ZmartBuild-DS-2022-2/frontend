@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import Head from "next/head"
 import PageSpinner from "../../../../components/PageSpinner"
 import Header from "../../../../components/header/Header"
@@ -10,6 +11,7 @@ import SubprojectInfo from "../../../../components/subprojects/SubprojectInfo"
 export default function Home() {
   const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()
+
   const [subprojectData, isLoading, error] = useFetch({
     url: `/subprojects/${router.query.idSubProject}`,
     method: "get",
