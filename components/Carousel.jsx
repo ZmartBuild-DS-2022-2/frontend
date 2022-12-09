@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid"
 import ImageWithFallback from "./basics/ImageWithFallBack"
 
-export default function Carousel({ images }) {
+export default function Carousel({ images, className, objectFit = "contain" }) {
   const [currentImage, setCurrentImage] = useState(0)
 
   useEffect(() => {
@@ -31,8 +31,9 @@ export default function Carousel({ images }) {
       <ImageWithFallback
         src={images[currentImage]?.url || images[currentImage]}
         layout="fill"
-        objectFit="contain"
+        objectFit={objectFit}
         alt="projectImg"
+        className={className}
       />
 
       <div className="absolute left-0 top-0 bottom-0 flex justify-center items-center sm:ml-2">
