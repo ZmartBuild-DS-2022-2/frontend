@@ -8,7 +8,7 @@ export default function SubProjectsCollapse({ subprojects, isLoadingSubProjects 
     return (
       <>
         <p>We couldn&apos;t find any subprojects</p>
-        <p>Create one from an organization</p>
+        <p>Create one from a project</p>
       </>
     )
 
