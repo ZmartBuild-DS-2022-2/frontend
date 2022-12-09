@@ -5,6 +5,8 @@ import Carousel from "../Carousel"
 import Model from "../Model"
 
 export default function SubprojectInfo({ data }) {
+  // We can access what role the user have in the project by the following code:
+  // const userRole = data.project.projectUsers[0].projectPermission.role)
   const [showModel, setShowModel] = useState(false)
 
   const handleShowModel = () => {

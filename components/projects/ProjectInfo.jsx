@@ -23,18 +23,20 @@ export default function ProjectCard({ projectData, subprojects }) {
         <div>
           <div className="flex justify-between items-center">
             <h1 className="text-2xl md:text-3xl font-semibold">{projectData?.name}</h1>
-            <button type="button" className="shrink-0" onClick={() => setOpenAddPeople(true)}>
-              <a>
-                <div
-                  className="flex justify-center items-center gap-2 rounded-md px-2 
+            {projectData.projectPermission.role == "a" ? (
+              <button type="button" className="shrink-0" onClick={() => setOpenAddPeople(true)}>
+                <a>
+                  <div
+                    className="flex justify-center items-center gap-2 rounded-md px-2 
                     py-1.5 disabled:opacity-30 transition-all duration-150 
                     bg-primary-neutral-hover
                     text-primary-contrast hover:bg-primary-neutral text-xs sm:text-sm"
-                >
-                  <UserPlusIcon className="h-4 md:h-6 aspect-square" /> Add collaborators
-                </div>
-              </a>
-            </button>
+                  >
+                    <UserPlusIcon className="h-4 md:h-6 aspect-square" /> Add collaborators
+                  </div>
+                </a>
+              </button>
+            ) : null}
           </div>
           <div className="pt-1 pb-3">
             {subprojects && (
@@ -43,21 +45,24 @@ export default function ProjectCard({ projectData, subprojects }) {
                   <div className="">
                     <div className="flex justify-between items-center py-2">
                       <p className="text-lg md:text-lg lg:text-2xl pb-2 pl-1">Subprojects</p>
-                      <Link href={`/projects/${router.query.id}/subprojects/new`}>
-                        <a>
-                          <div
-                            className="flex shrink-0 justify-center items-center 
-                              gap-2 rounded-md px-2 
-                              py-1.5 disabled:opacity-30 transition-all 
-                              duration-150 bg-primary 
-                              text-primary-contrast hover:bg-primary-hover
-                              text-sm sm:text-base"
-                          >
-                            <PlusIcon className="h-3 md:h-6 aspect-square fill-white" />
-                            New subproject
-                          </div>
-                        </a>
-                      </Link>
+                      {projectData.projectPermission.role == "a" ||
+                      projectData.projectPermission.role == "w" ? (
+                        <Link href={`/projects/${router.query.id}/subprojects/new`}>
+                          <a>
+                            <div
+                              className="flex shrink-0 justify-center items-center 
+                                gap-2 rounded-md px-2 
+                                py-1.5 disabled:opacity-30 transition-all 
+                                duration-150 bg-primary 
+                                text-primary-contrast hover:bg-primary-hover
+                                text-sm sm:text-base"
+                            >
+                              <PlusIcon className="h-3 md:h-6 aspect-square fill-white" />
+                              New subproject
+                            </div>
+                          </a>
+                        </Link>
+                      ) : null}
                     </div>
                     <section className="flex justify-center items-center">
                       <div className="inline-flex flex-col items-center gap-4 w-full">

@@ -51,7 +51,9 @@ export default function Home() {
               </div>
             )}
 
-            {!error ? <ProjectInfo projectData={projectData} subprojects={subprojects} /> : null}
+            {!error && projectData ? (
+              <ProjectInfo projectData={projectData} subprojects={subprojects} />
+            ) : null}
           </main>
         </>
       )}
