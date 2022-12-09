@@ -28,7 +28,7 @@ export default function DashBoard() {
     )
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col md:mx-auto md:w-2/4 md:border md:rounded-md">
       <Collapse.Group>
         <Collapse
           title="Recent subprojects"
