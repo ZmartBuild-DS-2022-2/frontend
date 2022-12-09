@@ -22,86 +22,86 @@ test("Given render SubprojectForm When the page load Then show title New Subroje
 })
 
 test("Given render SubprojectForm When the page load Then show Subproject name input", () => {
-    // Given
-    const context = { user: "yes" }
-  
-    render(
-      <AuthContextProvider value={context}>
-        <SubprojectForm />
-      </AuthContextProvider>
-    )
-  
-    // When
-    const nameInput = screen.getByText(/Subproject Name/i)
-  
-    // Then
-    expect(nameInput).toBeInTheDocument()
+  // Given
+  const context = { user: "yes" }
+
+  render(
+    <AuthContextProvider value={context}>
+      <SubprojectForm />
+    </AuthContextProvider>
+  )
+
+  // When
+  const nameInput = screen.getByText(/Subproject Name/i)
+
+  // Then
+  expect(nameInput).toBeInTheDocument()
 })
 
-  test("Given render SubprojectForm When the page load Then show Subproject description input", () => {
-    // Given
-    const context = { user: "yes" }
-  
-    render(
-      <AuthContextProvider value={context}>
-        <SubprojectForm />
-      </AuthContextProvider>
-    )
-  
-    // When
-    const descInput = screen.getByText(/Description/i)
-  
-    // Then
-    expect(descInput).toBeInTheDocument()
-  })
+test("Given render SubprojectForm When the page load Then show Subproject description input", () => {
+  // Given
+  const context = { user: "yes" }
 
-  test("Given render SubprojectForm When the page load Then show Subproject gltf file input", () => {
-    // Given
-    const context = { user: "yes" }
-  
-    render(
-      <AuthContextProvider value={context}>
-        <SubprojectForm />
-      </AuthContextProvider>
-    )
-  
-    // When
-    const gltfInput = screen.getByText(/gltf file/i)
-  
-    // Then
-    expect(gltfInput).toBeInTheDocument()
-  })
+  render(
+    <AuthContextProvider value={context}>
+      <SubprojectForm />
+    </AuthContextProvider>
+  )
 
-  test("Given render SubprojectForm When the page load Then show Subproject bin file input", () => {
-    // Given
-    const context = { user: "yes" }
-  
-    render(
-      <AuthContextProvider value={context}>
-        <SubprojectForm />
-      </AuthContextProvider>
-    )
-  
-    // When
-    const binInput = screen.getByText(/bin file/i)
-  
-    // Then
-    expect(binInput).toBeInTheDocument()
-  })
-  
-  test("Given render SubprojectForm When the page load Then show Subproject create button", () => {
-    // Given
-    const context = { user: "yes" }
-  
-    render(
-      <AuthContextProvider value={context}>
-        <SubprojectForm />
-      </AuthContextProvider>
-    )
-  
-    // When
-    const button = screen.getByText(/Create subproject/i)
-  
-    // Then
-    expect(button).toBeInTheDocument()
-  })
+  // When
+  const descInput = screen.getByText(/Description/i)
+
+  // Then
+  expect(descInput).toBeInTheDocument()
+})
+
+test("Given render SubprojectForm When the page load Then show Subproject gltf file input", () => {
+  // Given
+  const context = { user: "yes" }
+
+  render(
+    <AuthContextProvider value={context}>
+      <SubprojectForm />
+    </AuthContextProvider>
+  )
+
+  // When
+  const gltfInput = screen.getByText(/gltf file/i)
+
+  // Then
+  expect(gltfInput).toBeInTheDocument()
+})
+
+test("Given render SubprojectForm When the page load Then show Subproject bin file input", () => {
+  // Given
+  const context = { user: "yes" }
+
+  render(
+    <AuthContextProvider value={context}>
+      <SubprojectForm />
+    </AuthContextProvider>
+  )
+
+  // When
+  const binInput = screen.getByText(/bin file/i)
+
+  // Then
+  expect(binInput).toBeInTheDocument()
+})
+
+test("Given render SubprojectForm When the page load Then show Subproject create button", () => {
+  // Given
+  const context = { user: "yes" }
+
+  render(
+    <AuthContextProvider value={context}>
+      <SubprojectForm />
+    </AuthContextProvider>
+  )
+
+  // When
+  const button = screen.getByText(/Create subproject/i)
+
+  // Then
+  expect(button).toBeInTheDocument()
+})

@@ -7,7 +7,7 @@ import { useRouter } from "next/router"
 import PageSpinner from "../../../components/PageSpinner"
 import OrganizationInfo from "../../../components/organizations/OrganizationInfo"
 
-export default function Home() {
+export default function Organization() {
   const router = useRouter()
   // Este endpoint tiene que traerse los proyectos asociados utilizando eagger loading
   const [organizationData, isLoading, error] = useFetch({
