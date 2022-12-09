@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import Head from "next/head"
 import PageSpinner from "../../../../components/PageSpinner"
 import Header from "../../../../components/header/Header"
