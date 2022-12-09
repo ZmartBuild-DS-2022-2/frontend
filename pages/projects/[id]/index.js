@@ -1,18 +1,18 @@
 /* eslint-disable max-len */
-import { useFetch } from "../../hooks/useFetch"
+import { useFetch } from "../../../hooks/useFetch"
 import Head from "next/head"
-import Header from "../../components/header/Header"
-import { useUser } from "../../hooks/useUser"
+import Header from "../../../components/header/Header"
+import { useUser } from "../../../hooks/useUser"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
-import PageSpinner from "../../components/PageSpinner"
+import PageSpinner from "../../../components/PageSpinner"
 import { Link, Modal } from "@nextui-org/react"
 import { PlusIcon } from "@heroicons/react/24/solid"
-import SubprojectCard from "../../components/subprojects/SubprojectCard"
+import SubprojectCard from "../../../components/subprojects/SubprojectCard"
 import { UserPlusIcon } from "@heroicons/react/24/outline"
-import InvitationForm from "../../components/shared/InvitationForm"
-import Carousel from "../../components/Carousel"
-import PrimaryButton from "../../components/basics/PrimaryButton"
+import InvitationForm from "../../../components/shared/InvitationForm"
+import Carousel from "../../../components/Carousel"
+import PrimaryButton from "../../../components/basics/PrimaryButton"
 
 export default function Home() {
   const [openAddPeople, setOpenAddPeople] = useState(false)
