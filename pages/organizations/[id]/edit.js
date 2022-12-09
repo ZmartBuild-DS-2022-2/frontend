@@ -7,7 +7,7 @@ import { useEffect } from "react"
 import { useRouter } from "next/router"
 import { useFetch } from "../../../hooks/useFetch"
 
-export default function NewOrganization() {
+export default function EditOrganization() {
   const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()
 
