@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
@@ -6,6 +7,7 @@ import PrimaryButton from "../basics/PrimaryButton"
 import { backendFetch } from "../../services"
 import { CloudArrowUpIcon } from "@heroicons/react/24/solid"
 import ImageWithFallback from "../basics/ImageWithFallBack"
+import { useFetch } from "../../hooks/useFetch"
 
 const getinputField = (field, register, uploadedFile) => {
   if (field.type == "file") {
@@ -72,17 +74,26 @@ export default function OrganizationForm() {
   const router = useRouter()
   const [errorMessage, setErrorMessage] = useState(null)
   const [uploadedFile, setUploadedFile] = useState(null)
+  const { id } = router.query
+  // eslint-disable-next-line no-empty
+  const isAddMode = !id
+
+  const [organizationData, isLoading] = useFetch({
+    url: `/organizations/${id}`,
+    method: "get",
+  })
 
   const {
     register,
     watch,
     formState: { errors, isValid, isSubmitting },
     handleSubmit,
+    setValue,
   } = useForm({ mode: "onChange" })
 
   useEffect(() => {
     watch((value, { name }) => {
-      if (name == "file") {
+      if (name == "file" && isAddMode) {
         const selectedFile = value[name][0]
         if (!selectedFile) return setUploadedFile(false)
         const objectUrl = URL.createObjectURL(selectedFile)
@@ -92,29 +103,34 @@ export default function OrganizationForm() {
     })
   }, [watch])
 
+  useEffect(() => {
+    if (!isAddMode && !isLoading) {
+      organizationFields.forEach((field) => {
+        setValue(field.name, organizationData[field.name])
+      })
+    }
+  }, [isLoading])
+
   const onSubmit = async ({ name, email, description, websiteUrl, file }) => {
-    let image = file[0]
+    let image = null
+    if (isAddMode) image = file[0]
     try {
-      // Regex validation from url
-
-      const httpRegex =
-        // eslint-disable-next-line max-len
-        /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_.~#?&=]*)$/
-      const isValid = httpRegex.test(websiteUrl)
-
-      if (!isValid) {
-        setErrorMessage("Please provide a valid url for your organization website")
-        return setTimeout(() => setErrorMessage(null), 5000)
-      }
-
-      await backendFetch({
+      const fetchParams = {
         url: "/organizations",
-        method: "post",
         headers: {
           "Content-Type": "multipart/form-data",
         },
         data: { name, email, description, websiteUrl, image },
-      })
+      }
+
+      if (isAddMode) {
+        fetchParams.method = "post"
+        await backendFetch(fetchParams)
+      } else {
+        fetchParams.method = "patch"
+        fetchParams.url = `/organizations/${organizationData.id}`
+        await backendFetch(fetchParams)
+      }
       router.push({ pathname: "/organizations" })
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
@@ -135,18 +151,19 @@ export default function OrganizationForm() {
         </div>
 
         {organizationFields.map((field) => {
-          return (
-            <div
-              key={field.name}
-              className="relative border-b-2 mb-1 py-1 focus-within:border-gray-400"
-            >
-              <label className="inline-block font-semibold mb-2 text-base" htmlFor={field.name}>
-                {field.title}
-              </label>
-              {getinputField(field, register, uploadedFile)}
-              <span className="text-sm text-red-500">{errors[field.name]?.message}</span>
-            </div>
-          )
+          if (isAddMode || (!isAddMode && field.type != "file"))
+            return (
+              <div
+                key={field.name}
+                className="relative border-b-2 mb-1 py-1 focus-within:border-gray-400"
+              >
+                <label className="inline-block font-semibold mb-2 text-base" htmlFor={field.name}>
+                  {field.title}
+                </label>
+                {getinputField(field, register, uploadedFile)}
+                <span className="text-sm text-red-500">{errors[field.name]?.message}</span>
+              </div>
+            )
         })}
 
         <PrimaryButton
