@@ -19,10 +19,24 @@ export default function EditOrganization() {
 
   const { id } = router.query
   // eslint-disable-next-line no-empty
-  const [organizationData, isLoading] = useFetch({
+  const [organizationData, isLoading, error] = useFetch({
     url: `/organizations/${id}`,
     method: "get",
   })
+
+  useEffect(() => {
+    if (
+      (!isLoading &&
+        organizationData &&
+        !(
+          organizationData.organizationPermission.role == "a" ||
+          organizationData.organizationPermission.role == "w"
+        )) ||
+      error
+    ) {
+      router.push(`/organizations/${id}`)
+    }
+  }, [id, isLoading, organizationData, router, error])
 
   return (
     <>
@@ -32,7 +46,7 @@ export default function EditOrganization() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {!isAuthenticated || isLoadingUser || isLoading ? (
+      {!isAuthenticated || isLoadingUser || isLoading || error ? (
         <div className="grid h-screen place-items-center">
           <PageSpinner />
         </div>

@@ -8,8 +8,10 @@ import Link from "next/link"
 import { useFetch } from "../../hooks/useFetch"
 import PageSpinner from "../PageSpinner"
 import InvitationForm from "../shared/InvitationForm"
+import { useRouter } from "next/router"
 
-export default function OrganizationInfo({ organizationData }) {
+export default function OrganizationInfo({ organizationData, isAdmin = false, isWritter = false }) {
+  const { asPath } = useRouter()
   const [projectsData, isLoadingProjects, projectError] = useFetch({
     url: `/organizations/${organizationData.id}/projects`,
     method: "get",
@@ -19,8 +21,8 @@ export default function OrganizationInfo({ organizationData }) {
   const closeHandler = () => setOpenAddPeople(false)
 
   return (
-    <div>
-      <div className="flex flex-col md:flex-row gap-5">
+    <>
+      <div className="flex flex-col md:flex-row gap-5 w-80 md:w-auto">
         <div
           className="flex justify-center items-center relative lg:h-60 aspect-square 
           border border-gray-200 rounded-lg bg-[#fbfbfb]"
@@ -36,9 +38,25 @@ export default function OrganizationInfo({ organizationData }) {
 
         <div className="flex flex-col grow justify-around">
           <div>
-            <h1 className="text-left text-2xl md:text-3xl font-semibold mb-2 text-primary-neutral">
-              {organizationData?.name}
-            </h1>
+            <div className="flex items-center gap-x-2 md:flex-col md:items-start">
+              <h1
+                className="text-left text-2xl md:text-3xl
+                font-semibold mb-2 text-primary-neutral"
+              >
+                {organizationData?.name}
+              </h1>
+              {(isAdmin || isWritter) && (
+                <Link href={`${asPath}/edit`}>
+                  <a
+                    className=" text-primary-neutral 
+                        hover:text-primary-neutral-hover 
+                        font-semibold text-xs md:pb-1"
+                  >
+                    Edit Project
+                  </a>
+                </Link>
+              )}
+            </div>
             <p className="text-sm sm:text-base lg:line-clamp-5 text-gray-700">
               {organizationData?.description}
             </p>
@@ -72,9 +90,8 @@ export default function OrganizationInfo({ organizationData }) {
         </div>
       </div>
 
-      <div className="flex justify-between my-3 md:my-5 ">
-        {organizationData.organizationPermission.role == "a" ||
-        organizationData.organizationPermission.role == "w" ? (
+      <div className="flex justify-between my-3 md:my-5 gap-x-1">
+        {(isWritter || isAdmin) && (
           <Link href={`/organizations/${organizationData?.id}/newproject`}>
             <a>
               <div
@@ -86,8 +103,8 @@ export default function OrganizationInfo({ organizationData }) {
               </div>
             </a>
           </Link>
-        ) : null}
-        {organizationData.organizationPermission.role == "a" ? (
+        )}
+        {isAdmin && (
           <button type="button" onClick={() => setOpenAddPeople(true)}>
             <a>
               <div
@@ -100,7 +117,7 @@ export default function OrganizationInfo({ organizationData }) {
               </div>
             </a>
           </button>
-        ) : null}
+        )}
       </div>
 
       <div>
@@ -127,6 +144,6 @@ export default function OrganizationInfo({ organizationData }) {
         objectiveId={organizationData.id}
         type="organization"
       />
-    </div>
+    </>
   )
 }

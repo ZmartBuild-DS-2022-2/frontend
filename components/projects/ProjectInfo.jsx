@@ -8,8 +8,9 @@ import InvitationForm from "../shared/InvitationForm"
 import Carousel from "../Carousel"
 import PrimaryButton from "../basics/PrimaryButton"
 
-export default function ProjectCard({ projectData, subprojects }) {
+export default function ProjectInfo({ projectData, subprojects, isAdmin, isWritter }) {
   const router = useRouter()
+  const { asPath } = useRouter()
 
   const [openAddPeople, setOpenAddPeople] = useState(false)
   const closeHandler = () => setOpenAddPeople(false)
@@ -22,8 +23,21 @@ export default function ProjectCard({ projectData, subprojects }) {
       <div className="flex flex-col py-4 mx-4 divide-y divide-gray-500/20 md:w-3/5 md:m-auto">
         <div>
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl md:text-3xl font-semibold">{projectData?.name}</h1>
-            {projectData.projectPermission.role == "a" ? (
+            <div className="flex flex-col items-start gap-x-2 md:flex-row md:items-end">
+              <h1 className="text-2xl md:text-3xl font-semibold">{projectData?.name}</h1>
+              {(isAdmin || isWritter) && (
+                <Link href={`${asPath}/edit`}>
+                  <a
+                    className=" text-primary-neutral 
+                      hover:text-primary-neutral-hover 
+                      font-semibold text-xs md:pb-1"
+                  >
+                    Edit Project
+                  </a>
+                </Link>
+              )}
+            </div>
+            {isAdmin && (
               <button type="button" className="shrink-0" onClick={() => setOpenAddPeople(true)}>
                 <a>
                   <div
@@ -36,7 +50,7 @@ export default function ProjectCard({ projectData, subprojects }) {
                   </div>
                 </a>
               </button>
-            ) : null}
+            )}
           </div>
           <div className="pt-1 pb-3">
             {subprojects && (
@@ -45,8 +59,7 @@ export default function ProjectCard({ projectData, subprojects }) {
                   <div className="">
                     <div className="flex justify-between items-center py-2">
                       <p className="text-lg md:text-lg lg:text-2xl pb-2 pl-1">Subprojects</p>
-                      {projectData.projectPermission.role == "a" ||
-                      projectData.projectPermission.role == "w" ? (
+                      {isAdmin || isWritter ? (
                         <Link href={`/projects/${router.query.id}/subprojects/new`}>
                           <a>
                             <div

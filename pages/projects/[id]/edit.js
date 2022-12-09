@@ -17,10 +17,23 @@ export default function EditProject() {
     }
   }, [router, isAuthenticated, isLoadingUser])
 
-  const [projectData, isLoading] = useFetch({
+  const [projectData, isLoading, error] = useFetch({
     url: `/projects/${router.query.id}`,
     method: "get",
   })
+
+  useEffect(() => {
+    if (
+      (!isLoading &&
+        projectData &&
+        !(
+          projectData.projectPermission.role == "a" || projectData.projectPermission.role == "w"
+        )) ||
+      error
+    ) {
+      router.push(`/projects/${router.query.id}`)
+    }
+  }, [isLoading, router, error, projectData])
 
   return (
     <>
@@ -30,7 +43,7 @@ export default function EditProject() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {!isAuthenticated || isLoadingUser || isLoading ? (
+      {!isAuthenticated || isLoadingUser || isLoading || error ? (
         <div className="grid h-screen place-items-center">
           <PageSpinner />
         </div>

@@ -1,11 +1,11 @@
 import Head from "next/head"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
-import { useFetch } from "../../hooks/useFetch"
-import { useUser } from "../../hooks/useUser"
-import Header from "../../components/header/Header"
-import PageSpinner from "../../components/PageSpinner"
-import ProjectInfo from "../../components/projects/ProjectInfo"
+import { useFetch } from "../../../hooks/useFetch"
+import { useUser } from "../../../hooks/useUser"
+import PageSpinner from "../../../components/PageSpinner"
+import Header from "../../../components/header/Header"
+import ProjectInfo from "../../../components/projects/ProjectInfo"
 
 export default function Home() {
   const [isAuthenticated, isLoadingUser] = useUser()
@@ -51,9 +51,14 @@ export default function Home() {
               </div>
             )}
 
-            {!error && projectData ? (
-              <ProjectInfo projectData={projectData} subprojects={subprojects} />
-            ) : null}
+            {!error && projectData && (
+              <ProjectInfo
+                projectData={projectData}
+                subprojects={subprojects}
+                isAdmin={projectData.projectPermission.role == "a"}
+                isWritter={projectData.projectPermission.role == "w"}
+              />
+            )}
           </main>
         </>
       )}

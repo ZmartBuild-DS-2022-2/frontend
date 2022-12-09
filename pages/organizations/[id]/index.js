@@ -49,7 +49,11 @@ export default function Home() {
 
             {organizationData && (
               <section className="grid place-items-center mx-auto lg:my-10">
-                <OrganizationInfo organizationData={organizationData} />
+                <OrganizationInfo
+                  organizationData={organizationData}
+                  isAdmin={organizationData.organizationPermission.role == "a"}
+                  isWritter={organizationData.organizationPermission.role == "w"}
+                />
               </section>
             )}
           </main>
