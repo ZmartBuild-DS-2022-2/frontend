@@ -5,10 +5,8 @@ import Carousel from "../Carousel"
 import Model from "../Model"
 
 export default function SubprojectInfo({ data }) {
-  console.log(data)
   const [showModel, setShowModel] = useState(false)
   const handleShowModel = () => {
-    // False for the moment, until the model upload is done
     setShowModel(true)
   }
 
@@ -52,7 +50,7 @@ export default function SubprojectInfo({ data }) {
         </div>
       )}
 
-      {showModel && (
+      {showModel && data.gltfmodels[0] && (
         <div className="flex flex-col my-3 w-full box-border items-start">
           <h1 className="text-xl md:text-2xl lg:text-2xl font-semibold mb-1 md:mb-2">3D Model</h1>
           <Model url={data?.gltfmodels[0].url} />
