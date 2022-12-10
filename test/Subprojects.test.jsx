@@ -15,7 +15,7 @@ test("Given render SubprojectForm When the page load Then show title New Subroje
   )
 
   // When
-  const formElement = screen.getByText(/New Subproject/i)
+  const formElement = screen.getByText(/Create Subproject/i)
 
   // Then
   expect(formElement).toBeInTheDocument()

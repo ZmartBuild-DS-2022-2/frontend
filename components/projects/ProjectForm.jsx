@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
@@ -59,7 +60,7 @@ const getinputField = (field, register, uploadedFiles) => {
   }
 }
 
-export default function ProjectForm() {
+export default function ProjectForm({ isAddMode = true, projectData = null }) {
   const router = useRouter()
   const [errorMessage, setErrorMessage] = useState(null)
   const [uploadedFiles, setUploadedFiles] = useState(null)
@@ -69,11 +70,12 @@ export default function ProjectForm() {
     watch,
     formState: { errors, isValid, isSubmitting },
     handleSubmit,
+    setValue,
   } = useForm({ mode: "onChange" })
 
   useEffect(() => {
     watch((value, { name }) => {
-      if (name == "images") {
+      if (name == "images" && isAddMode) {
         const selectedFiles = Object.values(value[name])
         if (!selectedFiles.length) return setUploadedFiles(false)
         const files = selectedFiles.map((selectedFile) => URL.createObjectURL(selectedFile))
@@ -83,24 +85,39 @@ export default function ProjectForm() {
     })
   }, [watch])
 
+  useEffect(() => {
+    if (!isAddMode) {
+      projectFields.forEach((field) => {
+        setValue(field.name, projectData[field.name])
+      })
+    }
+  }, [])
+
   const onSubmit = async ({ name, description, images }) => {
     let formData = new FormData()
     formData.append("name", name)
     formData.append("description", description)
-    Array.from(images).forEach((image) => {
-      formData.append("images", image)
-    })
-
-    try {
-      await backendFetch({
-        url: `/projects/${router.query.id}`,
-        method: "post",
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+    if (isAddMode) {
+      Array.from(images).forEach((image) => {
+        formData.append("images", image)
       })
-      router.push(`/organizations/${router.query.id}`)
+    }
+    const fetchParams = {
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+    try {
+      if (isAddMode) {
+        fetchParams.method = "post"
+        fetchParams.url = `/projects/${router.query.id}`
+      } else {
+        fetchParams.method = "patch"
+        fetchParams.url = `/projects/${projectData.id}`
+      }
+      const res = await backendFetch(fetchParams)
+      router.push(`/projects/${res.id}`)
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
       setTimeout(() => setErrorMessage(null), 5000)
@@ -116,29 +133,32 @@ export default function ProjectForm() {
         encType="multipart/form-data"
       >
         <div className="text-center">
-          <h1 className="font-bold text-2xl md:text-3xl text-primary-neutral">New Project</h1>
+          <h1 className="font-bold text-2xl md:text-3xl text-primary-neutral">
+            {isAddMode ? "Create" : "Update"} Project
+          </h1>
         </div>
 
         {projectFields.map((field) => {
-          return (
-            <div
-              key={field.name}
-              className="relative border-b-2 mb-1 py-1 focus-within:border-gray-400"
-            >
-              <label className="inline-block font-semibold mb-2 text-base" htmlFor={field.name}>
-                {field.title}
-              </label>
-              {getinputField(field, register, uploadedFiles)}
-              <span className="text-sm text-red-500">{errors[field.name]?.message}</span>
-            </div>
-          )
+          if (isAddMode || (!isAddMode && field.type != "file"))
+            return (
+              <div
+                key={field.name}
+                className="relative border-b-2 mb-1 py-1 focus-within:border-gray-400"
+              >
+                <label className="inline-block font-semibold mb-2 text-base" htmlFor={field.name}>
+                  {field.title}
+                </label>
+                {getinputField(field, register, uploadedFiles)}
+                <span className="text-sm text-red-500">{errors[field.name]?.message}</span>
+              </div>
+            )
         })}
 
         <PrimaryButton
           className="bg-primary text-primary-contrast hover:bg-primary-hover"
           disabled={!isValid || isSubmitting}
         >
-          Create project
+          {isAddMode ? "Create" : "Update"}
         </PrimaryButton>
 
         <div className="text-center text-red-500">

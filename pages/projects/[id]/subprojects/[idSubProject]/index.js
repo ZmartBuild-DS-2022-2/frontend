@@ -1,23 +1,18 @@
 import Head from "next/head"
+import PageSpinner from "../../../../../components/PageSpinner"
+import Header from "../../../../../components/header/Header"
+import { useUser } from "../../../../../hooks/useUser"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
-import { useFetch } from "../../hooks/useFetch"
-import { useUser } from "../../hooks/useUser"
-import Header from "../../components/header/Header"
-import PageSpinner from "../../components/PageSpinner"
-import ProjectInfo from "../../components/projects/ProjectInfo"
+import { useFetch } from "../../../../../hooks/useFetch"
+import SubprojectInfo from "../../../../../components/subprojects/SubprojectInfo"
 
-export default function Project() {
+export default function Subproject() {
   const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()
 
-  const [projectData, isLoading, error] = useFetch({
-    url: `/projects/${router.query.id}`,
-    method: "get",
-  })
-
-  const [subprojects, subprojectsLoading] = useFetch({
-    url: `/projects/${router.query.id}/subprojects`,
+  const [subprojectData, isLoading, error] = useFetch({
+    url: `/subprojects/${router.query.idSubProject}`,
     method: "get",
   })
 
@@ -45,15 +40,21 @@ export default function Project() {
         <>
           <Header />
           <main>
-            {(isLoading || subprojectsLoading) && !error && (
+            {isLoading && !error && (
               <div className="grid h-screen place-items-center">
                 <PageSpinner />
               </div>
             )}
 
-            {!error && projectData ? (
-              <ProjectInfo projectData={projectData} subprojects={subprojects} />
-            ) : null}
+            {subprojectData && !error && (
+              <section className="grid place-items-center w-11/12 lg:w-3/4 mx-auto lg:my-10">
+                <SubprojectInfo
+                  data={subprojectData}
+                  isAdmin={subprojectData.project.projectUsers[0].projectPermission.role == "a"}
+                  isWritter={subprojectData.project.projectUsers[0].projectPermission.role == "w"}
+                />
+              </section>
+            )}
           </main>
         </>
       )}

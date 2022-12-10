@@ -4,7 +4,7 @@ import "@testing-library/jest-dom"
 
 import OrganizationForm from "../components/organizations/OrganizationForm"
 
-test("Given render OrganizationForm When the page load Then show title New Subroject", () => {
+test("Given render OrganizationForm When the page load Then show title New Organization", () => {
   // Given
   const context = { user: "yes" }
 
@@ -15,7 +15,7 @@ test("Given render OrganizationForm When the page load Then show title New Subro
   )
 
   // When
-  const formElement = screen.getByText(/New Organization/i)
+  const formElement = screen.getByText(/Create Organization/i)
 
   // Then
   expect(formElement).toBeInTheDocument()
