@@ -7,7 +7,7 @@ import { useRouter } from "next/router"
 import { useFetch } from "../../../../hooks/useFetch"
 import SubprojectInfo from "../../../../components/subprojects/SubprojectInfo"
 
-export default function Home() {
+export default function Subproject() {
   const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()
 

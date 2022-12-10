@@ -7,7 +7,7 @@ import Header from "../../components/header/Header"
 import PageSpinner from "../../components/PageSpinner"
 import ProjectInfo from "../../components/projects/ProjectInfo"
 
-export default function Home() {
+export default function Project() {
   const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()
 
