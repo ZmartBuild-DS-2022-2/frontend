@@ -73,29 +73,34 @@ export default function OrganizationInfo({ organizationData }) {
       </div>
 
       <div className="flex justify-between my-3 md:my-5 ">
-        <Link href={`/organizations/${organizationData?.id}/newproject`}>
-          <a>
-            <div
-              className="flex justify-center items-center gap-2 rounded-md px-2 
-                sm:px-4 py-1.5 disabled:opacity-30 transition-all duration-150 bg-primary 
-                text-primary-contrast hover:bg-primary-hover text-xs sm:text-base"
-            >
-              <PlusIcon className="h-5 md:h-6 aspect-square fill-white" /> Create Project
-            </div>
-          </a>
-        </Link>
-        <button type="button" onClick={() => setOpenAddPeople(true)}>
-          <a>
-            <div
-              className="flex justify-center items-center gap-2 rounded-md px-2 
-                sm:px-4 py-1.5 disabled:opacity-30 transition-all duration-150 
-                bg-primary-neutral-hover 
-                text-primary-contrast hover:bg-primary-neutral text-xs sm:text-base"
-            >
-              Add collaborators <UserPlusIcon className="h-5 md:h-6 aspect-square" />
-            </div>
-          </a>
-        </button>
+        {organizationData.organizationPermission.role == "a" ||
+        organizationData.organizationPermission.role == "w" ? (
+          <Link href={`/organizations/${organizationData?.id}/newproject`}>
+            <a>
+              <div
+                className="flex justify-center items-center gap-2 rounded-md px-2 
+                  sm:px-4 py-1.5 disabled:opacity-30 transition-all duration-150 bg-primary 
+                  text-primary-contrast hover:bg-primary-hover text-xs sm:text-base"
+              >
+                <PlusIcon className="h-5 md:h-6 aspect-square fill-white" /> Create Project
+              </div>
+            </a>
+          </Link>
+        ) : null}
+        {organizationData.organizationPermission.role == "a" ? (
+          <button type="button" onClick={() => setOpenAddPeople(true)}>
+            <a>
+              <div
+                className="flex justify-center items-center gap-2 rounded-md px-2 
+                  sm:px-4 py-1.5 disabled:opacity-30 transition-all duration-150 
+                  bg-primary-neutral-hover 
+                  text-primary-contrast hover:bg-primary-neutral text-xs sm:text-base"
+              >
+                Add collaborators <UserPlusIcon className="h-5 md:h-6 aspect-square" />
+              </div>
+            </a>
+          </button>
+        ) : null}
       </div>
 
       <div>
