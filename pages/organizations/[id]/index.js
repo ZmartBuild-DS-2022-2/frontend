@@ -8,7 +8,7 @@ import { useRouter } from "next/router"
 import PageSpinner from "../../../components/PageSpinner"
 import OrganizationInfo from "../../../components/organizations/OrganizationInfo"
 
-export default function Home() {
+export default function Organization() {
   const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()
 

@@ -9,7 +9,7 @@ import PageSpinner from "../../components/PageSpinner"
 import OrganizationCard from "../../components/organizations/OrganizationCard"
 import { PlusIcon } from "@heroicons/react/24/solid"
 
-export default function Home() {
+export default function Organizations() {
   const [organizations, isLoading, error] = useFetch({ url: "/organizations", method: "get" })
   const [isAuthenticated, isLoadingUser] = useUser()
   const router = useRouter()

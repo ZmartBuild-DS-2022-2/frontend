@@ -10,6 +10,7 @@ import {
   ArrowRightOnRectangleIcon,
   EnvelopeIcon,
   UserGroupIcon,
+  UserIcon,
 } from "@heroicons/react/24/solid"
 import userPlaceHolder from "../../public/user_placeholder.png"
 
@@ -87,6 +88,15 @@ export default function HeaderDropdown() {
               <div className="flex gap-x-2 items-center transition-transform hover:scale-105">
                 <EnvelopeIcon className="h-6 w-6" />
                 <p>My invitations</p>
+              </div>
+            </a>
+          </Link>
+
+          <Link href="/">
+            <a>
+              <div className="flex gap-x-2 items-center transition-transform hover:scale-105">
+                <UserIcon className="h-6 w-6" />
+                <p>Profile</p>
               </div>
             </a>
           </Link>
