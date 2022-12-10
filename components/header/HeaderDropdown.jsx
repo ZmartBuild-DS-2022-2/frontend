@@ -92,7 +92,7 @@ export default function HeaderDropdown() {
             </a>
           </Link>
 
-          <Link href="/">
+          <Link href="/profile">
             <a>
               <div className="flex gap-x-2 items-center transition-transform hover:scale-105">
                 <UserIcon className="h-6 w-6" />
