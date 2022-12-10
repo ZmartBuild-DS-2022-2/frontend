@@ -55,7 +55,7 @@ export default function SubprojectInfo({ data, isAdmin = false, isWritter = fals
                   hover:text-primary-neutral-hover 
                   font-semibold text-xs md:pb-1"
               >
-                Edit Project
+                Edit Subproject
               </a>
             </Link>
           </div>

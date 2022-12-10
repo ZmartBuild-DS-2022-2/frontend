@@ -52,7 +52,7 @@ export default function OrganizationInfo({ organizationData, isAdmin = false, is
                         hover:text-primary-neutral-hover 
                         font-semibold text-xs md:pb-1"
                   >
-                    Edit Project
+                    Edit Organization
                   </a>
                 </Link>
               )}

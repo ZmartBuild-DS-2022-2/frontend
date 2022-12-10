@@ -3,7 +3,8 @@ import { useRouter } from "next/router"
 import { UserPlusIcon } from "@heroicons/react/24/outline"
 import { PlusIcon } from "@heroicons/react/24/solid"
 import SubprojectCard from "../subprojects/SubprojectCard"
-import { Link, Modal } from "@nextui-org/react"
+import { Modal } from "@nextui-org/react"
+import Link from "next/link"
 import InvitationForm from "../shared/InvitationForm"
 import Carousel from "../Carousel"
 import PrimaryButton from "../basics/PrimaryButton"
@@ -18,6 +19,7 @@ export default function ProjectInfo({ projectData, subprojects, isAdmin, isWritt
   const closeHandlerImages = () => setOpenImages(false)
 
   const current_path = `/projects/${router.query.id}`
+
   return (
     <>
       <div className="flex flex-col py-4 mx-4 divide-y divide-gray-500/20 md:w-3/5 md:m-auto">
@@ -71,7 +73,7 @@ export default function ProjectInfo({ projectData, subprojects, isAdmin, isWritt
                                 text-sm sm:text-base"
                             >
                               <PlusIcon className="h-3 md:h-6 aspect-square fill-white" />
-                              New subproject
+                              New Subproject
                             </div>
                           </a>
                         </Link>
