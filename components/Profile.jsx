@@ -35,14 +35,14 @@ export default function ProfileCard() {
         >
           <div className="px-6">
             <div className="relative h-[150px] sm:h-[180px] md:h-[210px] lg:h-[240px]">
-                <Image 
-                    src={user.imgUrl || userPlaceHolder} 
-                    layout="fill" 
-                    objectFit="contain" 
-                    alt="ZmartBuild logo"
-                />
+              <Image
+                src={user.imgUrl || userPlaceHolder}
+                layout="fill"
+                objectFit="contain"
+                alt="ZmartBuild logo"
+              />
             </div>
-            <div className="flex flex-wrap justify-center">  
+            <div className="flex flex-wrap justify-center">
               <div className="w-full px-4 text-center">
                 <div className="flex justify-center py-4 lg:pt-4 pt-8">
                   <div className="mr-4 p-3 text-center">
