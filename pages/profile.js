@@ -46,7 +46,7 @@ export default function Profile() {
               </div>
             )}
             <div className="flex flex-row min-h-screen justify-center items-cente">
-              <ProfileCard/>
+              <ProfileCard />
             </div>
           </main>
         </>
