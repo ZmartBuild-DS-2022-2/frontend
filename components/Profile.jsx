@@ -9,7 +9,7 @@ import userPlaceHolder from "../public/user_placeholder.png"
 export default function ProfileCard() {
   const { user } = useContext(AuthContext)
 
-  const [organizations, isLoadingOrganizatinos] = useFetch({
+  const [organizations, isLoadingOrganizations] = useFetch({
     url: "/organizations",
   })
   const [projects, isLoadingProjects] = useFetch({
@@ -19,7 +19,7 @@ export default function ProfileCard() {
     url: "/subprojects",
   })
 
-  if (isLoadingOrganizatinos || isLoadingProjects || isLoadingSubProjects)
+  if (isLoadingOrganizations || isLoadingProjects || isLoadingSubProjects)
     return (
       <div className="grid h-[70vh] place-items-center">
         <PageSpinner />

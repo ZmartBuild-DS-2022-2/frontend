@@ -7,7 +7,7 @@ import ProjectsCollapse from "./ProjectsCollapse"
 import OrganizationsCollapse from "./OrganizationsCollapse"
 
 export default function DashBoard() {
-  const [organizations, isLoadingOrganizatinos] = useFetch({
+  const [organizations, isLoadingOrganizations] = useFetch({
     url: "/organizations",
     params: { limit: 3 },
   })
@@ -20,7 +20,7 @@ export default function DashBoard() {
     params: { limit: 3 },
   })
 
-  if (isLoadingOrganizatinos || isLoadingProjects || isLoadingSubProjects)
+  if (isLoadingOrganizations || isLoadingProjects || isLoadingSubProjects)
     return (
       <div className="grid h-[70vh] place-items-center">
         <PageSpinner />
@@ -51,7 +51,7 @@ export default function DashBoard() {
           <div className="flex justify-center">
             <OrganizationsCollapse
               organizations={organizations}
-              isLoadingOrganizatinos={isLoadingOrganizatinos}
+              isLoadingOrganizations={isLoadingOrganizations}
             />
           </div>
         </Collapse>

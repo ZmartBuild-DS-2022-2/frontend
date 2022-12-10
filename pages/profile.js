@@ -27,7 +27,7 @@ export default function Profile() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {!isAuthenticated || isLoadingUser ? (
+      {isLoadingUser ? (
         <div className="grid h-screen place-items-center">
           <PageSpinner />
         </div>
