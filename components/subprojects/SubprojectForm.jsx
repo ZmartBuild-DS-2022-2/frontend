@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
@@ -94,7 +95,7 @@ const getinputField = (field, register, uploadedFiles, uploadedGltf, uploadedBin
   }
 }
 
-export default function SubprojectForm() {
+export default function SubprojectForm({ isAddMode = true, projectData = null }) {
   const router = useRouter()
   const [errorMessage, setErrorMessage] = useState(null)
   const [uploadedFiles, setUploadedFiles] = useState(null)
@@ -106,53 +107,67 @@ export default function SubprojectForm() {
     watch,
     formState: { errors, isValid, isSubmitting },
     handleSubmit,
+    setValue,
   } = useForm({ mode: "onChange" })
 
   useEffect(() => {
     watch((value, { name }) => {
-      if (name == "images") {
-        const selectedFiles = Object.values(value[name])
-        if (!selectedFiles.length) return setUploadedFiles(false)
-        const files = selectedFiles.map((selectedFile) => URL.createObjectURL(selectedFile))
-        setUploadedFiles(files)
-        return () => files.map((element) => URL.revokeObjectURL(element))
-      } else if (name == "gltf_file") {
-        const selectedFiles = Object.values(value[name])
-        if (!selectedFiles.length) return setUploadedGltf(false)
-        const files = selectedFiles.map((selectedFile) => URL.createObjectURL(selectedFile))
-        setUploadedGltf(files)
-        return () => files.map((element) => URL.revokeObjectURL(element))
-      } else if (name == "bin_file") {
-        const selectedFiles = Object.values(value[name])
-        if (!selectedFiles.length) return setUploadedBin(false)
-        const files = selectedFiles.map((selectedFile) => URL.createObjectURL(selectedFile))
-        setUploadedBin(files)
-        return () => files.map((element) => URL.revokeObjectURL(element))
+      if (isAddMode) {
+        if (name == "images") {
+          const selectedFiles = Object.values(value[name])
+          if (!selectedFiles.length) return setUploadedFiles(false)
+          const files = selectedFiles.map((selectedFile) => URL.createObjectURL(selectedFile))
+          setUploadedFiles(files)
+          return () => files.map((element) => URL.revokeObjectURL(element))
+        } else if (name == "gltf_file") {
+          const selectedFiles = Object.values(value[name])
+          if (!selectedFiles.length) return setUploadedGltf(false)
+          const files = selectedFiles.map((selectedFile) => URL.createObjectURL(selectedFile))
+          setUploadedGltf(files)
+          return () => files.map((element) => URL.revokeObjectURL(element))
+        } else if (name == "bin_file") {
+          const selectedFiles = Object.values(value[name])
+          if (!selectedFiles.length) return setUploadedBin(false)
+          const files = selectedFiles.map((selectedFile) => URL.createObjectURL(selectedFile))
+          setUploadedBin(files)
+          return () => files.map((element) => URL.revokeObjectURL(element))
+        }
       }
     })
   }, [watch])
+
+  useEffect(() => {
+    if (!isAddMode) {
+      subprojectFields.forEach((field) => {
+        setValue(field.name, projectData[field.name])
+      })
+    }
+  }, [])
 
   const onSubmit = async ({ title, description, images, gltf_file, bin_file }) => {
     let formData = new FormData()
     formData.append("title", title)
     formData.append("description", description)
-    Array.from(images).forEach((image) => {
-      formData.append("images", image)
-    })
-    Array.from(gltf_file).forEach((file) => {
-      formData.append("gltf_file", file)
-    })
-    Array.from(bin_file).forEach((file) => {
-      formData.append("bin_file", file)
-    })
-
-    try {
-      await backendFetch({
-        url: `/subprojects/${router.query.id}`,
-        method: "post",
-        data: formData,
+    if (isAddMode) {
+      Array.from(images).forEach((image) => {
+        formData.append("images", image)
       })
-      router.push({ pathname: `/projects/${router.query.id}` })
+      Array.from(gltf_file).forEach((file) => {
+        formData.append("gltf_file", file)
+      })
+      Array.from(bin_file).forEach((file) => {
+        formData.append("bin_file", file)
+      })
+    }
+    const fetchParams = {
+      url: `/subprojects/${isAddMode ? router.query.id : router.query.idSubProject}`,
+      method: "post",
+      data: formData,
+    }
+    try {
+      if (!isAddMode) fetchParams.method = "patch"
+      const res = await backendFetch(fetchParams)
+      router.push({ pathname: `/projects/${router.query.id}/subprojects/${res.id}` })
     } catch (err) {
       setErrorMessage(err.response?.data || "Something went wrong")
       return setTimeout(() => setErrorMessage(null), 5000)
@@ -167,29 +182,32 @@ export default function SubprojectForm() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="text-center">
-          <h1 className="font-bold text-2xl md:text-3xl text-primary-neutral">New Subproject</h1>
+          <h1 className="font-bold text-2xl md:text-3xl text-primary-neutral">
+            {isAddMode ? "Create" : "Update"} Subproject
+          </h1>
         </div>
 
         {subprojectFields.map((field) => {
-          return (
-            <div
-              key={field.name}
-              className="relative border-b-2 mb-1 py-1 focus-within:border-gray-400"
-            >
-              <label className="inline-block font-semibold mb-2 text-base" htmlFor={field.name}>
-                {field.title}
-              </label>
-              {getinputField(field, register, uploadedFiles, uploadedGltf, uploadedBin)}
-              <span className="text-sm text-red-500">{errors[field.name]?.message}</span>
-            </div>
-          )
+          if (isAddMode || (!isAddMode && field.type != "file"))
+            return (
+              <div
+                key={field.name}
+                className="relative border-b-2 mb-1 py-1 focus-within:border-gray-400"
+              >
+                <label className="inline-block font-semibold mb-2 text-base" htmlFor={field.name}>
+                  {field.title}
+                </label>
+                {getinputField(field, register, uploadedFiles, uploadedGltf, uploadedBin)}
+                <span className="text-sm text-red-500">{errors[field.name]?.message}</span>
+              </div>
+            )
         })}
 
         <PrimaryButton
           className="bg-primary text-primary-contrast hover:bg-primary-hover"
           disabled={!isValid || isSubmitting}
         >
-          Create subproject
+          {isAddMode ? "Create" : "Update"}
         </PrimaryButton>
 
         <div className="text-center text-red-500">

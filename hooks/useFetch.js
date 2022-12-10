@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios"
 import { useState, useEffect } from "react"
 
@@ -7,7 +8,7 @@ export const useFetch = (requestParams) => {
   axiosAPI.defaults.baseURL = `${BACKEND_HOST}/api`
   axiosAPI.defaults.withCredentials = true
   const [response, setResponse] = useState(null)
-  const [error, setError] = useState("")
+  const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
