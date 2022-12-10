@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "test": "jest --watch",
+    "test": "jest",
     "start": "next start",
     "format": "prettier --check .",
     "pf": "prettier --write .",
