@@ -162,7 +162,7 @@ export default function OrganizationForm({ isAddMode = true, organizationData = 
           className="bg-primary text-primary-contrast hover:bg-primary-hover"
           disabled={!isValid || isSubmitting}
         >
-          {isAddMode ? "Create organization" : "Update"}
+          {isAddMode ? "Create" : "Update"}
         </PrimaryButton>
 
         <div className="text-center text-red-500">

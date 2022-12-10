@@ -207,7 +207,7 @@ export default function SubprojectForm({ isAddMode = true, projectData = null })
           className="bg-primary text-primary-contrast hover:bg-primary-hover"
           disabled={!isValid || isSubmitting}
         >
-          {isAddMode ? "Create subproject" : "Update"}
+          {isAddMode ? "Create" : "Update"}
         </PrimaryButton>
 
         <div className="text-center text-red-500">
