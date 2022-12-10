@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useFetch } from "../../../hooks/useFetch"
 import Head from "next/head"
 import Header from "../../../components/header/Header"

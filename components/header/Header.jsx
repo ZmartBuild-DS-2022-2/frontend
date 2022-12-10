@@ -4,6 +4,7 @@ import { useContext } from "react"
 import AuthContext from "../../stores/AuthContext"
 import PrimaryLink from "../basics/PrimaryLink"
 import HeaderDropdown from "./HeaderDropdown"
+import LogoZmartBuildText from "../../public/LogoZmartBuildText.png"
 
 export default function Header() {
   const { user } = useContext(AuthContext)
@@ -17,7 +18,7 @@ export default function Header() {
         <Link href="/">
           <a>
             <Image
-              src="/LogoZmartBuildText.png"
+              src={LogoZmartBuildText}
               layout="fill"
               objectFit="contain"
               objectPosition="left"
