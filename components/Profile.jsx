@@ -28,6 +28,7 @@ export default function ProfileCard() {
 
   return (
     <>
+    {user && (
       <div className="w-full lg:w-4/12 px-4 mx-auto">
         <div
           className="relative flex flex-col min-w-0 break-words bg-white w-full 
@@ -91,6 +92,7 @@ export default function ProfileCard() {
           </div>
         </div>
       </div>
+      )}
     </>
   )
 }
