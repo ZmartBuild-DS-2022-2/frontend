@@ -6,7 +6,6 @@ import {
   Bars3Icon,
   ChevronDownIcon,
   ChevronUpIcon,
-  Cog8ToothIcon,
   ArrowRightOnRectangleIcon,
   EnvelopeIcon,
   UserGroupIcon,
@@ -97,15 +96,6 @@ export default function HeaderDropdown() {
               <div className="flex gap-x-2 items-center transition-transform hover:scale-105">
                 <UserIcon className="h-6 w-6" />
                 <p>Profile</p>
-              </div>
-            </a>
-          </Link>
-
-          <Link href="/">
-            <a>
-              <div className="flex gap-x-2 items-center transition-transform hover:scale-105">
-                <Cog8ToothIcon className="h-6 w-6" />
-                <p>Settings</p>
               </div>
             </a>
           </Link>
