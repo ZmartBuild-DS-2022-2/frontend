@@ -18,8 +18,12 @@ export default function Invitations() {
     }
   }, [router, isAuthenticated, isLoadingUser])
 
-  const invitationsOrg = invitations?.filter((invitation) => invitation.type == "organization")
-  const invitationsPro = invitations?.filter((invitation) => invitation.type == "project")
+  const invitationsOrg = invitations?.filter(
+    (invitation) => invitation.type == "organization" && invitation.state == "Waiting"
+  )
+  const invitationsPro = invitations?.filter(
+    (invitation) => invitation.type == "project" && invitation.state == "Waiting"
+  )
 
   return (
     <>
