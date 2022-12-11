@@ -144,7 +144,9 @@ export default function ProjectInfo({ projectData, subprojects, isAdmin, isWritt
             {projectData?.projectImages.length > 0 ? (
               <Carousel images={projectData?.projectImages} />
             ) : (
-              "Add some images (TODO)"
+              <h1 className="text-2l md:text-3l font-semibold">
+                The current project doesn&apos;t have images
+              </h1>    
             )}
           </div>
         </Modal.Body>
