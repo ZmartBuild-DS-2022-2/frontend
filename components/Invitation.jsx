@@ -1,10 +1,12 @@
 import Image from "next/image"
 import PrimaryButton from "./basics/PrimaryButton"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"
 import { backendFetch } from "../services"
 
 export default function Invitation({ data, type }) {
+  const router = useRouter()
   const {
     register,
     formState: { isSubmitting },
@@ -18,8 +20,8 @@ export default function Invitation({ data, type }) {
         method: "patch",
         data: { id: invitationId, accessType: data.accessType, state: "Accepted" },
       })
-    } catch (err) {
-      console.log(err)
+    } finally {
+      router.reload()
     }
   }
 
@@ -30,8 +32,8 @@ export default function Invitation({ data, type }) {
         method: "patch",
         data: { id: invitationId, accessType: data.accessType, state: "Declined" },
       })
-    } catch (err) {
-      console.log(err)
+    } finally {
+      router.reload()
     }
   }
 
