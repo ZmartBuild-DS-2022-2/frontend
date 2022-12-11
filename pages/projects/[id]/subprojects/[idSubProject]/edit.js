@@ -52,7 +52,7 @@ export default function EditProject() {
         <>
           <Header />
           <main>
-            <SubprojectForm isAddMode={false} projectData={subprojectData} />
+            <SubprojectForm isAddMode={false} subprojectData={subprojectData} />
           </main>
         </>
       )}
