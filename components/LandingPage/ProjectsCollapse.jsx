@@ -7,8 +7,7 @@ export default function ProjectsCollapse({ projects, isLoadingProjects }) {
   if (projects?.length == 0)
     return (
       <>
-        <p>We couldn&apos;t find any projects</p>
-        <p>Create one from an organization</p>
+        <p>We couldn&apos;t find any projects. Create one from an organization</p>
       </>
     )
 

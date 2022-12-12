@@ -7,8 +7,7 @@ export default function SubProjectsCollapse({ subprojects, isLoadingSubProjects 
   if (subprojects?.length == 0)
     return (
       <>
-        <p>We couldn&apos;t find any subprojects</p>
-        <p>Create one from a project</p>
+        <p>We couldn&apos;t find any subprojects. Create one from a project</p>
       </>
     )
 

@@ -128,10 +128,28 @@ export default function OrganizationForm({ isAddMode = true, organizationData = 
     }
   }
 
+  const onDelete = async () => {
+    const fetchParams = {
+      url: `/organizations/${organizationData.id}`,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      method: "delete",
+    }
+
+    try {
+      await backendFetch(fetchParams)
+      router.push({ pathname: `/organizations/` })
+    } catch (err) {
+      setErrorMessage(err.response?.data || "Something went wrong")
+      return setTimeout(() => setErrorMessage(null), 5000)
+    }
+  }
+
   return (
     <div className="grid place-items-center pb-4">
       <form
-        className="flex flex-col gap-5 w-11/12 sm:w-96 sm:border-2 px-5 sm:px-10 py-1 sm:py-10 
+        className="flex flex-col gap-5 w-11/12 sm:w-96 px-5 sm:px-10 sm:py-10 
         md:rounded-md bg-transparent md:bg-white"
         onSubmit={handleSubmit(onSubmit)}
         encType="multipart/form-data"
@@ -164,11 +182,26 @@ export default function OrganizationForm({ isAddMode = true, organizationData = 
         >
           {isAddMode ? "Create" : "Update"}
         </PrimaryButton>
-
-        <div className="text-center text-red-500">
-          <span>{errorMessage}</span>
-        </div>
       </form>
+
+      {!isAddMode ? (
+        <form
+          className="flex flex-col gap-5 w-11/12 sm:w-96 px-5 sm:px-10 
+            md:rounded-md bg-transparent md:bg-white"
+          onSubmit={handleSubmit(onDelete)}
+        >
+          <PrimaryButton
+            className="bg-primary text-primary-contrast hover:bg-primary-hover"
+            disabled={isSubmitting}
+          >
+            Delete Organization
+          </PrimaryButton>
+        </form>
+      ) : null}
+
+      <div className="text-center text-red-500">
+        <span>{errorMessage}</span>
+      </div>
     </div>
   )
 }
